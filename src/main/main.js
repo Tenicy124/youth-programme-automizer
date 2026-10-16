@@ -7,6 +7,19 @@ const { AI, DEFAULT_MODEL } = require('./ai');
 let store;
 let ai;
 let win;
+let pendingShared = null; // catalog file opened from Finder before/while the app runs
+
+// Reads a shared catalog file and checks it looks like one.
+function readCatalog(file) {
+  const obj = JSON.parse(fs.readFileSync(file, 'utf8'));
+  if (!obj || !Array.isArray(obj.programmes)) throw new Error('This file is not a programme catalog.');
+  return { ...obj, fileName: path.basename(file) };
+}
+
+function openSharedFile(file) {
+  pendingShared = file;
+  if (win && !win.webContents.isLoading()) win.webContents.send('menu', 'open-shared-pending');
+}
 
 function apiKey() {
   const s = store.getSettings();
@@ -111,6 +124,26 @@ function registerIpc() {
     return filePath;
   });
   handle('file:reveal', () => shell.showItemInFolder(store.file));
+
+  handle('share:save', async (name, catalog) => {
+    const { canceled, filePath } = await dialog.showSaveDialog(win, {
+      defaultPath: name, filters: [{ name: 'Programme catalog', extensions: ['ypcatalog'] }],
+    });
+    if (canceled) return null;
+    fs.writeFileSync(filePath, JSON.stringify(catalog, null, 2));
+    return filePath;
+  });
+  handle('share:open', async () => {
+    const { canceled, filePaths } = await dialog.showOpenDialog(win, {
+      filters: [{ name: 'Programme catalog', extensions: ['ypcatalog', 'json'] }], properties: ['openFile'],
+    });
+    if (canceled || !filePaths[0]) return null;
+    return readCatalog(filePaths[0]);
+  });
+  handle('share:pending', () => {
+    const f = pendingShared; pendingShared = null;
+    return f ? readCatalog(f) : null;
+  });
 }
 
 function buildMenu() {
@@ -121,6 +154,9 @@ function buildMenu() {
     { label: 'File', submenu: [
       { label: 'New Programme', accelerator: 'CmdOrCtrl+N', click: send('new-programme') },
       { label: 'New Template', accelerator: 'CmdOrCtrl+Shift+N', click: send('new-template') },
+      { type: 'separator' },
+      { label: 'Share Programmes…', accelerator: 'CmdOrCtrl+Shift+S', click: send('share') },
+      { label: 'Open Shared Catalog…', accelerator: 'CmdOrCtrl+O', click: send('open-shared') },
       { type: 'separator' },
       { label: 'Import…', accelerator: 'CmdOrCtrl+I', click: send('import') },
       { label: 'Export Library…', click: send('export') },
@@ -144,6 +180,13 @@ app.whenReady().then(() => {
   buildMenu();
   createWindow();
   app.on('activate', () => { if (BrowserWindow.getAllWindows().length === 0) createWindow(); });
+});
+
+// Double-clicking a .ypcatalog file in Finder opens it here.
+app.on('open-file', (e, file) => {
+  e.preventDefault();
+  openSharedFile(file);
+  if (app.isReady() && BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });

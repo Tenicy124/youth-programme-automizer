@@ -34,5 +34,8 @@ contextBridge.exposeInMainWorld('api', {
   saveText: (name, text, ext) => call('file:saveText', name, text, ext),
   savePdf: (name) => call('file:pdf', name),
   revealData: () => call('file:reveal'),
+  shareSave: (name, catalog) => call('share:save', name, catalog),
+  shareOpen: () => call('share:open'),
+  sharePending: () => call('share:pending'),
   onMenu: (fn) => ipcRenderer.on('menu', (_e, cmd) => fn(cmd)),
 });

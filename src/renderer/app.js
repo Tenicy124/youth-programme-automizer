@@ -178,7 +178,7 @@ const FILTER_GROUPS = [
 function viewCatalog() {
   const f = S.filters;
   main().innerHTML = `
-    ${header('Catalog', 'Search and filter all your programmes. Click one to view or edit it.', '<button class="btn primary" id="newBtn">＋ Create new</button>')}
+    ${header('Catalog', 'Search and filter all your programmes. Click one to view or edit it.', '<button class="btn" id="shareBtn">⇧ Share</button><button class="btn primary" id="newBtn">＋ Create new</button>')}
     <div class="catalog-bar">
       <div class="search-wrap" id="searchWrap">
         <div class="searchbox">
@@ -240,6 +240,7 @@ function viewCatalog() {
   $('#qClear').onclick = () => { f.q = ''; q.value = ''; run(); closeDrop(); q.blur(); };
   $('#filterBtn').onclick = () => openFilters(run);
   $('#newBtn').onclick = () => go('create');
+  $('#shareBtn').onclick = () => shareDialog(PSearch.search(S.programmes, f.q, f).map(r => r.programme.id));
   run();
 }
 
@@ -290,8 +291,8 @@ function viewProgramme() {
   const recs = PSearch.recommend(S.programmes, p, { excludeId: p.id, limit: 5 });
   main().innerHTML = `
     <div class="crumbs"><a href="#" id="back">← Catalog</a></div>
-    ${header(esc(p.title || 'Untitled programme'), `${statusBadge(p.status)} <span class="faint">Updated ${fmtDate(p.updatedAt)}</span>`,
-      `<button class="btn" id="exportBtn">Export</button><button class="btn" id="dupBtn">Duplicate</button><button class="btn primary" id="editBtn">Edit programme</button>`)}
+    ${header(esc(p.title || 'Untitled programme'), `${statusBadge(p.status)} <span class="faint">Updated ${fmtDate(p.updatedAt)}${p.sharedFrom ? ' · Shared by ' + esc(p.sharedFrom) : ''}</span>`,
+      `<button class="btn" id="shareBtn">⇧ Share</button><button class="btn" id="exportBtn">Export</button><button class="btn" id="dupBtn">Duplicate</button><button class="btn primary" id="editBtn">Edit programme</button>`)}
     <div class="two-col">
       <div class="read">${programmeReadHtml(p)}</div>
       <aside class="side">
@@ -309,6 +310,7 @@ function viewProgramme() {
   $('#editBtn').onclick = () => go('edit', p.id, { tab: 'basics' });
   $$('[data-edit-tab]').forEach(b => b.onclick = () => go('edit', p.id, { tab: b.dataset.editTab }));
   $('#exportBtn').onclick = () => exportMenu(p);
+  $('#shareBtn').onclick = () => shareDialog([p.id]);
   $('#dupBtn').onclick = async () => {
     const { id, createdAt, updatedAt, ...rest } = p;
     const saved = await api.upsert('programmes', { ...rest, title: p.title + ' (copy)', status: 'draft', rating: 0 });
@@ -789,6 +791,104 @@ function exportDocumentMenu(p) {
   });
 }
 
+// ---------- Sharing ----------
+// A catalog file (.ypcatalog) holds chosen programmes plus the templates their documents use.
+function buildCatalog(ids, name, sharedBy, includeNotes) {
+  const programmes = S.programmes.filter(p => ids.includes(p.id)).map(p => {
+    const c = clone(p);
+    if (!includeNotes) { c.notes = ''; c.rating = 0; }
+    return c;
+  });
+  const tplIds = new Set(programmes.map(p => p.templateId).filter(Boolean));
+  return {
+    type: 'youth-programme-catalog', version: 1, name, sharedBy, createdAt: new Date().toISOString(),
+    programmes, templates: S.templates.filter(t => tplIds.has(t.id)).map(clone),
+  };
+}
+
+function catalogPrintHtml(cat) {
+  return `<div class="pcover"><h1>${esc(cat.name)}</h1>
+    <div class="pmeta">${cat.sharedBy ? 'Shared by ' + esc(cat.sharedBy) + ' · ' : ''}${fmtDate(cat.createdAt)} · ${cat.programmes.length} programme${cat.programmes.length === 1 ? '' : 's'}</div>
+    <h2>Contents</h2><ol>${cat.programmes.map(p => `<li><b>${esc(p.title)}</b> (ages ${esc(p.ageGroup || '-')}, ${esc(p.format || '-')})<br>${esc(p.summary)}</li>`).join('')}</ol></div>`
+    + cat.programmes.map(p => `<div class="pbreak">${programmePrintHtml(p)}</div>`).join('');
+}
+
+function shareDialog(preselect) {
+  const st = S.settings;
+  const list = S.programmes.slice().sort((a, b) => String(a.title).localeCompare(String(b.title)));
+  if (!list.length) { toast('There are no programmes to share yet.', true); return; }
+  const sel = new Set(preselect && preselect.length ? preselect : list.map(p => p.id));
+  const single = preselect && preselect.length === 1 && S.programmes.find(p => p.id === preselect[0]);
+  const defName = single ? single.title : `${st.organisation || 'Our'} programme catalog`;
+  modal(`<h2>Share programmes</h2>
+    <p class="faint">Creates a catalog file you can send by email, AirDrop, Teams or a shared drive. Colleagues open it in their copy of Youth Programme Studio and choose what to add. For people without the app, save a PDF instead.</p>
+    ${field('Catalog name', `<input type="text" id="shName" value="${esc(defName)}">`, { forId: 'shName' })}
+    ${field('Shared by', `<input type="text" id="shBy" value="${esc([st.facilitator, st.organisation].filter(Boolean).join(', '))}" placeholder="Your name or organisation">`, { forId: 'shBy' })}
+    <div class="field"><div class="label">Programmes to include <span class="count" id="shCount"></span><span class="spacer"></span><button type="button" class="btn ghost small" id="shAll">All</button><button type="button" class="btn ghost small" id="shNone">None</button></div>
+      <div class="pick-list">${list.map(p => `<label class="pick"><input type="checkbox" value="${esc(p.id)}" ${sel.has(p.id) ? 'checked' : ''}><span class="pick-main"><b>${esc(p.title || 'Untitled programme')}</b><small>${p.ageGroup ? 'Ages ' + esc(p.ageGroup) + ' · ' : ''}${esc(p.format || '')}</small></span>${statusBadge(p.status)}</label>`).join('')}</div></div>
+    <label class="check"><input type="checkbox" id="shNotes"> Include my private notes and ratings</label>
+    <div class="foot"><button class="btn" data-close>Cancel</button><div class="spacer"></div><button class="btn" id="shPdf">Save as PDF</button><button class="btn primary" id="shSave">Save catalog file</button></div>`, (m, close) => {
+    const boxes = $$('.pick input', m);
+    const chosen = () => boxes.filter(b => b.checked).map(b => b.value);
+    const count = () => { $('#shCount', m).textContent = `${chosen().length} selected`; };
+    boxes.forEach(b => b.onchange = count); count();
+    $('#shAll', m).onclick = () => { boxes.forEach(b => { b.checked = true; }); count(); };
+    $('#shNone', m).onclick = () => { boxes.forEach(b => { b.checked = false; }); count(); };
+    const make = () => {
+      const ids = chosen();
+      if (!ids.length) { toast('Pick at least one programme.', true); return null; }
+      return buildCatalog(ids, $('#shName', m).value.trim() || defName, $('#shBy', m).value.trim(), $('#shNotes', m).checked);
+    };
+    $('#shSave', m).onclick = async () => {
+      const cat = make(); if (!cat) return;
+      close();
+      try { const f = await api.shareSave(`${slug(cat.name)}.ypcatalog`, cat); if (f) toast(`Catalog saved with ${cat.programmes.length} programme${cat.programmes.length === 1 ? '' : 's'}. Send the file to share it.`); } catch (e) { toast(e.message, true); }
+    };
+    $('#shPdf', m).onclick = async () => {
+      const cat = make(); if (!cat) return;
+      close();
+      $('#print').innerHTML = catalogPrintHtml(cat);
+      try { const f = await api.savePdf(`${slug(cat.name)}.pdf`); if (f) toast('Saved PDF'); } catch (e) { toast(e.message, true); }
+      $('#print').innerHTML = '';
+    };
+  });
+}
+
+async function openShared(fromPending) {
+  let cat;
+  try { cat = fromPending ? await api.sharePending() : await api.shareOpen(); } catch (e) { toast('Could not open that file: ' + e.message, true); return; }
+  if (!cat) return;
+  const items = cat.programmes.filter(p => p && typeof p === 'object' && p.title);
+  const have = id => S.programmes.find(x => x.id === id);
+  modal(`<h2>${esc(cat.name || 'Shared catalog')}</h2>
+    <p class="faint">${cat.sharedBy ? 'Shared by <b>' + esc(cat.sharedBy) + '</b> · ' : ''}${cat.createdAt ? fmtDate(cat.createdAt) + ' · ' : ''}${items.length} programme${items.length === 1 ? '' : 's'}. Choose which to add to your catalog.</p>
+    <div class="field"><div class="label">Programmes <span class="count" id="opCount"></span><span class="spacer"></span><button type="button" class="btn ghost small" id="opAll">All</button><button type="button" class="btn ghost small" id="opNone">None</button></div>
+      <div class="pick-list">${items.map((p, i) => `<label class="pick"><input type="checkbox" value="${i}" ${have(p.id) ? '' : 'checked'}><span class="pick-main"><b>${esc(p.title)}</b><small>${p.ageGroup ? 'Ages ' + esc(p.ageGroup) + ' · ' : ''}${esc(p.format || '')}${p.summary ? ' · ' + esc(String(p.summary).slice(0, 90)) : ''}</small></span>${have(p.id) ? '<span class="pick-note">Already in your catalog. Tick to replace yours with this version.</span>' : '<span class="pick-new">New</span>'}</label>`).join('')}</div></div>
+    <div class="foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="opAdd">Add to my catalog</button></div>`, (m, close) => {
+    const boxes = $$('.pick input', m);
+    const chosen = () => boxes.filter(b => b.checked).map(b => items[+b.value]);
+    const count = () => { const n = chosen().length; $('#opCount', m).textContent = `${n} selected`; $('#opAdd', m).textContent = n ? `Add ${n} to my catalog` : 'Add to my catalog'; };
+    boxes.forEach(b => b.onchange = count); count();
+    $('#opAll', m).onclick = () => { boxes.forEach(b => { b.checked = true; }); count(); };
+    $('#opNone', m).onclick = () => { boxes.forEach(b => { b.checked = false; }); count(); };
+    $('#opAdd', m).onclick = async () => {
+      const pick = chosen();
+      if (!pick.length) { toast('Pick at least one programme.', true); return; }
+      close();
+      const tplIds = new Set(pick.map(p => p.templateId).filter(Boolean));
+      for (const t of (cat.templates || []).filter(t => t && tplIds.has(t.id) && !S.templates.some(x => x.id === t.id))) await api.upsert('templates', t);
+      for (const p of pick) {
+        const { updatedAt, ...rest } = p;
+        await api.upsert('programmes', { ...newProgramme(), ...rest, sharedFrom: cat.sharedBy || cat.name || '' });
+      }
+      await reload();
+      toast(`Added ${pick.length} programme${pick.length === 1 ? '' : 's'} to your catalog`);
+      S.filters = { q: '', ageGroup: '', format: '', status: '', theme: '' };
+      go('catalog');
+    };
+  });
+}
+
 // ---------- Import ----------
 // Turns pasted text into a programme without AI: first line is the title, headed sections map to fields.
 function parseProgrammeText(text) {
@@ -834,6 +934,11 @@ function parseTemplateText(name, text) {
 function viewImport() {
   main().innerHTML = `
     ${header('Import', 'Bring programmes and templates you already have into the app.')}
+    <div class="panel share-panel">
+      <div><h2>Share with others</h2>
+        <p class="faint">Send programmes to colleagues as a catalog file, or open a catalog someone sent you and choose what to add.</p></div>
+      <div class="row wrap"><button class="btn primary" id="openShared">Open a shared catalog…</button><button class="btn" id="shareFromImport">⇧ Share programmes…</button></div>
+    </div>
     <div class="import-grid">
       <div class="panel">
         <h2>Import a programme</h2>
@@ -877,6 +982,8 @@ function viewImport() {
     await reload(); toast('Template created'); go('template', saved.id);
   };
   $('#libImport').onclick = importLibrary;
+  $('#openShared').onclick = () => openShared(false);
+  $('#shareFromImport').onclick = () => shareDialog();
   $('#libExport').onclick = exportLibrary;
 }
 
@@ -1169,9 +1276,12 @@ api.onMenu(cmd => {
   if (cmd === 'new-programme') go('create');
   if (cmd === 'new-template') go('template', 'new');
   if (cmd === 'import') go('import');
+  if (cmd === 'share') shareDialog();
+  if (cmd === 'open-shared') openShared(false);
+  if (cmd === 'open-shared-pending') openShared(true);
   if (cmd === 'export') exportLibrary();
   if (cmd === 'focus-search') { if (S.view !== 'catalog') go('catalog'); else if ($('#q')) $('#q').focus(); }
 });
 
 window.toast = toast;
-reload().then(() => go('home'));
+reload().then(() => go('home')).then(() => openShared(true));
