@@ -16,29 +16,21 @@ The app starts with 14 sample programmes and 5 templates so you can try it strai
 
 ## Install on your Mac
 
-You need Node.js once, to build the app.
+1. Go to the [latest release](https://github.com/Tenicy124/youth-programme-automizer/releases/latest) and download the **.dmg** file.
+2. Open it and drag **Youth Programme Studio** into **Applications**.
+3. Open the app. The first time, macOS says it's from an unidentified developer: open **System Settings → Privacy & Security**, scroll down and click **Open Anyway**. You only do this once.
 
-1. Install the **LTS** version of Node.js from <https://nodejs.org>.
-2. Download this `youth-programme-app` folder to your Mac (for example into `Downloads`).
-3. Open **Terminal**, then run (adjust the path if you saved it elsewhere):
+It runs on both Apple Silicon and Intel Macs.
 
-   ```bash
-   cd ~/Downloads/youth-programme-app
-   bash setup-mac.command
-   ```
+### Building it yourself (optional)
 
-The script installs dependencies, builds **Youth Programme Studio.app**, copies it into `/Applications` and opens it. Afterwards you can launch it from Launchpad or Spotlight like any other app. It works on both Apple Silicon and Intel Macs.
-
-Other commands, if you prefer:
+Each version tag (`v1.0.1`, …) builds and publishes a new release automatically through GitHub Actions on a Mac runner. To build locally instead, install Node.js LTS and run:
 
 ```bash
-npm install          # once
-npm start            # run without installing
-npm run dist:mac     # build a .dmg installer in dist/ (to share with colleagues)
-npm test             # run the unit tests
+bash setup-mac.command   # builds the app and copies it to /Applications
+npm start                # or just run it without installing
+npm test                 # unit tests
 ```
-
-A `.dmg` you share is not notarised by Apple, so on another Mac the first launch needs a right-click on the app and then **Open**.
 
 ## Turn on AI
 

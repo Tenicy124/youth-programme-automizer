@@ -9,7 +9,7 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test test/*.test.js",
-    "dist:mac": "electron-builder --mac --publish never",
+    "dist:mac": "electron-builder --mac dmg zip --universal --publish never",
     "build:app": "electron-builder --mac dir --publish never"
   },
   "dependencies": {
@@ -32,10 +32,16 @@
         "dmg",
         "zip"
       ],
-      "identity": "-"
+      "identity": "-",
+      "icon": "build/icon.png"
     },
     "directories": {
-      "output": "dist"
-    }
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "dmg": {
+      "title": "Youth Programme Studio"
+    },
+    "artifactName": "Youth-Programme-Studio-${version}-${arch}.${ext}"
   }
 }
