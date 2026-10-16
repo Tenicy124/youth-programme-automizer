@@ -4,13 +4,16 @@ A Mac desktop app for planning and creating youth programmes. Everything is stor
 
 ## What it does
 
-| Area | What you can do |
+| Page | What you can do |
 |---|---|
-| **Library** | Store every programme you run: age group, format, duration, objectives, a session-by-session run-sheet, materials, budget, safeguarding notes, rating and reflections. Search by keyword (with synonyms, so "camping" finds outdoor programmes) and filter by age, format, status and theme. |
-| **Discover & Ideate** | Fill in a brief (age group, interests, goals, constraints). *Search library* recommends the best-matching programmes you already have, with reasons (same age group, shared themes, highly rated). *Generate new ideas with AI* produces fresh concepts that build on what's in your library. One click turns an idea into a complete, saved draft plan. |
-| **AI Studio** | Chat with Claude about ice-breakers, gaps in your offer, parent letters, inclusion ideas and more. It can see your library, and "Review & improve" from any programme opens a conversation focused on that programme. |
-| **Templates** | Reusable documents (full plan, single session plan, funding proposal, risk assessment, evaluation are included). Write your own, or describe one and have AI draft it. `{{placeholders}}` such as `{{programme_title}}` fill in automatically, and *Complete with AI* writes the rest from the programme's details. |
-| **Export** | Programmes and documents export to PDF or Markdown. The whole library exports/imports as a JSON file for backup or sharing with colleagues. |
+| **Home** | See every programme at a glance (status, age group, format, last updated) with totals for ready, in planning and delivered, plus shortcuts to everything else. |
+| **Create new** | A step-by-step form: Start → Basics → Goals & tags → Sessions → Resources & safety → Review & save. Start from scratch, from AI ideas (describe your group and get concepts, then one click drafts the full plan), from a copy of an existing programme, or with a template attached. Nothing is saved until the last step. |
+| **Catalog** | Search by keyword (with synonyms, so "camping" finds outdoor programmes) and filter by age, format, status and tag. Each programme has its own page with the full plan, similar programmes, export, duplicate and delete. |
+| **Edit** | Every programme can be edited on its own page, split into tabs (Basics, Goals & tags, Sessions, Resources & safety, Documents, Status & notes), with a clear save bar so nothing changes until you click *Save changes*. |
+| **Templates** | Reusable documents (full plan, single session plan, funding proposal, risk assessment, evaluation are included). Write your own, import one from text, or describe one and have AI draft it. `{{placeholders}}` such as `{{programme_title}}` fill in automatically, and *Complete with AI* writes the rest from the programme's details. |
+| **Import** | Paste or load an existing programme (.txt/.md) and either import it as written or have AI organise it into sessions, objectives and the other fields; you review it before it's saved. Also imports templates from text and restores or shares library backup files. |
+| **AI assistant** | Chat with Claude about ice-breakers, gaps in your offer, parent letters, inclusion ideas and more. It can see your catalog, and "Review & improve with AI" on any programme opens a conversation focused on it. |
+| **Export** | Programmes and documents export to PDF or Markdown. |
 
 The app starts with 14 sample programmes and 5 templates so you can try it straight away. Delete them whenever you like.
 

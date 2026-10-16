@@ -121,6 +121,11 @@ Include one entry in "sessions" per session of the programme (for a camp or even
     return this.json(prompt, PROGRAMME_SCHEMA, 32000);
   }
 
+  async parseProgramme({ text }) {
+    const prompt = `Convert this existing youth programme document into a structured programme. Keep the author's content and wording where possible, split the plan into sessions, and infer the age group and format if they are not stated (choose the closest option). Leave fields empty rather than inventing details that are not in the document.\n\nDOCUMENT\n${String(text).slice(0, 60000)}`;
+    return this.json(prompt, PROGRAMME_SCHEMA, 32000);
+  }
+
   async draftTemplate({ description }) {
     const prompt = `Draft a reusable planning template for youth workers based on this request:
 

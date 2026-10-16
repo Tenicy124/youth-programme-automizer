@@ -21,6 +21,7 @@ contextBridge.exposeInMainWorld('api', {
     develop: (args) => call('ai:develop', args),
     draftTemplate: (args) => call('ai:draftTemplate', args),
     fillTemplate: (args) => call('ai:fillTemplate', args),
+    parseProgramme: (args) => call('ai:parseProgramme', args),
     chat: async (args, onText) => {
       const id = ++streamSeq;
       const listener = (_e, sid, text) => { if (sid === id) onText(text); };

@@ -80,6 +80,7 @@ function registerIpc() {
   handle('ai:develop', (args) => ai.develop(args));
   handle('ai:draftTemplate', (args) => ai.draftTemplate(args));
   handle('ai:fillTemplate', (args) => ai.fillTemplate(args));
+  handle('ai:parseProgramme', (args) => ai.parseProgramme(args));
   handle('ai:chat', (args, streamId) => ai.chat(args, (t) => win && win.webContents.send('ai:chunk', streamId, t)));
 
   handle('file:export', async () => {
@@ -121,7 +122,7 @@ function buildMenu() {
       { label: 'New Programme', accelerator: 'CmdOrCtrl+N', click: send('new-programme') },
       { label: 'New Template', accelerator: 'CmdOrCtrl+Shift+N', click: send('new-template') },
       { type: 'separator' },
-      { label: 'Import Library…', click: send('import') },
+      { label: 'Import…', accelerator: 'CmdOrCtrl+I', click: send('import') },
       { label: 'Export Library…', click: send('export') },
       { type: 'separator' },
       isMac ? { role: 'close' } : { role: 'quit' },
