@@ -24,7 +24,7 @@ It runs on both Apple Silicon and Intel Macs.
 
 ### Building it yourself (optional)
 
-Each version tag (`v1.0.1`, …) builds and publishes a new release automatically through GitHub Actions on a Mac runner. To build locally instead, install Node.js LTS and run:
+Every push to `main` builds the app on a GitHub Mac runner and publishes it as the release for the version in `package.json` (bump the version to publish a new release). To build locally instead, install Node.js LTS and run:
 
 ```bash
 bash setup-mac.command   # builds the app and copies it to /Applications
