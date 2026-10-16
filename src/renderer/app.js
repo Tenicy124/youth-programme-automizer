@@ -105,7 +105,7 @@ function render() {
 // ---------- Library ----------
 function programmeCard(p, extra = '') {
   return `<div class="card" data-open="${esc(p.id)}">
-    <div class="row" style="justify-content:space-between;gap:8px"><h3>${esc(p.title || 'Untitled programme')}</h3><span class="status ${esc(p.status)}">${esc(p.status)}</span></div>
+    <div class="row" style="justify-content:space-between;gap:8px"><h3>${esc(p.title || 'Untitled programme')}</h3><span class="status st-${esc(p.status)}">${esc(p.status)}</span></div>
     <p>${esc(p.summary)}</p>${extra}
     <div class="meta"><span>Ages ${esc(p.ageGroup)}</span>·<span>${esc(p.format)}</span>${p.duration ? `·<span>${esc(p.duration)}</span>` : ''} ${stars(p.rating)}</div>
     <div class="chips">${(p.themes || []).slice(0, 4).map(t => `<span class="pill tag">${esc(t)}</span>`).join('')}</div>
