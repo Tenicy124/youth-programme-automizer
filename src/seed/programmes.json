@@ -1,0 +1,988 @@
+[
+  {
+    "id": "seed-prog-01",
+    "title": "Lead the Way: Youth Leadership Lab",
+    "summary": "A weekly club where teenagers discover their leadership style, practise facilitation and plan a small community project of their own. Each session mixes short skill input with hands-on challenges and peer feedback.",
+    "ageGroup": "13-15",
+    "themes": [
+      "leadership",
+      "teamwork",
+      "communication"
+    ],
+    "format": "Weekly club",
+    "duration": "8 weeks, 1.5h per week",
+    "groupSize": "12-18",
+    "objectives": [
+      "Identify personal strengths and preferred leadership style",
+      "Practise leading a short group activity with confidence",
+      "Give and receive constructive feedback using a simple model",
+      "Plan and pitch a small community-benefit project as a team"
+    ],
+    "sessions": [
+      {
+        "title": "What Makes a Leader?",
+        "duration": "90 min",
+        "activities": "Welcome and group agreement (15 min). \"Leaders I admire\" gallery walk with sticky notes (20 min). Leadership styles quiz and small-group discussion (25 min). Marshmallow-and-spaghetti tower challenge with debrief on who led and how (25 min). Closing round: one word to describe today (5 min).",
+        "materials": "sticky notes, flipchart paper, markers, printed style quiz, spaghetti, marshmallows, tape"
+      },
+      {
+        "title": "Communicating with Purpose",
+        "duration": "90 min",
+        "activities": "Energiser: blind drawing in pairs (15 min). Input on active listening and clear instructions (15 min). Practise giving instructions for a simple build task, rotating roles (35 min). Debrief and listening \"do and don't\" list (20 min). Check-out (5 min).",
+        "materials": "building blocks, blindfolds, paper, pencils, flipchart"
+      },
+      {
+        "title": "Feedback that Helps",
+        "duration": "90 min",
+        "activities": "Warm-up game (10 min). Introduce the \"What went well / Even better if\" model (15 min). Each young person leads a 5-minute game for a small group and receives peer feedback (50 min). Reflection journals (10 min). Close (5 min).",
+        "materials": "feedback cards, game equipment box, journals, pens"
+      },
+      {
+        "title": "Spotting Needs in Our Community",
+        "duration": "90 min",
+        "activities": "Community map drawing in teams (25 min). Needs vs. wants discussion (15 min). Dot-voting on issues the group cares about (15 min). Form project teams and agree roles (30 min). Close (5 min).",
+        "materials": "large paper, coloured pens, voting dots, role cards"
+      },
+      {
+        "title": "Project Planning Sprint",
+        "duration": "90 min",
+        "activities": "Recap and team huddles (10 min). SMART goals mini-input (15 min). Teams build a simple action plan: tasks, owners, timeline, resources (50 min). Mentor check-ins rotate between teams (ongoing). Share one challenge and one idea (15 min).",
+        "materials": "action plan templates, laptops or tablets (optional), markers, timer"
+      },
+      {
+        "title": "Pitch Night",
+        "duration": "90 min",
+        "activities": "Final rehearsal (20 min). Teams pitch projects to invited guests and parents, 5 minutes each plus questions (45 min). Certificates and celebration snacks (20 min). Evaluation survey (5 min).",
+        "materials": "projector, certificates, snacks, evaluation forms, timer"
+      }
+    ],
+    "materials": [
+      "flipchart paper and markers",
+      "sticky notes",
+      "reflection journals",
+      "team challenge kits",
+      "certificates",
+      "snacks"
+    ],
+    "budget": "~$350 (materials, snacks, certificates)",
+    "riskNotes": "Keep at least two vetted adults present during all sessions and the pitch night. Agree photo consent with parents/carers before the guest event, and ensure feedback activities stay supportive so quieter participants are not put on the spot.",
+    "outcomes": "Pre/post self-rating on confidence to lead, plus facilitator observation of each young person leading a group activity. Success = at least 80% of participants pitch a completed project plan.",
+    "status": "delivered",
+    "rating": 5,
+    "notes": "Pitch night was the highlight; two teams are continuing their projects. Next time allow an extra planning week as session 5 felt rushed.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-01-12T09:30:00.000Z",
+    "updatedAt": "2026-04-02T16:45:00.000Z"
+  },
+  {
+    "id": "seed-prog-02",
+    "title": "Mind Matters: Wellbeing Toolkit",
+    "summary": "A gentle, discussion-based programme that equips older teens with practical tools for managing stress, building resilience and knowing where to find help. Content is psychoeducational, not therapy, and is co-delivered with a trained wellbeing practitioner.",
+    "ageGroup": "16-18",
+    "themes": [
+      "mental wellbeing",
+      "resilience",
+      "self-care"
+    ],
+    "format": "Weekly club",
+    "duration": "6 weeks, 1h per week",
+    "groupSize": "8-14",
+    "objectives": [
+      "Recognise common signs of stress in themselves and others",
+      "Practise at least three evidence-informed coping strategies",
+      "Build a personal wellbeing plan",
+      "Know how and where to seek support for themselves or a friend"
+    ],
+    "sessions": [
+      {
+        "title": "Setting the Space",
+        "duration": "60 min",
+        "activities": "Welcome, confidentiality and its limits explained clearly (15 min). Group agreement (10 min). \"Wellbeing is...\" word cloud (10 min). Introduce the stress bucket metaphor with a visual (20 min). Grounding exercise to close (5 min).",
+        "materials": "flipchart, markers, bucket visual, signposting cards"
+      },
+      {
+        "title": "Stress and the Body",
+        "duration": "60 min",
+        "activities": "Check-in using a mood scale (5 min). How stress shows up in the body - body map activity (20 min). Box breathing and progressive muscle relaxation practice (20 min). Discussion: what helps you switch off? (10 min). Close (5 min).",
+        "materials": "body map outlines, coloured pens, yoga mats or cushions"
+      },
+      {
+        "title": "Thoughts, Feelings, Actions",
+        "duration": "60 min",
+        "activities": "Check-in (5 min). The thought-feeling-action cycle with everyday scenarios (20 min). Reframing practice in pairs using scenario cards (25 min). Reflection (10 min).",
+        "materials": "scenario cards, worksheets, pens"
+      },
+      {
+        "title": "Connection and Support",
+        "duration": "60 min",
+        "activities": "Check-in (5 min). Support network circles activity (20 min). How to start a conversation with a friend who is struggling - role-play with scripts (25 min). Signposting overview (10 min).",
+        "materials": "circle worksheets, role-play scripts, local signposting list"
+      },
+      {
+        "title": "Healthy Habits",
+        "duration": "60 min",
+        "activities": "Check-in (5 min). Sleep, movement, screens and food: myth or fact quiz (20 min). Habit tracker design (25 min). Share one habit to try (10 min).",
+        "materials": "quiz cards, habit tracker templates, stickers"
+      },
+      {
+        "title": "My Wellbeing Plan",
+        "duration": "60 min",
+        "activities": "Check-in (5 min). Build a personal wellbeing plan using tools from the programme (30 min). Gratitude and appreciation circle (15 min). Evaluation and signposting reminder (10 min).",
+        "materials": "wellbeing plan booklets, pens, evaluation forms, signposting cards"
+      }
+    ],
+    "materials": [
+      "wellbeing plan booklets",
+      "signposting cards",
+      "cushions or mats",
+      "worksheets",
+      "mood scale cards"
+    ],
+    "budget": "~$200 (printing, snacks, cushions)",
+    "riskNotes": "Sessions may surface disclosures; a named safeguarding lead must be available and the confidentiality limits must be explained at the start of every session. Provide a quiet space and an opt-out option for any activity, and have up-to-date support contacts ready.",
+    "outcomes": "Short validated wellbeing scale at weeks 1 and 6, plus a session-by-session \"one thing I will use\" card. Success = participants can name at least two coping strategies and one support source.",
+    "status": "ready",
+    "rating": 0,
+    "notes": "Confirm practitioner availability for all six weeks before advertising. Consider an optional one-to-one check-in slot after session 4.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-02-03T11:00:00.000Z",
+    "updatedAt": "2026-05-18T10:20:00.000Z"
+  },
+  {
+    "id": "seed-prog-03",
+    "title": "Code Creators: Build Your First Game",
+    "summary": "Children learn the basics of coding by designing and building a simple game in a block-based programming environment. By the final week, every participant shows a playable game to family and friends.",
+    "ageGroup": "9-12",
+    "themes": [
+      "stem",
+      "coding",
+      "creativity"
+    ],
+    "format": "Weekly club",
+    "duration": "6 weeks, 1.5h per week",
+    "groupSize": "10-16",
+    "objectives": [
+      "Understand sequences, loops, conditions and variables",
+      "Use a block-based tool to build an interactive game",
+      "Debug problems methodically and help peers",
+      "Present and explain their game to an audience"
+    ],
+    "sessions": [
+      {
+        "title": "Thinking Like a Computer",
+        "duration": "90 min",
+        "activities": "Unplugged \"robot instructions\" game (20 min). Tour of the block-based editor (15 min). Make a character move with arrow keys (35 min). Show-and-tell of first sprites (15 min). Pack down (5 min).",
+        "materials": "laptops, mice, printed quick-start guides, masking tape for floor grid"
+      },
+      {
+        "title": "Loops and Animation",
+        "duration": "90 min",
+        "activities": "Recap quiz (10 min). Input on loops (10 min). Animate a character and background (40 min). Pair challenge: make something repeat in a surprising way (25 min). Close (5 min).",
+        "materials": "laptops, challenge cards"
+      },
+      {
+        "title": "If This, Then That",
+        "duration": "90 min",
+        "activities": "Unplugged \"Simon says\" with conditions (10 min). Add collisions and simple rules to the game (45 min). Bug hunt: fix a deliberately broken project (30 min). Close (5 min).",
+        "materials": "laptops, pre-made buggy project files"
+      },
+      {
+        "title": "Keeping Score",
+        "duration": "90 min",
+        "activities": "Input on variables using a scoreboard analogy (15 min). Add score, timer and lives (50 min). Playtest a neighbour's game and leave one tip (20 min). Close (5 min).",
+        "materials": "laptops, playtest feedback slips"
+      },
+      {
+        "title": "Polish and Playtest",
+        "duration": "90 min",
+        "activities": "Personal to-do list for the game (10 min). Build time with helper stations for sound, levels and art (60 min). Final playtest round (15 min). Close (5 min).",
+        "materials": "laptops, headphones, helper station signs"
+      },
+      {
+        "title": "Game Arcade Showcase",
+        "duration": "90 min",
+        "activities": "Final tweaks (20 min). Families visit an \"arcade\" to play every game (50 min). Certificates and share links (20 min).",
+        "materials": "laptops, certificates, name cards, snacks"
+      }
+    ],
+    "materials": [
+      "laptops (1 per participant)",
+      "mice",
+      "headphones",
+      "quick-start guides",
+      "challenge cards",
+      "certificates"
+    ],
+    "budget": "~$250 (printing, certificates, snacks; laptops borrowed from venue)",
+    "riskNotes": "Use offline or school-safe accounts with no public sharing or chat features, and do not collect personal information. Check cable trip hazards and schedule screen breaks.",
+    "outcomes": "Every participant presents a working game with at least one loop, condition and variable. Short end-of-programme quiz and a \"would you code again?\" poll.",
+    "status": "delivered",
+    "rating": 4,
+    "notes": "Mixed abilities were the main challenge; extension challenge cards worked well for fast finishers. Need more helpers for session 3.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-01-20T14:00:00.000Z",
+    "updatedAt": "2026-03-28T12:10:00.000Z"
+  },
+  {
+    "id": "seed-prog-04",
+    "title": "Wild Horizons Adventure Camp",
+    "summary": "A three-day residential camp combining hiking, navigation, shelter building and campfire reflection to build confidence and teamwork outdoors. Participants take increasing responsibility for planning each day.",
+    "ageGroup": "13-15",
+    "themes": [
+      "outdoor adventure",
+      "teamwork",
+      "resilience"
+    ],
+    "format": "Camp",
+    "duration": "3 days, 2 nights",
+    "groupSize": "16-24",
+    "objectives": [
+      "Develop basic map reading and navigation skills",
+      "Work as a team to solve practical outdoor challenges",
+      "Practise Leave No Trace principles",
+      "Reflect on personal growth through challenge"
+    ],
+    "sessions": [
+      {
+        "title": "Arrival and Camp Set-up",
+        "duration": "3 hours",
+        "activities": "Arrival, kit check and safety briefing (45 min). Tent pitching in teams (60 min). Camp tour, boundaries and buddy system (30 min). Team naming and flag design (30 min). Evening meal prep rota introduced (15 min).",
+        "materials": "tents, ground mats, team flags, fabric pens, first aid kit"
+      },
+      {
+        "title": "Navigation Challenge",
+        "duration": "4 hours",
+        "activities": "Map symbols and compass basics (45 min). Practice orienteering on a short marked course (60 min). Lunch (45 min). Team navigation hike with checkpoints and leaders (90 min).",
+        "materials": "maps, compasses, checkpoint markers, radios, packed lunches"
+      },
+      {
+        "title": "Bushcraft and Shelter Building",
+        "duration": "3 hours",
+        "activities": "Knot tying stations (40 min). Shelter building with tarps and found materials (90 min). Shelter \"inspection\" and rain test with watering cans (30 min). Debrief (20 min).",
+        "materials": "tarps, rope, pegs, watering cans, knot guides"
+      },
+      {
+        "title": "Campfire Reflection",
+        "duration": "90 min",
+        "activities": "Fire safety briefing and supervised campfire (15 min). Songs and stories (30 min). Reflection circle: \"a challenge I faced and what I learned\" (35 min). Quiet stargazing (10 min).",
+        "materials": "fire bucket, fire blanket, reflection prompts, torches"
+      },
+      {
+        "title": "Pack Down and Celebration",
+        "duration": "2 hours",
+        "activities": "Leave No Trace sweep (40 min). Pack down tents (40 min). Awards and goodbyes with families (40 min).",
+        "materials": "bin bags, awards, checklists"
+      }
+    ],
+    "materials": [
+      "tents and sleeping mats",
+      "maps and compasses",
+      "tarps and rope",
+      "first aid kits",
+      "radios",
+      "cooking equipment",
+      "torches"
+    ],
+    "budget": "~$2,400 (site hire, food, transport, equipment hire)",
+    "riskNotes": "Full written risk assessment, qualified first aider and appropriate adult-to-young-person ratios at all times, including separate sleeping arrangements. Collect medical and emergency contact forms in advance and have a weather-contingency plan.",
+    "outcomes": "Teams complete the navigation hike unaided by staff and every participant contributes to camp roles. Post-camp survey measures confidence, teamwork and enjoyment.",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Still waiting on site availability for June. Need two more volunteers with outdoor leadership experience.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-03-05T08:45:00.000Z",
+    "updatedAt": "2026-06-11T17:30:00.000Z"
+  },
+  {
+    "id": "seed-prog-05",
+    "title": "Beats & Brushes Creative Studio",
+    "summary": "A creative arts workshop series where young people explore music-making, visual art and spoken word to express their identity. It culminates in a mixed-media exhibition and live performance.",
+    "ageGroup": "13-15",
+    "themes": [
+      "arts",
+      "music",
+      "self-expression"
+    ],
+    "format": "Workshop",
+    "duration": "5 sessions, 2h each",
+    "groupSize": "10-20",
+    "objectives": [
+      "Experiment with at least three creative mediums",
+      "Create an original piece that reflects their identity or story",
+      "Collaborate on a group exhibition and performance",
+      "Give respectful feedback on others' creative work"
+    ],
+    "sessions": [
+      {
+        "title": "Creative Warm-Up",
+        "duration": "2 hours",
+        "activities": "Icebreaker: \"draw your playlist\" (20 min). Rotate through music loops, collage and poetry taster stations (75 min). Group sharing (20 min). Close (5 min).",
+        "materials": "tablets with music app, collage materials, magazines, glue, poetry prompt cards"
+      },
+      {
+        "title": "Finding Your Voice",
+        "duration": "2 hours",
+        "activities": "Identity mapping (25 min). Choose a medium and start a personal piece (80 min). Peer gallery check-in (15 min).",
+        "materials": "sketchbooks, paints, brushes, headphones, notebooks"
+      },
+      {
+        "title": "Collaborate and Remix",
+        "duration": "2 hours",
+        "activities": "Pairs swap and remix an element of each other's work (40 min). Continued creation (60 min). Plan the exhibition layout (20 min).",
+        "materials": "art supplies, music app, exhibition planning sheet"
+      },
+      {
+        "title": "Rehearse and Refine",
+        "duration": "2 hours",
+        "activities": "Final creation time (60 min). Performance rehearsal and artwork labelling (50 min). Close (10 min).",
+        "materials": "labels, frames or card mounts, microphone, speaker"
+      },
+      {
+        "title": "Exhibition and Performance",
+        "duration": "2 hours",
+        "activities": "Set-up (40 min). Exhibition opens to families and community (60 min). Celebration and reflection (20 min).",
+        "materials": "display boards, speaker, microphone, refreshments"
+      }
+    ],
+    "materials": [
+      "acrylic paints and brushes",
+      "sketchbooks",
+      "collage materials",
+      "tablets with music software",
+      "headphones",
+      "display boards",
+      "portable PA"
+    ],
+    "budget": "~$600 (art supplies, equipment hire, refreshments)",
+    "riskNotes": "Personal pieces may touch on sensitive experiences; offer opt-outs from sharing and have a plan to follow up privately. Obtain consent before displaying names or photographing artwork.",
+    "outcomes": "Each participant exhibits or performs at least one original piece. Short reflection card on confidence and creative enjoyment collected at the exhibition.",
+    "status": "delivered",
+    "rating": 4,
+    "notes": "Spoken word was unexpectedly popular. Equipment hire ran over budget; look into borrowing from a partner school next time.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-02-14T10:00:00.000Z",
+    "updatedAt": "2026-05-09T19:15:00.000Z"
+  },
+  {
+    "id": "seed-prog-06",
+    "title": "Multi-Sport Mini Movers",
+    "summary": "A playful weekly sports club introducing young children to fundamental movement skills through games. The focus is on fun, participation and fair play rather than competition.",
+    "ageGroup": "5-8",
+    "themes": [
+      "sport",
+      "physical activity",
+      "fair play"
+    ],
+    "format": "Weekly club",
+    "duration": "8 weeks, 45 min per week",
+    "groupSize": "12-20",
+    "objectives": [
+      "Develop agility, balance and coordination",
+      "Practise throwing, catching and kicking skills",
+      "Learn to take turns and celebrate others",
+      "Enjoy being active as part of a group"
+    ],
+    "sessions": [
+      {
+        "title": "Animal Moves",
+        "duration": "45 min",
+        "activities": "Warm-up: move like different animals (10 min). Balance challenges on lines and beams (15 min). \"Zoo keeper\" tag game (15 min). Cool-down stretch story (5 min).",
+        "materials": "cones, floor lines, low balance beams"
+      },
+      {
+        "title": "Throw and Catch",
+        "duration": "45 min",
+        "activities": "Warm-up (8 min). Beanbag throwing to targets (12 min). Partner catching with soft balls (12 min). \"Clean your room\" team game (10 min). Cool-down (3 min).",
+        "materials": "beanbags, soft balls, hoops, targets"
+      },
+      {
+        "title": "Kick It",
+        "duration": "45 min",
+        "activities": "Warm-up (8 min). Dribbling around cones (12 min). Target kicking into goals (12 min). Mini small-sided games with everyone on the ball (10 min). Cool-down (3 min).",
+        "materials": "small footballs, cones, pop-up goals"
+      },
+      {
+        "title": "Obstacle Course Olympics",
+        "duration": "45 min",
+        "activities": "Warm-up (5 min). Children help build an obstacle course (10 min). Complete the course in pairs, cheering each other (25 min). Medal ceremony for everyone and cool-down (5 min).",
+        "materials": "hoops, tunnels, cones, mats, medals"
+      }
+    ],
+    "materials": [
+      "cones",
+      "beanbags",
+      "soft balls",
+      "hoops",
+      "pop-up goals",
+      "mats",
+      "stickers or medals"
+    ],
+    "budget": "~$180 (equipment top-up, stickers, medals)",
+    "riskNotes": "Check the floor and space for hazards before each session and keep water available. Follow agreed collection procedures so children are only released to authorised adults.",
+    "outcomes": "Facilitator skills checklist completed at weeks 1 and 8, plus attendance rates. Success = most children show improvement in at least two movement skills.",
+    "status": "ready",
+    "rating": 0,
+    "notes": "Venue is the community hall; book equipment storage cupboard. Recruit one parent helper per week.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-04-01T09:00:00.000Z",
+    "updatedAt": "2026-07-22T08:30:00.000Z"
+  },
+  {
+    "id": "seed-prog-07",
+    "title": "Green Guardians Eco Action",
+    "summary": "Young people investigate environmental issues in their neighbourhood, from waste to biodiversity, and then design and deliver a practical action such as a litter survey, pollinator garden or swap shop.",
+    "ageGroup": "9-12",
+    "themes": [
+      "environment",
+      "sustainability",
+      "community action"
+    ],
+    "format": "Weekly club",
+    "duration": "7 weeks, 1.5h per week",
+    "groupSize": "10-20",
+    "objectives": [
+      "Understand key local environmental issues",
+      "Collect and interpret simple environmental data",
+      "Plan and deliver a group eco-action project",
+      "Share learning with the wider community"
+    ],
+    "sessions": [
+      {
+        "title": "Our Planet, Our Place",
+        "duration": "90 min",
+        "activities": "Eco-quiz with buzzers (20 min). Neighbourhood walk to spot nature and problems (45 min). Map findings on a big poster (20 min). Close (5 min).",
+        "materials": "quiz cards, clipboards, pens, large map poster"
+      },
+      {
+        "title": "Waste Detectives",
+        "duration": "90 min",
+        "activities": "Safe litter-picking briefing (10 min). Litter survey in teams (45 min). Sort and tally waste types (25 min). Discussion of results (10 min).",
+        "materials": "gloves, litter pickers, bin bags, tally sheets, hand sanitiser"
+      },
+      {
+        "title": "Bugs and Biodiversity",
+        "duration": "90 min",
+        "activities": "Minibeast hunt with magnifiers (40 min). Identification charts (20 min). Why pollinators matter - short story and discussion (20 min). Close (10 min).",
+        "materials": "magnifiers, bug pots, ID charts, trays"
+      },
+      {
+        "title": "Choose Our Action",
+        "duration": "90 min",
+        "activities": "Review evidence from previous weeks (20 min). Brainstorm actions and vote (25 min). Plan the action: jobs, materials, timeline (40 min). Close (5 min).",
+        "materials": "flipchart, voting dots, planning sheets"
+      },
+      {
+        "title": "Action Day",
+        "duration": "90 min",
+        "activities": "Deliver the chosen action, e.g. planting a pollinator bed or running a swap shop (75 min). Photos with consent and reflection (15 min).",
+        "materials": "seeds, compost, trowels, gloves or swap shop tables"
+      },
+      {
+        "title": "Spread the Word",
+        "duration": "90 min",
+        "activities": "Make posters or a short video about the project (60 min). Present to families and invite pledges (25 min). Close and certificates (5 min).",
+        "materials": "poster paper, art supplies, tablet, certificates"
+      }
+    ],
+    "materials": [
+      "gloves and litter pickers",
+      "magnifiers and bug pots",
+      "seeds and trowels",
+      "clipboards",
+      "poster supplies",
+      "certificates"
+    ],
+    "budget": "~$320 (gardening supplies, safety equipment, printing)",
+    "riskNotes": "Outdoor sessions need a site check, gloves for litter handling, and a rule never to pick up sharp or hazardous items. Maintain ratios on walks and check for allergies before gardening activities.",
+    "outcomes": "Group completes one visible eco-action and records before/after data. Pledge count from families and participant reflection on what they changed at home.",
+    "status": "delivered",
+    "rating": 5,
+    "notes": "The pollinator bed is thriving and the venue wants a follow-up. Kids loved the bug hunt - make it longer.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-01-08T13:20:00.000Z",
+    "updatedAt": "2026-06-30T15:00:00.000Z"
+  },
+  {
+    "id": "seed-prog-08",
+    "title": "Money Smart: Real-World Finance",
+    "summary": "Interactive workshops that demystify budgeting, saving, borrowing and avoiding scams for young people about to manage their own money. Learning is built around realistic simulations rather than lectures.",
+    "ageGroup": "16-18",
+    "themes": [
+      "financial literacy",
+      "life skills",
+      "independence"
+    ],
+    "format": "Workshop",
+    "duration": "4 sessions, 2h each",
+    "groupSize": "12-24",
+    "objectives": [
+      "Create and stick to a simple monthly budget",
+      "Compare saving and borrowing options and understand interest",
+      "Recognise common scams and protect personal information",
+      "Set a personal financial goal with clear steps"
+    ],
+    "sessions": [
+      {
+        "title": "Where Does the Money Go?",
+        "duration": "2 hours",
+        "activities": "Needs vs. wants card sort (20 min). Budget simulation with a randomly assigned income and life events (60 min). Debrief on surprises (25 min). Close (15 min).",
+        "materials": "needs/wants cards, budget simulation packs, calculators"
+      },
+      {
+        "title": "Saving and Borrowing",
+        "duration": "2 hours",
+        "activities": "Compound interest demo with a growing tower of blocks (25 min). Compare savings, credit cards and loans using fictional offers (50 min). \"Buy now, pay later\" debate (30 min). Close (15 min).",
+        "materials": "blocks, fictional product sheets, calculators"
+      },
+      {
+        "title": "Scam Spotters",
+        "duration": "2 hours",
+        "activities": "Spot the scam: real-style fake messages and adverts (40 min). Personal data protection tips (20 min). Teams design a scam-awareness poster for peers (45 min). Close (15 min).",
+        "materials": "printed example messages, poster paper, markers"
+      },
+      {
+        "title": "My Money Plan",
+        "duration": "2 hours",
+        "activities": "Goal-setting with a savings target (30 min). Build a personal money plan (50 min). Quiz show recap (25 min). Evaluation (15 min).",
+        "materials": "money plan worksheets, quiz slides, evaluation forms"
+      }
+    ],
+    "materials": [
+      "budget simulation packs",
+      "calculators",
+      "fictional product sheets",
+      "scam example cards",
+      "worksheets",
+      "quiz slides"
+    ],
+    "budget": "~$150 (printing, prizes, snacks)",
+    "riskNotes": "Some participants may face financial hardship at home; avoid asking for personal financial details and keep examples fictional. Provide signposting to independent money advice.",
+    "outcomes": "Pre/post knowledge quiz with a target improvement of 25%. Participants leave with a completed personal money plan.",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Looking for a volunteer from a local credit union to co-deliver session 2.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-05-06T10:15:00.000Z",
+    "updatedAt": "2026-08-14T09:40:00.000Z"
+  },
+  {
+    "id": "seed-prog-09",
+    "title": "Hands Up: Community Service Challenge",
+    "summary": "A volunteering programme where young adults explore community needs, complete placements with local organisations and reflect on the impact of their service. It suits those building experience for study or employment.",
+    "ageGroup": "18-25",
+    "themes": [
+      "community service",
+      "volunteering",
+      "civic engagement"
+    ],
+    "format": "Mentoring",
+    "duration": "10 weeks, 2h per week plus placement hours",
+    "groupSize": "8-15",
+    "objectives": [
+      "Understand the needs and assets of their local community",
+      "Complete at least 20 hours of volunteering with a partner organisation",
+      "Reflect on personal learning through structured mentoring",
+      "Articulate transferable skills for CVs and applications"
+    ],
+    "sessions": [
+      {
+        "title": "Induction and Community Mapping",
+        "duration": "2 hours",
+        "activities": "Introductions and expectations (20 min). Community asset mapping (45 min). Meet partner organisations via short video intros (35 min). Placement preferences (20 min).",
+        "materials": "maps, sticky notes, partner info packs, preference forms"
+      },
+      {
+        "title": "Ready to Serve",
+        "duration": "2 hours",
+        "activities": "Professional boundaries and code of conduct (40 min). Scenario practice: tricky situations on placement (50 min). Mentor matching (30 min).",
+        "materials": "code of conduct, scenario cards, mentor profiles"
+      },
+      {
+        "title": "Mid-Point Reflection",
+        "duration": "2 hours",
+        "activities": "Placement story sharing (40 min). Reflection model introduced and practised (40 min). One-to-one mentor check-ins (40 min).",
+        "materials": "reflection journals, mentoring prompt sheets"
+      },
+      {
+        "title": "Skills to CV",
+        "duration": "2 hours",
+        "activities": "Identify transferable skills from placements (40 min). Write achievement statements (50 min). Peer review (30 min).",
+        "materials": "laptops, CV templates, skills cards"
+      },
+      {
+        "title": "Celebration of Service",
+        "duration": "2 hours",
+        "activities": "Short presentations on impact (60 min). Partner thank-yous and certificates (40 min). Evaluation (20 min).",
+        "materials": "projector, certificates, refreshments, evaluation forms"
+      }
+    ],
+    "materials": [
+      "partner organisation packs",
+      "code of conduct",
+      "reflection journals",
+      "CV templates",
+      "certificates"
+    ],
+    "budget": "~$400 (travel bursaries, printing, celebration event)",
+    "riskNotes": "Confirm each partner has its own safeguarding and supervision arrangements, especially placements involving children or vulnerable adults. Agree a clear process for participants to raise concerns about placements.",
+    "outcomes": "Volunteering hours logged and verified by partners, plus mentor-rated progress on reflection. Success = 80% complete 20+ hours and produce an updated CV.",
+    "status": "delivered",
+    "rating": 3,
+    "notes": "Placement matching took too long and some lost momentum. Recruit partners earlier and set a firm start date for placements.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-01-15T09:00:00.000Z",
+    "updatedAt": "2026-05-27T14:25:00.000Z"
+  },
+  {
+    "id": "seed-prog-10",
+    "title": "Roots & Stories: Cultural Heritage Project",
+    "summary": "Children explore their own and each other's family heritage through food, music, games and storytelling. Together they create a shared story quilt celebrating the diversity of the group.",
+    "ageGroup": "9-12",
+    "themes": [
+      "cultural heritage",
+      "identity",
+      "inclusion"
+    ],
+    "format": "Weekly club",
+    "duration": "5 weeks, 1.5h per week",
+    "groupSize": "10-18",
+    "objectives": [
+      "Share something meaningful about their family or cultural background",
+      "Show curiosity and respect for others' traditions",
+      "Interview a family or community member",
+      "Contribute to a collaborative heritage artwork"
+    ],
+    "sessions": [
+      {
+        "title": "Where We Come From",
+        "duration": "90 min",
+        "activities": "Name story circle: what my name means (25 min). Object show-and-tell from home (35 min). Introduce the story quilt project (20 min). Close (10 min).",
+        "materials": "world map, string, pins, sample quilt square"
+      },
+      {
+        "title": "Games Around the World",
+        "duration": "90 min",
+        "activities": "Children teach a traditional game from their family or one researched together (60 min). Reflection: what is similar, what is different (20 min). Close (10 min).",
+        "materials": "game equipment, chalk, cards with game rules"
+      },
+      {
+        "title": "Interview Skills",
+        "duration": "90 min",
+        "activities": "What makes a good question (20 min). Practise interviews in pairs (30 min). Prepare questions for a family or community elder (30 min). Close (10 min).",
+        "materials": "question templates, voice recorders or tablets (optional)"
+      },
+      {
+        "title": "Stories into Squares",
+        "duration": "90 min",
+        "activities": "Share interview highlights (25 min). Design and make a fabric or paper quilt square (55 min). Close (10 min).",
+        "materials": "fabric squares, fabric pens, felt, glue, paper alternative"
+      },
+      {
+        "title": "Heritage Celebration",
+        "duration": "90 min",
+        "activities": "Assemble the quilt (30 min). Families invited for a shared food table and quilt unveiling (50 min). Close (10 min).",
+        "materials": "quilt backing, display stand, labelled food table, allergy cards"
+      }
+    ],
+    "materials": [
+      "world map",
+      "fabric squares and fabric pens",
+      "felt and glue",
+      "game equipment",
+      "question templates",
+      "display stand"
+    ],
+    "budget": "~$280 (craft materials, celebration food contribution)",
+    "riskNotes": "Be sensitive to children whose family circumstances are complex (e.g. care-experienced or displaced) and offer alternative prompts. Shared food requires clear ingredient labelling and an allergy check.",
+    "outcomes": "Completed story quilt with a square from every child, and a short pre/post \"I know about my friends' cultures\" rating.",
+    "status": "idea",
+    "rating": 0,
+    "notes": "Idea came from parent feedback. Need to test the interview session with a small group first.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-08-20T16:00:00.000Z",
+    "updatedAt": "2026-09-03T11:45:00.000Z"
+  },
+  {
+    "id": "seed-prog-11",
+    "title": "Launchpad: Young Entrepreneurs Weekend",
+    "summary": "An intensive weekend event where teams of young adults go from idea to prototype to pitch for a social or commercial venture. Local entrepreneurs act as coaches and judges.",
+    "ageGroup": "18-25",
+    "themes": [
+      "entrepreneurship",
+      "innovation",
+      "problem solving"
+    ],
+    "format": "Event",
+    "duration": "2 days (Saturday-Sunday), 6h per day",
+    "groupSize": "20-40",
+    "objectives": [
+      "Identify a real problem and validate it with potential users",
+      "Develop a simple business model using a one-page canvas",
+      "Build a low-cost prototype or mock-up",
+      "Deliver a persuasive three-minute pitch"
+    ],
+    "sessions": [
+      {
+        "title": "Ideas and Teams",
+        "duration": "2 hours",
+        "activities": "Welcome and inspiration talk (20 min). Idea speed-pitching, 60 seconds each (40 min). Team formation around top ideas (30 min). Problem statement drafting (30 min).",
+        "materials": "name badges, timer, idea cards, problem statement template"
+      },
+      {
+        "title": "Talk to Users",
+        "duration": "2 hours",
+        "activities": "Interview techniques input (20 min). Teams interview passers-by or peers about the problem (60 min). Synthesise insights (40 min).",
+        "materials": "interview guides, clipboards, sticky notes"
+      },
+      {
+        "title": "Business Model Canvas",
+        "duration": "2 hours",
+        "activities": "Canvas walkthrough (20 min). Teams fill in canvases with coach support (70 min). Lightning feedback round (30 min).",
+        "materials": "printed canvases, sticky notes, markers"
+      },
+      {
+        "title": "Prototype Sprint",
+        "duration": "3 hours",
+        "activities": "Prototyping methods demo (20 min). Build a mock-up, landing page sketch or physical prototype (120 min). User test with another team (40 min).",
+        "materials": "cardboard, craft supplies, laptops, paper prototyping kits"
+      },
+      {
+        "title": "Pitch and Awards",
+        "duration": "3 hours",
+        "activities": "Pitch coaching (60 min). Final pitches to judges, 3 min plus 2 min questions (75 min). Awards, networking and next steps (45 min).",
+        "materials": "projector, judging rubrics, prizes, refreshments"
+      }
+    ],
+    "materials": [
+      "business model canvases",
+      "sticky notes",
+      "prototyping supplies",
+      "laptops",
+      "judging rubrics",
+      "prizes"
+    ],
+    "budget": "~$1,200 (venue, meals, prizes, materials)",
+    "riskNotes": "Brief coaches and judges on the code of conduct and keep interactions in shared spaces. Plan for long days with breaks, meals and a quiet room, and be clear about intellectual property belonging to the teams.",
+    "outcomes": "Every team delivers a final pitch; post-event survey measures entrepreneurial confidence. Follow-up at three months on how many ideas are still being developed.",
+    "status": "ready",
+    "rating": 0,
+    "notes": "Three judges confirmed. Consider adding a small seed grant as the top prize if sponsorship comes through.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-06-02T12:00:00.000Z",
+    "updatedAt": "2026-09-25T18:05:00.000Z"
+  },
+  {
+    "id": "seed-prog-12",
+    "title": "Safe Online: Digital Smarts",
+    "summary": "An online programme that helps young people navigate social media, privacy, misinformation and online wellbeing. Short live sessions are combined with interactive polls, breakout rooms and creative challenges.",
+    "ageGroup": "13-15",
+    "themes": [
+      "digital safety",
+      "media literacy",
+      "online wellbeing"
+    ],
+    "format": "Online",
+    "duration": "4 weeks, 1h per week",
+    "groupSize": "15-30",
+    "objectives": [
+      "Adjust privacy settings and manage their digital footprint",
+      "Evaluate online information for reliability",
+      "Respond safely to online pressure, bullying or unwanted contact",
+      "Reflect on healthy screen-time habits"
+    ],
+    "sessions": [
+      {
+        "title": "My Digital Footprint",
+        "duration": "60 min",
+        "activities": "Welcome and online group agreement (10 min). Poll: which apps do you use most? (5 min). \"What can a stranger learn about me?\" fictional profile investigation (20 min). Privacy settings walkthrough (15 min). Challenge set: review one account's settings (10 min).",
+        "materials": "video platform, poll tool, fictional profile slides"
+      },
+      {
+        "title": "Fact or Fake?",
+        "duration": "60 min",
+        "activities": "Check-in (5 min). Real or fake headline game (15 min). Lateral reading techniques demo (15 min). Breakout teams fact-check a viral claim (20 min). Share back (5 min).",
+        "materials": "headline slides, breakout rooms, fact-check worksheet"
+      },
+      {
+        "title": "Pressure and Boundaries",
+        "duration": "60 min",
+        "activities": "Check-in (5 min). Anonymous scenario poll on online pressure (15 min). Discuss block, report, tell responses (20 min). Create a \"what I would say\" script (15 min). Signposting (5 min).",
+        "materials": "scenario slides, anonymous poll tool, signposting list"
+      },
+      {
+        "title": "Balance and Wellbeing",
+        "duration": "60 min",
+        "activities": "Check-in (5 min). Screen-time reflection and mood link (15 min). Design a personal digital wellbeing plan (25 min). Showcase and evaluation (15 min).",
+        "materials": "digital wellbeing plan template, evaluation form"
+      }
+    ],
+    "materials": [
+      "video conferencing platform",
+      "poll tool",
+      "slide deck",
+      "digital worksheets",
+      "signposting list"
+    ],
+    "budget": "~$100 (platform licence share, digital resources)",
+    "riskNotes": "Use a platform with waiting rooms, disabled private chat between participants and at least two facilitators online. Never record without consent, and have a clear process for following up concerns raised in chat or polls.",
+    "outcomes": "Pre/post confidence survey on online safety skills and completed digital wellbeing plans. Success = 75% report they changed at least one privacy setting.",
+    "status": "delivered",
+    "rating": 4,
+    "notes": "Engagement was strongest in breakout rooms; cameras-off was fine. Add a parent briefing session next time.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-02-22T15:30:00.000Z",
+    "updatedAt": "2026-04-20T13:00:00.000Z"
+  },
+  {
+    "id": "seed-prog-13",
+    "title": "Character Compass Retreat",
+    "summary": "A values-neutral weekend retreat helping older teens reflect on character strengths such as honesty, kindness and perseverance. Activities combine outdoor challenges, journalling and small-group dialogue open to young people of all beliefs and backgrounds.",
+    "ageGroup": "16-18",
+    "themes": [
+      "character",
+      "values",
+      "reflection"
+    ],
+    "format": "Retreat",
+    "duration": "2 days, 1 night",
+    "groupSize": "12-20",
+    "objectives": [
+      "Identify their top character strengths",
+      "Explore how values guide everyday decisions",
+      "Practise respectful dialogue across different viewpoints",
+      "Set one personal intention to carry forward"
+    ],
+    "sessions": [
+      {
+        "title": "Arrival and Strengths Discovery",
+        "duration": "2 hours",
+        "activities": "Arrival and welcome circle (20 min). Character strengths card sort (40 min). Pair interviews: a time I used this strength (40 min). Group agreement for respectful dialogue (20 min).",
+        "materials": "strengths card sets, journals, pens"
+      },
+      {
+        "title": "Values Under Pressure",
+        "duration": "2 hours",
+        "activities": "Moral dilemma scenarios discussed in small groups (60 min). Values line: agree/disagree spectrum activity (40 min). Journalling (20 min).",
+        "materials": "dilemma cards, agree/disagree signs, journals"
+      },
+      {
+        "title": "Perseverance Trail",
+        "duration": "3 hours",
+        "activities": "Outdoor team challenge trail with problem-solving stations (120 min). Debrief: what kept you going? (40 min). Free time (20 min).",
+        "materials": "challenge station kits, maps, first aid kit, radios"
+      },
+      {
+        "title": "Evening Reflection",
+        "duration": "90 min",
+        "activities": "Quiet reflective walk (30 min). Letter to my future self (40 min). Sharing circle (optional) (20 min).",
+        "materials": "envelopes, writing paper, lanterns or torches"
+      },
+      {
+        "title": "Intentions and Departure",
+        "duration": "90 min",
+        "activities": "Personal intention setting (30 min). Appreciation web with a ball of string (30 min). Evaluation and departure (30 min).",
+        "materials": "ball of string, intention cards, evaluation forms"
+      }
+    ],
+    "materials": [
+      "character strengths cards",
+      "journals",
+      "dilemma cards",
+      "challenge trail kits",
+      "envelopes",
+      "first aid kit"
+    ],
+    "budget": "~$1,500 (venue, meals, transport, materials)",
+    "riskNotes": "Overnight stays require consent forms, medical information, appropriate staffing ratios and separate sleeping arrangements. Ensure discussions remain inclusive and that no belief system is promoted or criticised.",
+    "outcomes": "Participants complete a strengths profile and set an intention; letters to future self are posted back after three months. Post-retreat survey on self-awareness and respect for differing views.",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Venue shortlist of two. Check accessibility for a participant who uses a wheelchair before confirming the trail route.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-07-10T10:30:00.000Z",
+    "updatedAt": "2026-09-29T09:15:00.000Z"
+  },
+  {
+    "id": "seed-prog-14",
+    "title": "Future Pathways Careers Mentoring",
+    "summary": "A mentoring programme pairing young people with volunteer professionals to explore careers, build employability skills and plan their next steps after education. Group workshops run alongside fortnightly one-to-one mentoring.",
+    "ageGroup": "16-18",
+    "themes": [
+      "careers",
+      "employability",
+      "mentoring"
+    ],
+    "format": "Mentoring",
+    "duration": "12 weeks, fortnightly 1h mentoring plus 3 group workshops",
+    "groupSize": "10-20 pairs",
+    "objectives": [
+      "Explore at least three career pathways relevant to their interests",
+      "Produce a strong CV and personal statement",
+      "Practise interview skills with feedback",
+      "Create a realistic 12-month action plan"
+    ],
+    "sessions": [
+      {
+        "title": "Kick-Off and Matching",
+        "duration": "2 hours",
+        "activities": "Welcome and programme overview (20 min). Interests and values profile (30 min). Speed-meeting with mentors (45 min). Mentoring agreement and boundaries (25 min).",
+        "materials": "interest profiles, mentor bios, mentoring agreements"
+      },
+      {
+        "title": "Career Explorer",
+        "duration": "60 min",
+        "activities": "Mentor shares their career journey (15 min). Explore job families using online career tools (30 min). Choose three pathways to research (15 min).",
+        "materials": "laptops, career exploration worksheet"
+      },
+      {
+        "title": "CV and Personal Statement Clinic",
+        "duration": "2 hours",
+        "activities": "What employers look for (20 min). Draft or improve CVs with mentor input (60 min). Personal statement workshop (40 min).",
+        "materials": "laptops, CV templates, example statements"
+      },
+      {
+        "title": "Mock Interviews",
+        "duration": "2 hours",
+        "activities": "Interview tips and STAR technique (25 min). Two rounds of mock interviews with feedback (75 min). Reflection (20 min).",
+        "materials": "interview question bank, feedback forms, quiet rooms"
+      },
+      {
+        "title": "Action Planning and Graduation",
+        "duration": "60 min",
+        "activities": "Build a 12-month action plan with mentor (40 min). Graduation and certificates (20 min).",
+        "materials": "action plan templates, certificates"
+      }
+    ],
+    "materials": [
+      "mentor bios and agreements",
+      "CV templates",
+      "interview question bank",
+      "action plan templates",
+      "laptops",
+      "certificates"
+    ],
+    "budget": "~$500 (mentor background checks, refreshments, printing)",
+    "riskNotes": "All mentors must complete background checks and safeguarding training, and meetings should take place in public or supervised settings or via monitored platforms. Provide a clear route for mentees to raise concerns.",
+    "outcomes": "Mentee and mentor feedback at midpoint and end, completed CVs and action plans. Track six-month destinations (education, training or employment).",
+    "status": "ready",
+    "rating": 0,
+    "notes": "Twelve mentors recruited so far. Graduation could be combined with a local employer networking event.",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-05-21T13:45:00.000Z",
+    "updatedAt": "2026-10-08T10:00:00.000Z"
+  }
+]

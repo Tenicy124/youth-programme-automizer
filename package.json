@@ -1,0 +1,41 @@
+{
+  "name": "youth-programme-studio",
+  "productName": "Youth Programme Studio",
+  "version": "1.0.0",
+  "description": "Plan, store, search and create youth programmes with AI-assisted ideation and reusable templates.",
+  "main": "src/main/main.js",
+  "author": "tenicy",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "dist:mac": "electron-builder --mac --publish never",
+    "build:app": "electron-builder --mac dir --publish never"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.135.0"
+  },
+  "devDependencies": {
+    "electron": "^44.8.0",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.youthprogrammestudio.app",
+    "productName": "Youth Programme Studio",
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "identity": "-"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  }
+}

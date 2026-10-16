@@ -1,0 +1,262 @@
+[
+  {
+    "id": "seed-tpl-01",
+    "name": "Full Programme Plan",
+    "description": "A complete end-to-end plan for a multi-session youth programme, from rationale to evaluation.",
+    "category": "Planning",
+    "sections": [
+      {
+        "id": "s1",
+        "heading": "Overview",
+        "guidance": "Summarise the programme in two or three sentences that anyone could understand.",
+        "content": "{{programme_title}} is a programme for young people aged {{age_group}}, running for {{duration}} with a group of {{group_size}}. It is led by {{facilitator}} and starts on {{date}}."
+      },
+      {
+        "id": "s2",
+        "heading": "Rationale and Need",
+        "guidance": "Explain why this programme matters for this group right now, using evidence or feedback where possible.",
+        "content": "Young people aged {{age_group}} in our community have told us that... This programme responds by..."
+      },
+      {
+        "id": "s3",
+        "heading": "Learning Objectives",
+        "guidance": "List 3-5 specific, achievable objectives that start with an action verb.",
+        "content": "By the end of {{programme_title}}, participants will be able to:\n{{objectives}}"
+      },
+      {
+        "id": "s4",
+        "heading": "Session Outline",
+        "guidance": "Give a one-line summary for each session so the arc of the programme is clear.",
+        "content": "Session 1: ...\nSession 2: ...\nSession 3: ...\n(Total: {{duration}})"
+      },
+      {
+        "id": "s5",
+        "heading": "Staffing and Roles",
+        "guidance": "Name who is responsible for delivery, safeguarding and logistics.",
+        "content": "Lead facilitator: {{facilitator}}\nSupport staff/volunteers: ...\nSafeguarding lead: ...\nAdult-to-young-person ratio for {{group_size}}: ..."
+      },
+      {
+        "id": "s6",
+        "heading": "Resources and Budget",
+        "guidance": "List key materials, venue needs and estimated costs.",
+        "content": "Venue: ...\nMaterials: ...\nEstimated budget: ..."
+      },
+      {
+        "id": "s7",
+        "heading": "Risk and Safeguarding",
+        "guidance": "Highlight the main risks and link to the full risk assessment.",
+        "content": "Key risks for {{programme_title}}: ...\nControls in place: ...\nSee the full risk assessment dated {{date}}."
+      },
+      {
+        "id": "s8",
+        "heading": "Evaluation",
+        "guidance": "Describe how you will know the objectives were met.",
+        "content": "We will measure progress against {{objectives}} using... Feedback will be collected from participants, families and staff at..."
+      }
+    ],
+    "createdAt": "2026-01-05T09:00:00.000Z",
+    "updatedAt": "2026-03-12T14:30:00.000Z"
+  },
+  {
+    "id": "seed-tpl-02",
+    "name": "Single Session Plan",
+    "description": "A timed plan for one session, covering aims, running order, materials and reflection.",
+    "category": "Session",
+    "sections": [
+      {
+        "id": "s1",
+        "heading": "Session Details",
+        "guidance": "Capture the essentials a cover facilitator would need at a glance.",
+        "content": "Programme: {{programme_title}}\nDate: {{date}}\nFacilitator: {{facilitator}}\nAge group: {{age_group}}\nExpected numbers: {{group_size}}\nLength: {{duration}}"
+      },
+      {
+        "id": "s2",
+        "heading": "Session Aims",
+        "guidance": "Pick one or two objectives this session contributes to.",
+        "content": "This session contributes to: {{objectives}}\nBy the end of the session young people will..."
+      },
+      {
+        "id": "s3",
+        "heading": "Running Order",
+        "guidance": "Break the session into timed blocks, including a welcome, main activities and a close.",
+        "content": "00:00 Welcome and check-in\n00:10 Warm-up: ...\n00:20 Main activity: ...\n00:50 Debrief: ...\n00:55 Close and check-out"
+      },
+      {
+        "id": "s4",
+        "heading": "Materials and Set-up",
+        "guidance": "List everything needed and how the room should look before young people arrive.",
+        "content": "Materials: ...\nRoom layout: ...\nTech needed: ..."
+      },
+      {
+        "id": "s5",
+        "heading": "Inclusion and Adaptations",
+        "guidance": "Note how activities will be adapted for different needs, abilities and energy levels.",
+        "content": "For participants who need more support: ...\nExtension for fast finishers: ...\nQuiet alternative: ..."
+      },
+      {
+        "id": "s6",
+        "heading": "Facilitator Reflection",
+        "guidance": "Complete after the session to improve the next one.",
+        "content": "What went well on {{date}}: ...\nWhat I would change: ...\nFollow-ups needed: ..."
+      }
+    ],
+    "createdAt": "2026-01-05T09:15:00.000Z",
+    "updatedAt": "2026-02-20T11:00:00.000Z"
+  },
+  {
+    "id": "seed-tpl-03",
+    "name": "Funding / Partner Proposal",
+    "description": "A persuasive proposal to secure funding or a delivery partner for a youth programme.",
+    "category": "Proposal",
+    "sections": [
+      {
+        "id": "s1",
+        "heading": "Executive Summary",
+        "guidance": "In one paragraph, state what you want to do, for whom, and what you are asking for.",
+        "content": "We are seeking support to deliver {{programme_title}}, a {{duration}} programme for {{group_size}} young people aged {{age_group}}, starting {{date}}. We are requesting..."
+      },
+      {
+        "id": "s2",
+        "heading": "The Need",
+        "guidance": "Use local evidence, consultation or data to show why this is needed.",
+        "content": "Young people aged {{age_group}} face... Our consultation found that..."
+      },
+      {
+        "id": "s3",
+        "heading": "What We Will Deliver",
+        "guidance": "Describe the activities and how they lead to change.",
+        "content": "{{programme_title}} will include... Our objectives are:\n{{objectives}}"
+      },
+      {
+        "id": "s4",
+        "heading": "Expected Outcomes and Impact",
+        "guidance": "State measurable outcomes and how they connect to the funder or partner's priorities.",
+        "content": "By the end of the programme we expect... We will measure this by..."
+      },
+      {
+        "id": "s5",
+        "heading": "Organisation and Team",
+        "guidance": "Show you have the experience and capacity to deliver.",
+        "content": "The programme will be led by {{facilitator}}, who has... Our organisation has delivered..."
+      },
+      {
+        "id": "s6",
+        "heading": "Budget and Request",
+        "guidance": "Provide a clear cost breakdown and specify exactly what you are asking for.",
+        "content": "Staffing: ...\nVenue: ...\nMaterials: ...\nTotal cost: ...\nAmount requested: ...\nOther contributions: ..."
+      },
+      {
+        "id": "s7",
+        "heading": "Partnership and Recognition",
+        "guidance": "Explain what the funder or partner gains and how they will be acknowledged.",
+        "content": "As a partner in {{programme_title}}, you will... We will acknowledge your support by..."
+      }
+    ],
+    "createdAt": "2026-01-06T10:00:00.000Z",
+    "updatedAt": "2026-04-15T16:20:00.000Z"
+  },
+  {
+    "id": "seed-tpl-04",
+    "name": "Risk Assessment & Safeguarding",
+    "description": "A structured risk assessment and safeguarding checklist to complete before any programme runs.",
+    "category": "Safety",
+    "sections": [
+      {
+        "id": "s1",
+        "heading": "Activity Details",
+        "guidance": "Record exactly what is being assessed and who is responsible.",
+        "content": "Programme: {{programme_title}}\nAge group: {{age_group}}\nGroup size: {{group_size}}\nDuration: {{duration}}\nAssessed by: {{facilitator}}\nDate of assessment: {{date}}"
+      },
+      {
+        "id": "s2",
+        "heading": "Hazards and Controls",
+        "guidance": "For each hazard, list who could be harmed, the likelihood and severity, and the controls in place.",
+        "content": "Hazard: ...\nWho could be harmed: ...\nRisk level (low/medium/high): ...\nControls: ...\nResidual risk: ..."
+      },
+      {
+        "id": "s3",
+        "heading": "Staffing and Supervision",
+        "guidance": "Confirm ratios, background checks and that no adult is alone with a young person.",
+        "content": "Adult-to-young-person ratio: ...\nAll staff/volunteers background-checked: yes/no\nSafeguarding lead on duty: ..."
+      },
+      {
+        "id": "s4",
+        "heading": "Medical and Emergency",
+        "guidance": "Note first aid cover, medical needs and emergency procedures.",
+        "content": "First aider: ...\nMedical/consent forms collected: yes/no\nNearest emergency services: ...\nEmergency contact procedure: ..."
+      },
+      {
+        "id": "s5",
+        "heading": "Safeguarding Procedures",
+        "guidance": "Summarise how concerns or disclosures will be handled and recorded.",
+        "content": "If a young person discloses harm or a concern arises during {{programme_title}}, staff will... Concerns are recorded and passed to..."
+      },
+      {
+        "id": "s6",
+        "heading": "Online and Data Safety",
+        "guidance": "Cover photos, consent, personal data and any online elements.",
+        "content": "Photo/video consent: ...\nPersonal data storage: ...\nOnline platform safeguards: ..."
+      },
+      {
+        "id": "s7",
+        "heading": "Sign-off and Review",
+        "guidance": "Record approval and the date by which this assessment must be reviewed.",
+        "content": "Approved by: ...\nDate: {{date}}\nReview date: ..."
+      }
+    ],
+    "createdAt": "2026-01-07T08:30:00.000Z",
+    "updatedAt": "2026-05-02T09:45:00.000Z"
+  },
+  {
+    "id": "seed-tpl-05",
+    "name": "Post-Programme Evaluation",
+    "description": "A reflective evaluation report capturing outcomes, feedback and lessons learned after a programme ends.",
+    "category": "Evaluation",
+    "sections": [
+      {
+        "id": "s1",
+        "heading": "Programme Summary",
+        "guidance": "Briefly restate what was delivered and to whom.",
+        "content": "{{programme_title}} ran for {{duration}} with {{group_size}} young people aged {{age_group}}, facilitated by {{facilitator}}. This evaluation was completed on {{date}}."
+      },
+      {
+        "id": "s2",
+        "heading": "Participation",
+        "guidance": "Report numbers enrolled, average attendance and completion.",
+        "content": "Enrolled: ...\nAverage attendance: ...\nCompleted: ...\nNotes on reach and inclusion: ..."
+      },
+      {
+        "id": "s3",
+        "heading": "Progress Against Objectives",
+        "guidance": "For each objective, give evidence of whether it was met.",
+        "content": "Objectives:\n{{objectives}}\nEvidence: ...\nMet / partly met / not met: ..."
+      },
+      {
+        "id": "s4",
+        "heading": "Participant Voice",
+        "guidance": "Include quotes and survey results from young people, with consent.",
+        "content": "What young people said: \"...\"\nSurvey highlights: ..."
+      },
+      {
+        "id": "s5",
+        "heading": "What Worked and What Didn't",
+        "guidance": "Be honest about successes and challenges so the next delivery improves.",
+        "content": "Successes: ...\nChallenges: ...\nUnexpected outcomes: ..."
+      },
+      {
+        "id": "s6",
+        "heading": "Budget Review",
+        "guidance": "Compare planned and actual spend and explain any differences.",
+        "content": "Planned budget: ...\nActual spend: ...\nVariance and reasons: ..."
+      },
+      {
+        "id": "s7",
+        "heading": "Recommendations",
+        "guidance": "List concrete changes or next steps for future programmes.",
+        "content": "For the next run of {{programme_title}} we recommend..."
+      }
+    ],
+    "createdAt": "2026-01-08T11:00:00.000Z",
+    "updatedAt": "2026-06-01T15:10:00.000Z"
+  }
+]

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:">
+  <title>Youth Programme Studio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="drag"></div>
+      <div class="brand">
+        <div class="logo">Y</div>
+        <div><div class="brand-name">Programme Studio</div><div class="brand-sub">Youth programme planner</div></div>
+      </div>
+      <nav id="nav">
+        <a data-view="library"><span class="ico">▤</span>Library</a>
+        <a data-view="discover"><span class="ico">✦</span>Discover &amp; Ideate</a>
+        <a data-view="studio"><span class="ico">✎</span>AI Studio</a>
+        <a data-view="templates"><span class="ico">❏</span>Templates</a>
+        <a data-view="settings"><span class="ico">⚙</span>Settings</a>
+      </nav>
+      <div class="sidebar-foot" id="aiStatus"></div>
+    </aside>
+    <main id="main"></main>
+  </div>
+  <div id="modal" class="modal hidden"></div>
+  <div id="toast" class="toast hidden"></div>
+  <div id="print" class="print-only"></div>
+  <script src="../shared/search.js"></script>
+  <script src="markdown.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
