@@ -168,37 +168,95 @@ function viewHome() {
 }
 
 // ---------- Catalog ----------
+const FILTER_GROUPS = [
+  { key: 'ageGroup', label: 'Age group', list: () => AGE_GROUPS, show: v => 'Ages ' + v },
+  { key: 'format', label: 'Format', list: () => FORMATS, show: v => v },
+  { key: 'status', label: 'Status', list: () => STATUSES, show: v => v[0].toUpperCase() + v.slice(1) },
+  { key: 'theme', label: 'Tag', list: () => PSearch.allThemes(S.programmes), show: v => '#' + v },
+];
+
 function viewCatalog() {
   const f = S.filters;
-  const themes = PSearch.allThemes(S.programmes);
   main().innerHTML = `
     ${header('Catalog', 'Search and filter all your programmes. Click one to view or edit it.', '<button class="btn primary" id="newBtn">＋ Create new</button>')}
-    <div class="filters">
-      <div class="searchbox"><input type="search" id="q" aria-label="Search" placeholder="Search by name, theme or activity (e.g. coding, camping, leadership)" value="${esc(f.q)}"></div>
-      <select id="fAge" aria-label="Age group">${opts(AGE_GROUPS, f.ageGroup, 'All ages')}</select>
-      <select id="fFormat" aria-label="Format">${opts(FORMATS, f.format, 'All formats')}</select>
-      <select id="fStatus" aria-label="Status">${opts(STATUSES, f.status, 'Any status')}</select>
-      <select id="fTheme" aria-label="Theme">${opts(themes, f.theme, 'All themes')}</select>
+    <div class="catalog-bar">
+      <div class="search-wrap" id="searchWrap">
+        <div class="searchbox">
+          <input type="search" id="q" aria-label="Search programmes" autocomplete="off" placeholder="Search programmes, e.g. coding, camping, leadership" value="${esc(f.q)}">
+          <button type="button" class="search-clear ${f.q ? '' : 'hidden'}" id="qClear" aria-label="Clear search">✕</button>
+        </div>
+        <div class="search-drop hidden" id="drop" role="listbox"></div>
+      </div>
+      <button class="btn filter-btn" id="filterBtn">☰ Filters<span class="badge hidden" id="fCount"></span></button>
     </div>
+    <div class="active-filters" id="activeFilters"></div>
     <div class="resultcount" id="count"></div>
     <div id="results"></div>`;
+  const q = $('#q'), drop = $('#drop');
+  let hi = -1, matches = [];
+  const closeDrop = () => { drop.classList.add('hidden'); hi = -1; };
   const run = () => {
     const res = PSearch.search(S.programmes, f.q, f);
+    matches = f.q.trim() ? res.slice(0, 6).map(r => r.programme) : [];
     $('#count').textContent = `Showing ${res.length} of ${S.programmes.length} programmes${f.q ? ', best matches first' : ''}`;
     $('#results').innerHTML = res.length
       ? `<div class="cards">${res.map(r => programmeCard(r.programme)).join('')}</div>`
       : `<div class="empty">No programmes match. Try fewer filters, or <a href="#" id="toCreate">create a new one with AI ideas</a>.</div>`;
     bindOpen($('#results'));
     const tc = $('#toCreate'); if (tc) tc.onclick = e => { e.preventDefault(); go('create'); };
+    $('#qClear').classList.toggle('hidden', !f.q);
+    renderActiveFilters();
   };
-  $('#q').oninput = e => { f.q = e.target.value; run(); };
-  $('#fAge').onchange = e => { f.ageGroup = e.target.value; run(); };
-  $('#fFormat').onchange = e => { f.format = e.target.value; run(); };
-  $('#fStatus').onchange = e => { f.status = e.target.value; run(); };
-  $('#fTheme').onchange = e => { f.theme = e.target.value; run(); };
+  const renderDrop = () => {
+    if (!matches.length || document.activeElement !== q) {
+      if (f.q.trim() && document.activeElement === q) { drop.innerHTML = '<div class="drop-empty">No matching programmes</div>'; drop.classList.remove('hidden'); }
+      else closeDrop();
+      return;
+    }
+    drop.innerHTML = matches.map((p, i) => `<div class="drop-item ${i === hi ? 'hi' : ''}" role="option" data-i="${i}"><b>${esc(p.title)}</b><span>${p.ageGroup ? 'Ages ' + esc(p.ageGroup) + ' · ' : ''}${esc(p.format || '')}</span></div>`).join('')
+      + '<div class="drop-foot">↑↓ to choose · Enter to open · Esc to close</div>';
+    drop.classList.remove('hidden');
+    $$('.drop-item', drop).forEach(el => el.onmousedown = e => { e.preventDefault(); go('programme', matches[+el.dataset.i].id); });
+  };
+  const renderActiveFilters = () => {
+    const active = FILTER_GROUPS.filter(g => f[g.key]);
+    $('#fCount').textContent = active.length; $('#fCount').classList.toggle('hidden', !active.length);
+    $('#activeFilters').innerHTML = active.length ? active.map(g => `<span class="filter-chip">${esc(g.label)}: <b>${esc(g.show(f[g.key]))}</b><button type="button" data-unf="${g.key}" aria-label="Remove ${esc(g.label)} filter">✕</button></span>`).join('') + '<button type="button" class="btn ghost small" id="clearF">Clear all</button>' : '';
+    $$('[data-unf]').forEach(b => b.onclick = () => { f[b.dataset.unf] = ''; run(); });
+    const cf = $('#clearF'); if (cf) cf.onclick = () => { FILTER_GROUPS.forEach(g => { f[g.key] = ''; }); run(); };
+  };
+  q.oninput = () => { f.q = q.value; hi = -1; run(); renderDrop(); };
+  q.onfocus = () => renderDrop();
+  q.onblur = () => setTimeout(closeDrop, 120);
+  q.onkeydown = e => {
+    const open = !drop.classList.contains('hidden');
+    if (e.key === 'Escape') {
+      e.preventDefault(); e.stopPropagation();
+      if (open) closeDrop(); else { if (f.q) { f.q = ''; q.value = ''; run(); } q.blur(); }
+    } else if (e.key === 'ArrowDown' && matches.length) { e.preventDefault(); hi = (hi + 1) % matches.length; renderDrop(); }
+    else if (e.key === 'ArrowUp' && matches.length) { e.preventDefault(); hi = (hi - 1 + matches.length) % matches.length; renderDrop(); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (hi >= 0 && matches[hi]) go('programme', matches[hi].id); else { closeDrop(); q.blur(); } }
+  };
+  $('#qClear').onclick = () => { f.q = ''; q.value = ''; run(); closeDrop(); q.blur(); };
+  $('#filterBtn').onclick = () => openFilters(run);
   $('#newBtn').onclick = () => go('create');
   run();
-  $('#q').focus();
+}
+
+function openFilters(after) {
+  const f = S.filters;
+  const pick = { ...f };
+  const groupHtml = g => `<div class="field"><div class="label">${esc(g.label)}</div>
+    <div class="pills" data-fg="${g.key}"><button type="button" class="pill-opt ${!pick[g.key] ? 'on' : ''}" data-v="">Any</button>${g.list().map(v => `<button type="button" class="pill-opt ${pick[g.key] === v ? 'on' : ''}" data-v="${esc(v)}">${esc(g.key === 'theme' ? '#' + v : g.key === 'status' ? g.show(v) : v)}</button>`).join('')}</div></div>`;
+  modal(`<h2>Filter programmes</h2>${FILTER_GROUPS.map(groupHtml).join('')}
+    <div class="foot"><button class="btn ghost" id="fReset">Clear all</button><div class="spacer"></div><button class="btn" data-close>Cancel</button><button class="btn primary" id="fApply">Show results</button></div>`, (m, close) => {
+    $$('[data-fg]', m).forEach(g => $$('.pill-opt', g).forEach(b => b.onclick = () => {
+      pick[g.dataset.fg] = b.dataset.v;
+      $$('.pill-opt', g).forEach(x => x.classList.toggle('on', x === b));
+    }));
+    $('#fReset', m).onclick = () => { FILTER_GROUPS.forEach(g => { pick[g.key] = ''; }); $$('[data-fg]', m).forEach(g => $$('.pill-opt', g).forEach((x, i) => x.classList.toggle('on', i === 0))); };
+    $('#fApply', m).onclick = () => { FILTER_GROUPS.forEach(g => { f[g.key] = pick[g.key]; }); close(); after(); };
+  });
 }
 
 // ---------- Programme view ----------
@@ -1093,6 +1151,13 @@ function viewSettings() {
 // ---------- boot ----------
 $$('#nav a').forEach(a => a.onclick = e => { e.preventDefault(); go(a.dataset.view); });
 document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    const m = $('#modal');
+    if (!m.classList.contains('hidden')) { const c = $('[data-close]', m); if (c) c.click(); else { m.classList.add('hidden'); m.innerHTML = ''; } return; }
+    const a = document.activeElement;
+    if (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) a.blur();
+    return;
+  }
   if ((e.metaKey || e.ctrlKey) && e.key === 's') {
     e.preventDefault();
     if (S.view === 'edit') saveDraft();
