@@ -16,7 +16,7 @@ A Mac desktop app for planning and creating youth programmes. Everything is stor
 | **Share** | Pick programmes (from the Catalog, a programme page, or File → Share Programmes) and save them as a `.ypcatalog` file to send by email, AirDrop or a shared drive. Colleagues double-click it (or use Import → Open a shared catalog), preview what's inside and choose what to add; programmes they already have are flagged so nothing is overwritten unless they tick it. Private notes and ratings are left out unless you include them. You can also save the selection as a printable catalog PDF for people without the app. |
 | **Export** | Programmes and documents export to PDF or Markdown. |
 
-The app starts with 14 sample programmes and 5 templates so you can try it straight away. Delete them whenever you like.
+The app comes with 12 Brahm Centre youth programmes (converted from the team's planning forms) and 5 templates. Updating from an older version adds these programmes to your existing catalog once; anything you delete afterwards stays deleted.
 
 ## Install on your Mac
 

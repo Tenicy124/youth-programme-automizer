@@ -1,7 +1,7 @@
 const test = require('node:test');
 const assert = require('node:assert');
 const S = require('../src/shared/search.js');
-const seed = require('../src/seed/programmes.json');
+const seed = require('./fixtures/sample-programmes.json');
 
 test('search ranks the obvious match first', () => {
   assert.match(S.search(seed, 'coding')[0].programme.title, /Code/);
@@ -22,4 +22,15 @@ test('recommend excludes the source programme and explains matches', () => {
   const recs = S.recommend(seed, src, { excludeId: src.id });
   assert.ok(recs.length > 0 && recs.every(r => r.programme.id !== src.id));
   assert.ok(recs.some(r => r.reasons.length));
+});
+
+test('built-in programmes are valid and searchable', () => {
+  const built = require('../src/seed/programmes.json');
+  for (const p of built) {
+    assert.ok(p.id && p.title, 'id and title');
+    assert.ok(['5-8', '9-12', '13-15', '16-18', '18-25'].includes(p.ageGroup), p.title);
+    assert.ok(Array.isArray(p.sessions) && Array.isArray(p.themes) && Array.isArray(p.objectives), p.title);
+  }
+  assert.match(S.search(built, 'forest')[0].programme.title, /Nature/);
+  assert.match(S.search(built, 'singing')[0].programme.title, /Vocal/);
 });

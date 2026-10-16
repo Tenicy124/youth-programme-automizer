@@ -1,988 +1,1014 @@
 [
   {
-    "id": "seed-prog-01",
-    "title": "Lead the Way: Youth Leadership Lab",
-    "summary": "A weekly club where teenagers discover their leadership style, practise facilitation and plan a small community project of their own. Each session mixes short skill input with hands-on challenges and peer feedback.",
+    "id": "brahm-bathing-with-nature",
+    "title": "Bathing with Nature – A Forest Walk Experience",
+    "summary": "A half-day forest bathing walk at Bukit Timah Nature Reserve where youths put their phones away and embrace nature through a nature walk, sensory booklet tasks, team station games and outdoor tea appreciation. Participants get attuned to their senses and surroundings, learn to regulate emotions and embrace the discomfort of being out in nature, and experience new sights, sounds and smells in a world not normally viewed.",
     "ageGroup": "13-15",
+    "format": "Event",
+    "duration": "1 session, 9AM-1:30PM (listed as 240 minutes)",
+    "groupSize": "30 participants",
     "themes": [
-      "leadership",
+      "nature",
+      "mindfulness",
+      "emotional regulation",
+      "sensory awareness",
       "teamwork",
-      "communication"
+      "social bonding"
     ],
-    "format": "Weekly club",
-    "duration": "8 weeks, 1.5h per week",
-    "groupSize": "12-18",
     "objectives": [
-      "Identify personal strengths and preferred leadership style",
-      "Practise leading a short group activity with confidence",
-      "Give and receive constructive feedback using a simple model",
-      "Plan and pitch a small community-benefit project as a team"
+      "Embrace nature and view it in a different light as participants get attuned to their surroundings",
+      "Experience new sights, sounds and smells while immersed in a world not normally viewed",
+      "Use exposure to the outdoors for emotional regulation, learning to attune to the senses",
+      "Embrace the uncomfortability of being out in nature",
+      "Switch off from the outside world (phones away) and live in the moment, becoming more aware of surroundings and of themselves"
     ],
     "sessions": [
       {
-        "title": "What Makes a Leader?",
-        "duration": "90 min",
-        "activities": "Welcome and group agreement (15 min). \"Leaders I admire\" gallery walk with sticky notes (20 min). Leadership styles quiz and small-group discussion (25 min). Marshmallow-and-spaghetti tower challenge with debrief on who led and how (25 min). Closing round: one word to describe today (5 min).",
-        "materials": "sticky notes, flipchart paper, markers, printed style quiz, spaghetti, marshmallows, tape"
+        "title": "Meet and phone check-in",
+        "duration": "15 min",
+        "activities": "9:00-9:15AM Meet at designated point (Bukit Timah Nature Reserve main entrance)\nParticipants are encouraged to store their phones away, either in their bags or in a keep-safe bag, for the rest of the activity",
+        "materials": "Keep-safe bag for phones, water bottles"
       },
       {
-        "title": "Communicating with Purpose",
-        "duration": "90 min",
-        "activities": "Energiser: blind drawing in pairs (15 min). Input on active listening and clear instructions (15 min). Practise giving instructions for a simple build task, rotating roles (35 min). Debrief and listening \"do and don't\" list (20 min). Check-out (5 min).",
-        "materials": "building blocks, blindfolds, paper, pencils, flipchart"
+        "title": "Introduction and icebreaker: My Favourite … (nature scavenger hunt)",
+        "duration": "30 min",
+        "activities": "9:15-9:45AM Introduction to activity and icebreaker\nFacilitator names a prompt (item/descriptor/genre) for participants to find, e.g. roundest, smoothest, shiniest; your favourite rock/leaf/fruit; something green/rough/crunchy\nParticipants get a fixed amount of time to search their surroundings for an item matching the description (not limited in what they can use)\nParticipants share about the item they picked and the thought process behind their selection\nNo prizes for the best item: participants pick based on what they like, not what they think will win, and explore freely",
+        "materials": ""
       },
       {
-        "title": "Feedback that Helps",
-        "duration": "90 min",
-        "activities": "Warm-up game (10 min). Introduce the \"What went well / Even better if\" model (15 min). Each young person leads a 5-minute game for a small group and receives peer feedback (50 min). Reflection journals (10 min). Close (5 min).",
-        "materials": "feedback cards, game equipment box, journals, pens"
+        "title": "Forest Buddy booklet explanation + water/bio break",
+        "duration": "15 min",
+        "activities": "9:45-10:00AM Introduce the Forest Buddy Pack (mindfulness nature kit: booklet, stickers, markers, small pack of tea leaves) and explain the booklet and its purpose\nBooklet tasks to complete on the walk: search for a unique leaf/flower and take a photo of it; take a photo of 5 different animals/insects; find the tallest tree; record a bird call; a scenery that speaks to you\nCompleting the booklet earns a reward (notebook)\nWater/bio break",
+        "materials": "Forest Buddy Pack (booklet, stickers, markers, tea leaves) x1 per pax, writing materials, notebooks (completion reward)"
       },
       {
-        "title": "Spotting Needs in Our Community",
-        "duration": "90 min",
-        "activities": "Community map drawing in teams (25 min). Needs vs. wants discussion (15 min). Dot-voting on issues the group cares about (15 min). Form project teams and agree roles (30 min). Close (5 min).",
-        "materials": "large paper, coloured pens, voting dots, role cards"
+        "title": "Walk to first station",
+        "duration": "30 min",
+        "activities": "10:00-10:30AM Commence walk to first station\nParticipants work on their Forest Buddy booklet tasks while on the trail",
+        "materials": "Forest Buddy booklet, water bottles"
       },
       {
-        "title": "Project Planning Sprint",
-        "duration": "90 min",
-        "activities": "Recap and team huddles (10 min). SMART goals mini-input (15 min). Teams build a simple action plan: tasks, owners, timeline, resources (50 min). Mentor check-ins rotate between teams (ongoing). Share one challenge and one idea (15 min).",
-        "materials": "action plan templates, laptops or tablets (optional), markers, timer"
+        "title": "First station activity (group activity at summit)",
+        "duration": "30 min",
+        "activities": "10:30-11:00AM Station game at the summit, chosen from the five station games (Photo Challenge, Tarp Flip, Lava Crossing, Bull Ring, Helium Straw); 3 of the 5 are used depending on group size and weather on the day",
+        "materials": "Materials for the chosen station game (see notes)"
       },
       {
-        "title": "Pitch Night",
-        "duration": "90 min",
-        "activities": "Final rehearsal (20 min). Teams pitch projects to invited guests and parents, 5 minutes each plus questions (45 min). Certificates and celebration snacks (20 min). Evaluation survey (5 min).",
-        "materials": "projector, certificates, snacks, evaluation forms, timer"
+        "title": "Walk to second station",
+        "duration": "30 min",
+        "activities": "11:00-11:30AM Commence walk to second station\nContinue booklet tasks along the trail",
+        "materials": "Forest Buddy booklet, water bottles"
+      },
+      {
+        "title": "Second station activity",
+        "duration": "30 min",
+        "activities": "11:30AM-12:00PM Station game chosen from the five station games (see notes)",
+        "materials": "Materials for the chosen station game (see notes)"
+      },
+      {
+        "title": "Walk to lunch",
+        "duration": "30 min",
+        "activities": "12:00-12:30PM Commence walk to lunch",
+        "materials": ""
+      },
+      {
+        "title": "Debrief and lunch",
+        "duration": "60 min",
+        "activities": "12:30-1:30PM Debrief and lunch at last station (lunch at Springleaf)",
+        "materials": "Lunch and refreshments"
       }
     ],
     "materials": [
-      "flipchart paper and markers",
-      "sticky notes",
-      "reflection journals",
-      "team challenge kits",
-      "certificates",
-      "snacks"
+      "Water bottle x1 per pax",
+      "Extra clothes (optional)",
+      "Sunglasses (optional)",
+      "Writing materials (pen/pencil)",
+      "Mosquito repellent (non-scented) x2 bottles",
+      "Sunblock x1",
+      "Mindfulness Nature Kit / Forest Buddy Pack x30 (printed booklet, stickers, markers, small pack of tea leaves)",
+      "Pocari Sweat drink packets x30",
+      "Outdoor Care Kit x30",
+      "Light snacks x30",
+      "Paper cups (set of 50)",
+      "Keep-safe bag for phones",
+      "Notebooks (booklet completion reward)",
+      "Ponchos x1 per pax (wet weather)",
+      "Hot water (wet weather tea appreciation)",
+      "Pose reference sheets and camera/smartphone (Photo Challenge)",
+      "One large tarp per team (Tarp Flip)",
+      "Obstacle course layout and crossing materials e.g. planks, ropes or foam tiles (Lava Crossing)",
+      "Strings, central ring/platform, assorted balls (Bull Ring)",
+      "One lightweight drinking straw per team (Helium Straw)",
+      "Sticks (wet weather finger bridge game)"
     ],
-    "budget": "~$350 (materials, snacks, certificates)",
-    "riskNotes": "Keep at least two vetted adults present during all sessions and the pitch night. Agree photo consent with parents/carers before the guest event, and ensure feedback activities stay supportive so quieter participants are not put on the spot.",
-    "outcomes": "Pre/post self-rating on confidence to lead, plus facilitator observation of each young person leading a group activity. Success = at least 80% of participants pitch a completed project plan.",
-    "status": "delivered",
-    "rating": 5,
-    "notes": "Pitch night was the highlight; two teams are continuing their projects. Next time allow an extra planning week as session 5 felt rushed.",
-    "document": [],
-    "templateId": null,
-    "createdAt": "2026-01-12T09:30:00.000Z",
-    "updatedAt": "2026-04-02T16:45:00.000Z"
-  },
-  {
-    "id": "seed-prog-02",
-    "title": "Mind Matters: Wellbeing Toolkit",
-    "summary": "A gentle, discussion-based programme that equips older teens with practical tools for managing stress, building resilience and knowing where to find help. Content is psychoeducational, not therapy, and is co-delivered with a trained wellbeing practitioner.",
-    "ageGroup": "16-18",
-    "themes": [
-      "mental wellbeing",
-      "resilience",
-      "self-care"
-    ],
-    "format": "Weekly club",
-    "duration": "6 weeks, 1h per week",
-    "groupSize": "8-14",
-    "objectives": [
-      "Recognise common signs of stress in themselves and others",
-      "Practise at least three evidence-informed coping strategies",
-      "Build a personal wellbeing plan",
-      "Know how and where to seek support for themselves or a friend"
-    ],
-    "sessions": [
-      {
-        "title": "Setting the Space",
-        "duration": "60 min",
-        "activities": "Welcome, confidentiality and its limits explained clearly (15 min). Group agreement (10 min). \"Wellbeing is...\" word cloud (10 min). Introduce the stress bucket metaphor with a visual (20 min). Grounding exercise to close (5 min).",
-        "materials": "flipchart, markers, bucket visual, signposting cards"
-      },
-      {
-        "title": "Stress and the Body",
-        "duration": "60 min",
-        "activities": "Check-in using a mood scale (5 min). How stress shows up in the body - body map activity (20 min). Box breathing and progressive muscle relaxation practice (20 min). Discussion: what helps you switch off? (10 min). Close (5 min).",
-        "materials": "body map outlines, coloured pens, yoga mats or cushions"
-      },
-      {
-        "title": "Thoughts, Feelings, Actions",
-        "duration": "60 min",
-        "activities": "Check-in (5 min). The thought-feeling-action cycle with everyday scenarios (20 min). Reframing practice in pairs using scenario cards (25 min). Reflection (10 min).",
-        "materials": "scenario cards, worksheets, pens"
-      },
-      {
-        "title": "Connection and Support",
-        "duration": "60 min",
-        "activities": "Check-in (5 min). Support network circles activity (20 min). How to start a conversation with a friend who is struggling - role-play with scripts (25 min). Signposting overview (10 min).",
-        "materials": "circle worksheets, role-play scripts, local signposting list"
-      },
-      {
-        "title": "Healthy Habits",
-        "duration": "60 min",
-        "activities": "Check-in (5 min). Sleep, movement, screens and food: myth or fact quiz (20 min). Habit tracker design (25 min). Share one habit to try (10 min).",
-        "materials": "quiz cards, habit tracker templates, stickers"
-      },
-      {
-        "title": "My Wellbeing Plan",
-        "duration": "60 min",
-        "activities": "Check-in (5 min). Build a personal wellbeing plan using tools from the programme (30 min). Gratitude and appreciation circle (15 min). Evaluation and signposting reminder (10 min).",
-        "materials": "wellbeing plan booklets, pens, evaluation forms, signposting cards"
-      }
-    ],
-    "materials": [
-      "wellbeing plan booklets",
-      "signposting cards",
-      "cushions or mats",
-      "worksheets",
-      "mood scale cards"
-    ],
-    "budget": "~$200 (printing, snacks, cushions)",
-    "riskNotes": "Sessions may surface disclosures; a named safeguarding lead must be available and the confidentiality limits must be explained at the start of every session. Provide a quiet space and an opt-out option for any activity, and have up-to-date support contacts ready.",
-    "outcomes": "Short validated wellbeing scale at weeks 1 and 6, plus a session-by-session \"one thing I will use\" card. Success = participants can name at least two coping strategies and one support source.",
+    "budget": "S$289.50 stated total for 30 pax (S$9.65 per pax); itemised: paper cups S$3 (1 set of 50), Pocari Sweat packets S$31.50 (3 x S$10.50), Outdoor Care Kit S$15 (30 x S$0.50), Mindfulness Nature Kit S$60 (30 x S$2), lunch at TenderFresh S$240 (30 x S$8) - note the itemised lines add up to S$349.50",
+    "riskNotes": "Area: floor may be wet and slippery, especially after heavy rain; no running or playing on the hike; loose rocks and soil - avoid climbing or going off trail; steep climbs at points - hold onto rope/rail, no playing at such locations; covered shoes at all times (no slippers, flip-flops, Crocs, open-toed sandals).\nWildlife: many wild monkeys - keep safe distance when taking photos; no loose plastic bags, food or water bottles, everything in a backpack or sling bag; do not feed, scare or approach any animals; respect nature, do not pluck, remove or damage any wildlife, leave the place better than you found it.\nOther: drink lots of water; use insect spray/medicated oil if needed; be mindful of surroundings when taking photos; do not climb, crawl under or hang over any edge, cliff or structure.\nMitigation: recce the site beforehand, identify and flag hazard areas, brief participants and demarcate off-limit areas; explain and demonstrate all equipment before issuing; ensure activities suit participants' age; check weather forecast, wet weather plans for each activity; avoid dangerous tools if not age appropriate, adult supervision for younger participants or those with certain needs, use less dangerous alternatives.\nWet weather plan: multiple shelter and rest points along the route and a poncho for each participant; light rain - continue once wet weather gear is on; heavy rain - switch to sheltered activity until rain stops, activity may be cut short with main focus on tea appreciation; if rain persists, do tea appreciation in the shelter and give hot water to warm up. Wet weather activities: group finger bridge game (balance sticks between two fingers, restart if a stick falls, goal of 20 sticks) and reflective photography (photos using reflections in water, from nature to selfies).\nPsychological safety: sharing is optional; no fixing or judging rule; clear group agreements; facilitator models vulnerability appropriately.\nEmergency contacts: Jeremy 92243993; Lyndon (number not given).",
+    "outcomes": "Intended outcomes: participants gain greater appreciation for nature, increased awareness of their surroundings and experience nature in a new way; they get a chance to escape their normal environment and explore nature.\nSuccess criteria: participants complete their booklet and actively participate in all activities.\nFeedback: positive feedback from survey and verbal confirmation.\nObservable indicator: greater awareness of their environment.",
     "status": "ready",
     "rating": 0,
-    "notes": "Confirm practitioner availability for all six weeks before advertising. Consider an optional one-to-one check-in slot after session 4.",
+    "notes": "Date and venue: 15 Aug, 9AM-1:30PM, Bukit Timah Nature Reserve (outdoors setting). Meeting point: entrance to Bukit Timah Nature Reserve. Transport: nil. F&B: lunch and refreshments.\n\nFacilitators: main facilitators Jeremy and Lyndon; mindfulness trainers May and Ya Wen.\n\nAttire: light comfortable clothes, shorts, covered shoes, hat (optional).\n\nCore youth need: youths are growing up increasingly sealed away from the outdoors, linked to lowered immunity, depression, irritability and lower stress tolerance, while stress levels are at an all-time high and safe outlets for expression are shrinking. The forest asks only for presence: it lowers anxiety, builds stress tolerance through small low-stakes stressors, offers a judgement-free space to speak, cry, laugh or stay silent, and rebuilds focus by removing digital distractions. \"In a world that constantly asks young people to do more, this activity invites them to be still.\"\n\nCore competencies: primary focus is exposure to the outdoors for emotional regulation, attuning to the senses and embracing the uncomfortability of being in nature. Activities named for building this: nature walk, outdoor tea appreciation and sensory mapping.\n\nIcebreaker: My Favourite … (nature-based scavenger hunt), purpose: introduce the idea of interacting with nature. Suits the age group because youths need hands-on experiences with few restrictions while being guided enough for a sense of safety and direction.\n\nMindfulness element: framed as increasing awareness of environment, senses and surroundings through observational activities (phones away, booklet sensory tasks, tea appreciation).\n\nStation games (3 of 5 used depending on group size and weather):\nPhoto Challenge - teams replicate a set of group pose reference photos as accurately and creatively as possible within the time; points for number, precision and originality (communication, coordination, attention to detail).\nTarp Flip - team stands on a fully unfolded tarp and folds it into the smallest possible area without anyone stepping off (problem-solving, balance, spatial awareness, teamwork).\nLava Crossing - cross an obstacle course using planks, ropes or foam tiles without touching the ground; touching means penalty or restart from checkpoint (strategic planning, resource management, trust, physical coordination).\nBull Ring - move balls of different sizes to a target using a central ring controlled by strings held by each participant, without dropping any (precision, synchronisation, patience, collective focus).\nHelium Straw - lower a straw from chest height to the ground with every member keeping index-finger contact; restart if anyone loses contact (patience, non-verbal communication, coordination, trust).\n\nPlan inconsistencies to check: the overview says 4 stations but the timeline has 2 station slots, while the games section says 3 of 5 games are used; tea appreciation and sensory mapping are mentioned but not scheduled in the timeline; lunch is budgeted at TenderFresh but the timeline says Springleaf; 9AM-1:30PM is 270 minutes vs the 240 minutes stated; ponchos and notebooks are not in the budget.\n\nTarget ages ticked: 10-12 (Upper Primary), 13-16 (Secondary), 17-19 (Upper Sec/ITE/JC).\n\nFormat ticked: One-Off Session.\n\nCompetencies ticked: Regulate Emotions Before Acting; Embrace Discomfort Without Escape; Define Self-Worth Beyond Performance.\n\nIcebreaker ticks: purpose Reduce Awkwardness, Encourage Interaction, Normalise Sharing; time 15 minutes.\n\nMindfulness ticks: objective Awareness And Focus, Reflection And Insight, Attention Control; type Sensory Grounding, Mindful Listening Or Speaking; infused at Multiple Points; total time 11-15 minutes.\n\nObservable indicators ticked: Increased Participation.\n\nSource: Bathing_with_nature.docx",
     "document": [],
     "templateId": null,
-    "createdAt": "2026-02-03T11:00:00.000Z",
-    "updatedAt": "2026-05-18T10:20:00.000Z"
+    "createdAt": "2026-10-16T09:59:00.000Z",
+    "updatedAt": "2026-10-16T09:59:00.000Z"
   },
   {
-    "id": "seed-prog-03",
-    "title": "Code Creators: Build Your First Game",
-    "summary": "Children learn the basics of coding by designing and building a simple game in a block-based programming environment. By the final week, every participant shows a playable game to family and friends.",
-    "ageGroup": "9-12",
+    "id": "brahm-vocal-palette",
+    "title": "The Vocal Palette (Songcraft Studio)",
+    "summary": "A singing and voice programme teaching basic breathing and vocal techniques to increase awareness of one's own breathing and voice. Designed for upper primary and secondary youths, it builds greater self-awareness and control over voice and body, a positive self-identity, and confidence in themselves.",
+    "ageGroup": "13-15",
+    "format": "Workshop",
+    "duration": "2 sessions, 2 hours each (5:00-7:00pm)",
+    "groupSize": "10 participants",
     "themes": [
-      "stem",
-      "coding",
+      "singing",
+      "breathing",
+      "self-confidence",
+      "self-identity",
+      "mindfulness"
+    ],
+    "objectives": [
+      "Learn basic breathing and vocal techniques",
+      "Increase awareness of one's own breathing and voice",
+      "Develop greater self-awareness and control over voice and body",
+      "Increase breathing and vocal control",
+      "Build better confidence in themselves and a positive self-identity"
+    ],
+    "sessions": [
+      {
+        "title": "Arrival",
+        "duration": "5 min",
+        "activities": "17:00-17:05 Participants arrive",
+        "materials": ""
+      },
+      {
+        "title": "Introduction and icebreaker: Don't Forget the Lyrics",
+        "duration": "15 min",
+        "activities": "17:05-17:20 Introduction and icebreaker\nIcebreaker is not done in groups\nParticipants are arranged in an open mic setting where anyone is able to challenge the song\nParticipants take turns listening to a portion of a song\nLyrics are provided up to the cut-out portion\nOnce the music stops, participants have 1 minute to recall the lyrics",
+        "materials": "Speaker"
+      },
+      {
+        "title": "Breathing exercise",
+        "duration": "25 min",
+        "activities": "17:20-17:45 Breathing exercise\nUnlike mindful breathing, vocal breath exercise focuses on the diaphragm and emphasises a full breath\nParticipants either lie down or rest against a wall\nTake deep slow breaths while holding onto their hips; feel the sides and back expand with each breath\nContinue in counts of 4, focusing on the breathing in and out motion",
+        "materials": ""
+      },
+      {
+        "title": "Vocal warm-ups",
+        "duration": "25 min",
+        "activities": "17:45-18:10 Vocal warm-ups\nLip trills (bubbles): relax lips and blow air through them to create a motor-like sound; move up and down your comfortable range; releases tension and connects breathing to sound\nHumming: start with \"Mmm\" on a comfortable pitch; feel the vibration in your face/mask area; glide gently up and down your range\nSirens: start at your lowest comfortable note and slide smoothly to your highest on \"oo\" or \"ee\"; never push at the extremes\nFive-note scales (major): start on a comfortable note (try C, D or E); sing Do-Re-Mi-Fa-Sol-Fa-Mi-Re-Do; use different vowels \"Ma-me-mi-mo-mu\"",
+        "materials": "Guitar, tuning fork, training material"
+      },
+      {
+        "title": "Vocal practice",
+        "duration": "35 min",
+        "activities": "18:10-18:45 Vocal practices\nArticulation practice: tongue twisters at a comfortable pitch; \"Red leather, yellow leather\" slowly then faster; \"Unique New York\" focusing on clear consonants\nSimple songs: choose songs within a limited range (5-6 notes), such as folk songs, children's songs or simple pop choruses; focus on maintaining consistent tone rather than volume",
+        "materials": "Guitar, speaker, training material (printed), pen/pencil"
+      },
+      {
+        "title": "Debrief and reflection",
+        "duration": "10 min",
+        "activities": "18:45-18:55 Debrief and reflection",
+        "materials": ""
+      },
+      {
+        "title": "Pack up",
+        "duration": "5 min",
+        "activities": "18:55-19:00 Pack up\n19:00 End of session",
+        "materials": ""
+      }
+    ],
+    "materials": [
+      "Training material (printed)",
+      "Pens/pencils",
+      "Guitar",
+      "Speaker",
+      "Tuning fork",
+      "Light refreshments"
+    ],
+    "budget": "~S$10 per session (light refreshments); S$1 per pax; 2 sessions = S$20 per run",
+    "riskNotes": "Centre risks: fall risk in centre (climbing, running and slip risks). Mitigation: give proper rules and instructions for all activities; set ground rules and consequences for breaking rules.\nDuring activity: participants might get injured (cuts, bruises, other injuries). Mitigation: ensure proper supervision where risk is present; give instructions for proper handling; never leave high-risk objects unattended.\nVoice care: ensure participants drink lots of fluids to prevent throat injuries; never push at the extremes of range.\nPsychological safety: sharing is optional; no fixing or judging rule stated; clear group agreements; facilitator models vulnerability appropriately.\nEmergency contact: Jeremy, 92243993 (second contact not filled in).",
+    "outcomes": "Intended outcomes: improved proficiency in vocal skills; increased self-confidence and self-identity.\nSuccess criteria: visible improvement in breath control and self-confidence.\nFeedback: survey and verbal feedback.\nObservable indicators: increased participation.",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Venue: Brahm Centre @ Aljunied (youth centre setting), starting 17:00. Date TBC. Transport: nil. Food: light refreshments.\n\nFacilitators: Jeremy (main facilitator).\n\nAttire: comfortable loose clothes.\n\nTarget age (as ticked): 10-12 Upper Primary and 13-16 Secondary. Format ticked: Structured Programme (5-8 sessions), although the budget is costed for 2 sessions.\n\nCore youth need: youth need to develop a positive self-identity separate from the stigma of \"rental flat\" or \"low-income\" and be seen for their potential, not their postal code; access to affordable, youth-friendly, destigmatised mental health support. The activity targets self-identity, mental and emotional wellbeing and social interaction skills.\n\nWhy it matters: young people are at an impressionable age where negative or antisocial influences can have lasting effects; replacing these with positive, prosocial activities guides them toward a healthier mindset.\n\nCore competencies: none ticked. Primary competency focus: greater self-awareness and control over voice and body, built through breathing exercises, vocal techniques and focus on vocal placement.\n\nIcebreaker: Don't Forget the Lyrics, 15 minutes; purpose: reduce awkwardness, encourage interaction, energise the group. Relatable because youths are attuned to current music and TikTok trends, while adding an \"old school\" element to reflect and discover.\n\nMindfulness element: objectives awareness and focus, attention control; types breath awareness, body awareness/movement, mindful listening or speaking; infused at multiple points; 11-15 minutes total.\n\nSource: Proposal 3 for youth connect (The Vocal Palette).docx",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-10-16T09:58:00.000Z",
+    "updatedAt": "2026-10-16T09:58:00.000Z"
+  },
+  {
+    "id": "brahm-build-with-ai",
+    "title": "Build with AI",
+    "summary": "A four-Saturday hands-on series that gives students more confidence to build with AI and guidance on creating apps, brand kits and marketing content with it. Each youth works on a self-chosen, personally meaningful project, moving from passive AI use to creation. Participants leave with a portfolio of 1-4 finished projects and a more intentional, critical relationship with AI tools.",
+    "ageGroup": "13-15",
+    "format": "Workshop",
+    "duration": "4 Saturdays, 1:30-4:30pm (180 min per session)",
+    "groupSize": "",
+    "themes": [
+      "artificial intelligence",
+      "app development",
+      "design",
+      "content creation",
+      "creativity",
+      "self-worth"
+    ],
+    "objectives": [
+      "Allow students more confidence to build with AI",
+      "Give them guidance on how to proceed more easily to create brand kits, marketing strategies and apps with AI",
+      "Think independently of trends: practise directing AI rather than blindly following it, developing judgement about when to trust, edit or reject AI output",
+      "Define self-worth beyond performance: build self-worth through creating something tangible rather than through grades or social validation"
+    ],
+    "sessions": [
+      {
+        "title": "Icebreaker: Wacko + Real or Not",
+        "duration": "",
+        "activities": "Wacko:\nSit everyone in a circle. Choose one person to be \"it\" in the centre with a rolled-up newspaper; their objective is to hit the person whose name has been called before that person can call another name (all hits on the legs only).\nName rules: you cannot call the same person who called you; you cannot call the person in the centre; the person you call must be present in the circle.\nBegin with introductions: each person gives their name and one interesting fact (e.g. \"What is your favourite ice-cream?\" or a question related to the lesson).\nExplain the rules, then call out a name (e.g. \"Ken\"). Ken must call another name BEFORE the person in the middle whacks him.\nWhoever is whacked, breaks a rule or makes a mistake moves to the centre; the person who just came out begins the next round by calling a name.\nAnyone who ends up in the centre three times performs a forfeit (sing a song, dance, tell a joke).\nReal or Not:\nParticipants log on to Kahoot and enter the game pin shown on screen.\nAnswer questions as a team; the highest cumulative score wins a prize.",
+        "materials": "Rolled-up newspaper, Kahoot game, screen, prize"
+      },
+      {
+        "title": "Session 1 - Basics of AI App Development",
+        "duration": "160 min",
+        "activities": "1. What even is an app? (20 min) - Demystify how AI turns a sentence into working software, with one live \"prompt-to-app\" demo to hook the room.\n2. Idea sprint (25 min) - Each participant picks a real problem in their life and shapes it into a one-line app brief with AI.\n3. First build (45 min) - Prompt an app into existence from a starter template and watch it appear live on screen.\n4. Iterate & personalise (40 min) - Change colours, copy and features by talking to the AI; learn to give feedback that lands.\n5. Ship & show (30 min) - Publish to a shareable link and demo to the group. Everyone leaves with a URL.",
+        "materials": "Laptops (own), starter template, speaker and microphone, extension cables"
+      },
+      {
+        "title": "Session 2 - Intermediate AI App Development",
+        "duration": "180 min",
+        "activities": "1. From toy to tool (20 min) - Recap the basics, then read what the AI actually generated so it stops feeling like magic.\n2. Design the data (30 min) - Plan what the app needs to remember, then have AI scaffold a database around it.\n3. Wire it up (50 min) - Connect storage and pull in a live external API (weather, transit, or a public dataset).\n4. Debug like a pro (40 min) - Things break, good. Learn to read errors and pair with AI to fix them quickly.\n5. Deploy & demo (40 min) - Ship to the real internet, then present the build and one hard problem solved.",
+        "materials": "Laptops (own), speaker and microphone, extension cables"
+      },
+      {
+        "title": "Session 3 - AI in App Design",
+        "duration": "160 min",
+        "activities": "1. Design thinking, fast (25 min) - Pick a cause, define an audience, and frame the design problem. Good design starts before the visuals.\n2. Moodboard with AI (30 min) - Generate directions, palettes and references, then curate. Taste is the skill being trained.\n3. Brand & visuals (45 min) - Create a logo, key imagery and a poster, learning to art-direct the prompts.\n4. Idea to interface (40 min) - Turn the brand into a real landing-page mockup and preview it as a live page.\n5. Gallery critique (20 min) - Walk the wall, give and take feedback, the part that builds a designer's eye.",
+        "materials": "Laptops (own), speaker and microphone, extension cables"
+      },
+      {
+        "title": "Session 4 - AI in Content Creation",
+        "duration": "160 min",
+        "activities": "1. Message before medium (25 min) - Decide who you're talking to and what you want them to feel. Strategy first, tools second.\n2. Script & copy (35 min) - Draft a hook, script and captions with AI, then rewrite in your own voice so it isn't generic.\n3. Make the assets (45 min) - Generate visuals, a voiceover and short video clips from the script.\n4. Edit & assemble (35 min) - Cut it into a polished 30-60 second piece with captions and music.\n5. Showcase reel (20 min) - Play the finished pieces back to back. Everyone leaves with content they can post today.",
+        "materials": "Laptops (own), speaker and microphone, extension cables"
+      },
+      {
+        "title": "Feedback (end of each session)",
+        "duration": "15 min",
+        "activities": "Participants complete the feedback form in the last 15 minutes of each session.",
+        "materials": "Feedback form"
+      }
+    ],
+    "materials": [
+      "Drinks (mixture of packet drinks)",
+      "Light snacks (crackers, biscuits, popcorn)",
+      "Laptops (students bring their own)",
+      "Speaker and microphone",
+      "Tables and chairs",
+      "Extension cables (one per table for charging)",
+      "Rolled-up newspaper (Wacko icebreaker)",
+      "Kahoot game (Real or Not)",
+      "Prize for Kahoot winners",
+      "Feedback form"
+    ],
+    "budget": "Not specified (itemised budget blank, total estimated cost \"-\"); F&B is light refreshments, students bring their own laptops",
+    "riskNotes": "Centre risk: fall risk in centre (climbing, running and slip risks). Mitigation: give proper rules and instructions for all activities; set ground rules and consequences for breaking them.\n\nDuring activity: participants might get cuts, bruises or other injuries (e.g. during Wacko; all hits on the legs only). Mitigation: proper supervision for each activity where risk is present; instructions for proper handling; never leave high-risk objects unattended.\n\nOverreliance on AI after the programme: some students may become over-reliant on AI, leading to laziness or unwillingness to think for themselves. Mitigation: tell students the dos and don'ts with AI, plus security precautions (e.g. not inputting API keys into AI).\n\nPsychological safety: sharing is optional; non-judgemental if prompts or final output don't turn out as expected; clear group agreements.\n\nEmergency contacts: not filled in.",
+    "outcomes": "Intended outcomes: confidence to build with AI independently; a portfolio of 1-4 finished projects (app, brand kit, content piece); a more intentional, critical relationship with AI tools.\n\nSuccess criteria: 80% of participants create a deliverable each session; at least 50% of participants are willing to share their idea at the end of the session.\n\nFeedback: feedback form completed in the last 15 minutes of each session.",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Target ages ticked on the form: 13–16 (Secondary) and 17–19 (Upper Sec / ITE / JC). Format ticked: Short series (2–4 sessions).\n\nVenue: Brahm Centre @ Aljunied (meeting location Brahm @ Aljunied; no transport; light refreshments).\n\nFacilitators: Liang Tze (main facilitator); Jeremy (staff on site).\n\nAttire: comfortable clothes; jacket in case it is cold.\n\nYouth need addressed: most youths use AI passively (chatting, scrolling, homework shortcuts) without learning to build or create with it, leaving them under-equipped for a future where AI fluency is a baseline skill; without guidance their AI use skews toward consumption rather than creation, which can affect focus, originality, confidence and even grades.\n\nWhy it matters for this age group: youths are forming their sense of capability and direction for study and work; hands-on creative mastery builds real confidence and agency rather than anxiety or dependence. Some have heard about AI but, due to high cost, are unsure or afraid to use it to create.\n\nCore competencies: Think Independently Of Trends + Define Self-Worth Beyond Performance. By producing real, personal projects (not just prompting for answers), youths practise directing AI rather than blindly following it like their friends, and build self-worth through creating something tangible.\n\nHow youths are involved: each youth works on a self-chosen, personally meaningful project across the sessions: hands-on building, prompting, giving/receiving peer feedback, and presenting.\n\nIcebreaker suitability: Wacko suits the 13-19 age group as fast-paced, high-energy physical play that circumvents teenage self-consciousness; Real or Not on Kahoot leverages digital literacy, sparks healthy competition and meets the need for social validation without causing anxiety.\n\nMindfulness element: participants reflect on how their app will benefit end users or the problem, and stay mindful of what they do throughout the session.\n\nSession content: the four session run-sheets were embedded as images in the original document and were transcribed from them.\n\nSource: AI_Programme_Liang_Tze.docx",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-10-16T09:57:00.000Z",
+    "updatedAt": "2026-10-16T09:57:00.000Z"
+  },
+  {
+    "id": "brahm-superstar-me",
+    "title": "Superstar: ME - A 3-Day Self-Worth Discovery Programme",
+    "summary": "A 6-session indoor programme over 3 days at Brahm Centre Aljunied that uses games, hands-on activities and guided reflection to help youths discover and celebrate six dimensions of self: Physical, Intellectual, Emotional, Social, Personal and Temporal. Participants build self-worth, emotional regulation, independent thinking, social connection and resilience, and leave with concrete tools such as a Pause Button, calm jar, conversation cards and a worth statement.",
+    "ageGroup": "13-15",
+    "format": "Workshop",
+    "duration": "3 days, 2 sessions per day (120-150 min per session)",
+    "groupSize": "",
+    "themes": [
+      "self-worth",
+      "emotional regulation",
+      "mindfulness",
+      "social skills",
+      "resilience",
       "creativity"
     ],
-    "format": "Weekly club",
-    "duration": "6 weeks, 1.5h per week",
-    "groupSize": "10-16",
     "objectives": [
-      "Understand sequences, loops, conditions and variables",
-      "Use a block-based tool to build an interactive game",
-      "Debug problems methodically and help peers",
-      "Present and explain their game to an audience"
+      "Discover and celebrate six dimensions of self: Physical, Intellectual, Emotional, Social, Personal and Temporal",
+      "Sleep Well For Better Focus: understand sleep hygiene and commit to a pre-bed routine (Session 1, Physical)",
+      "Think Independently Of Trends: question popular beliefs and weigh opposing views (Session 2, Intellectual)",
+      "Regulate Emotions Before Acting: notice, breathe and choose a response (Session 3, Emotional)",
+      "Start And Conduct Conversations: open, sustain and close conversations with confidence (Session 4, Social)",
+      "Define Self-Worth Beyond Performance: separate who they are from what they achieve (Session 5, Personal)",
+      "Embrace Discomfort Without Escape: build resilience by reflecting on past, present and future discomforts (Session 6, Temporal)"
     ],
     "sessions": [
       {
-        "title": "Thinking Like a Computer",
-        "duration": "90 min",
-        "activities": "Unplugged \"robot instructions\" game (20 min). Tour of the block-based editor (15 min). Make a character move with arrow keys (35 min). Show-and-tell of first sprites (15 min). Pack down (5 min).",
-        "materials": "laptops, mice, printed quick-start guides, masking tape for floor grid"
+        "title": "Day 1 opening: registration, introduction and icebreaker",
+        "duration": "60 min",
+        "activities": "9:00-9:15AM Meet at Brahm Centre Aljunied for registration and check-in\n9:15-9:45AM Introduction to programme: overview, group agreements and icebreaker Two Truths and a Dream - each participant thinks of two TRUE statements about themselves and one DREAM or aspiration; going around the circle, each shares all three without revealing which is which; the group guesses which is the dream; the participant reveals and briefly explains one truth or their dream. Facilitator note: no wrong answers, the dream can be big or small, serious or silly; the goal is to practise sharing and listening in a supportive environment\n9:45-10:00AM Superstar:ME Journal introduction and explanation of the booklet, water and bio break, phones stored in bags or the keep-safe box",
+        "materials": "Superstar:ME Journal Pack (journal booklet, coloured markers and pens, stickers), keep-safe box for phones"
       },
       {
-        "title": "Loops and Animation",
+        "title": "Session 1: Physical Self - Sleep Well For Better Focus",
         "duration": "90 min",
-        "activities": "Recap quiz (10 min). Input on loops (10 min). Animate a character and background (40 min). Pair challenge: make something repeat in a surprising way (25 min). Close (5 min).",
-        "materials": "laptops, challenge cards"
+        "activities": "10:00-10:45AM Warm-Up: Sleepy Statues - participants dance to music and freeze in sleep-related poses when the music stops\nMain Event: My Sleep Sanctuary - 3D Diorama - build a small diorama of their ideal sleep environment (bed, calming colours, personal touches); on the back write a Sleep Pledge of three things they will do 30 minutes before bed\n10:45-11:00AM Water and bio break\n11:00-11:30AM Cool Down: Sleep Detective Log - receive a weekly sleep log template; group discusses barriers to good sleep and brainstorms practical solutions\nSpotlight: set a bedtime alarm 30 minutes before sleep. Mantra: \"Rest is not weakness. Rest is my superpower for focus.\"\nJournal reflection prompt",
+        "materials": "Portable speaker, small cardboard boxes, coloured paper, markers, glue, scissors, printed sleep log template"
       },
       {
-        "title": "If This, Then That",
-        "duration": "90 min",
-        "activities": "Unplugged \"Simon says\" with conditions (10 min). Add collisions and simple rules to the game (45 min). Bug hunt: fix a deliberately broken project (30 min). Close (5 min).",
-        "materials": "laptops, pre-made buggy project files"
+        "title": "Day 1 lunch and afternoon re-group",
+        "duration": "75 min",
+        "activities": "11:30AM-12:30PM Lunch break with packed lunch and supervised free time or journaling\n12:30-12:45PM Afternoon re-group and mindfulness: short grounding exercise to transition into the afternoon session",
+        "materials": "Packed lunch"
       },
       {
-        "title": "Keeping Score",
-        "duration": "90 min",
-        "activities": "Input on variables using a scoreboard analogy (15 min). Add score, timer and lives (50 min). Playtest a neighbour's game and leave one tip (20 min). Close (5 min).",
-        "materials": "laptops, playtest feedback slips"
+        "title": "Session 2: Intellectual Self - Think Independently Of Trends",
+        "duration": "105 min",
+        "activities": "12:45-1:00PM Introduction to the afternoon session theme\n1:00-1:45PM Warm-Up: Trend or Truth? - identify whether statements are social media trends or lesser-known facts\nMain Event: The Independent Thinker's Debate - small groups receive a provocative question; each member writes an initial opinion, groups rotate to add counterarguments, then return to review new perspectives and present their final stance\n1:45-2:00PM Water and bio break\n2:00-2:30PM Cool Down: My Thought Compass - complete a compass rose: North (core belief), South (questioned trend), East (new perspective), West (topic to research)\nSpotlight: when hearing a popular opinion ask \"What is the evidence? What do I think?\" Mantra: \"I have my own mind. I think for myself.\"",
+        "materials": "Printed activity cards, flip-chart paper, sticky notes, printed compass template, pens"
       },
       {
-        "title": "Polish and Playtest",
-        "duration": "90 min",
-        "activities": "Personal to-do list for the game (10 min). Build time with helper stations for sound, levels and art (60 min). Final playtest round (15 min). Close (5 min).",
-        "materials": "laptops, headphones, helper station signs"
+        "title": "Day 1 close: reflection, mindfulness and wrap-up",
+        "duration": "60 min",
+        "activities": "2:30-3:00PM Group reflection and journaling: complete reflection prompts in the Superstar:ME Journal\n3:00-3:15PM Mindfulness closing with guided grounding exercise\n3:15-3:30PM End of day wrap-up: summary, announcements for next day, dismissal",
+        "materials": "Superstar:ME Journal, pens"
       },
       {
-        "title": "Game Arcade Showcase",
+        "title": "Day 2 opening: check-in, group agreements and journal",
+        "duration": "60 min",
+        "activities": "9:00-9:15AM Registration and check-in\n9:15-9:45AM Introduction: overview, group agreements and icebreaker (per-day timeline)\n9:45-10:00AM Journal, water and bio break, phone storage",
+        "materials": "Superstar:ME Journal, keep-safe box"
+      },
+      {
+        "title": "Session 3: Emotional Self - Regulate Emotions Before Acting",
         "duration": "90 min",
-        "activities": "Final tweaks (20 min). Families visit an \"arcade\" to play every game (50 min). Certificates and share links (20 min).",
-        "materials": "laptops, certificates, name cards, snacks"
+        "activities": "10:00-10:45AM Warm-Up: The Emotion Volcano - participants move to a number on the floor showing their emotional reaction intensity to everyday scenarios, then practise a deep breath and moving down the scale before speaking\nMain Event: DIY Pause Button and Calm Jar - decorate a wooden or cardboard circle as a Pause Button and write a Pause Script on the back (Notice the emotion, Breathe three slow breaths, Choose a response aligned with their values); make a calm jar as a visual metaphor for emotions settling\n10:45-11:00AM Water and bio break\n11:00-11:30AM Cool Down: The Replay Reel - in pairs share a recent moment they wish they had handled differently; partner asks what they could have done with a pause; role-play the new version\nSpotlight: keep the Pause Button visible and touch it before reacting. Mantra: \"I pause. I breathe. I choose.\"",
+        "materials": "Wooden/cardboard circles, small jars with lids, glitter, markers, coloured pencils, floor number markers"
+      },
+      {
+        "title": "Day 2 lunch and afternoon re-group",
+        "duration": "75 min",
+        "activities": "11:30AM-12:30PM Lunch break with packed lunch and supervised free time or journaling\n12:30-12:45PM Afternoon re-group and short grounding exercise",
+        "materials": "Packed lunch"
+      },
+      {
+        "title": "Session 4: Social Self - Start And Conduct Conversations",
+        "duration": "105 min",
+        "activities": "12:45-1:00PM Introduction to the afternoon theme\n1:00-1:45PM Warm-Up: Conversation Jenga - pull blocks with conversation starters and ask the question to the group\nMain Event: The Conversation Toolkit - Card Deck - create cards in three categories: Openers, Follow-ups and Closers; pair up and practise a short conversation using only their toolkit cards\n1:45-2:00PM Water and bio break\n2:00-2:30PM Cool Down: The Social Map Reflection - draw a social map of the upcoming week, identify one situation and write which Opener card they will use; share with a partner for encouragement\nSpotlight: start at least one new conversation using a card from the toolkit. Mantra: \"I have the tools to connect. My voice matters.\"",
+        "materials": "Jenga set with conversation starters, index cards, ring binder clips, markers"
+      },
+      {
+        "title": "Day 2 close: reflection, mindfulness and wrap-up",
+        "duration": "60 min",
+        "activities": "2:30-3:00PM Group reflection and journaling\n3:00-3:15PM Mindfulness closing with guided grounding exercise\n3:15-3:30PM End of day wrap-up and dismissal",
+        "materials": "Superstar:ME Journal, pens"
+      },
+      {
+        "title": "Day 3 opening: check-in, group agreements and journal",
+        "duration": "60 min",
+        "activities": "9:00-9:15AM Registration and check-in\n9:15-9:45AM Introduction: overview, group agreements and icebreaker (per-day timeline)\n9:45-10:00AM Journal, water and bio break, phone storage",
+        "materials": "Superstar:ME Journal, keep-safe box"
+      },
+      {
+        "title": "Session 5: Personal Self - Define Self-Worth Beyond Performance",
+        "duration": "90 min",
+        "activities": "10:00-10:45AM Warm-Up: The Achievement vs. Identity Sort - draw slips with statements and place them into two labelled bins, Achievements and Identity, to highlight the difference between what they do and who they are\nMain Event: The Unshakeable Core - Clay Sculpture - sculpt a core object representing their intrinsic self, something that stays true even if all achievements and recognition were stripped away; paint it a single colour to symbolise its unchanging nature\n10:45-11:00AM Water and bio break\n11:00-11:30AM Cool Down: The Worth Statement - write one sentence declaring their worth independent of performance on a decorative card, placed with the sculpture\nSpotlight: place sculpture and Worth Statement somewhere visible and repeat the statement when measuring worth by outcome. Mantra: \"My worth is inherent. I am not my performance.\"",
+        "materials": "Statement slips, two labelled bins, air-dry clay, paint, decorative cards"
+      },
+      {
+        "title": "Day 3 lunch and afternoon re-group",
+        "duration": "75 min",
+        "activities": "11:30AM-12:30PM Lunch break with packed lunch and supervised free time or journaling\n12:30-12:45PM Afternoon re-group and short grounding exercise",
+        "materials": "Packed lunch"
+      },
+      {
+        "title": "Session 6: Temporal Self - Embrace Discomfort Without Escape",
+        "duration": "105 min",
+        "activities": "12:45-1:00PM Introduction to the afternoon theme\n1:00-1:45PM Warm-Up: The Discomfort Timeline - Human Graph - stand on a rope timeline where they feel they are in handling discomfort; share one thing learned from a past uncomfortable experience\nMain Event: The Discomfort Map - Indoor Obstacle Course - complete a low-key indoor obstacle course whose stations represent different types of discomfort; then draw a visual map with symbols for past discomforts survived and future discomforts anticipated, writing beside future symbols \"I survived before. I can face this too.\"\n1:45-2:00PM Water and bio break\n2:00-2:30PM Cool Down: The Courage Capsule - write on separate slips one past discomfort that made them stronger, one current discomfort and one future discomfort to face with courage; seal and decorate a small container\nSpotlight: keep the Courage Capsule accessible and hold it when feeling the urge to escape discomfort. Mantra: \"Discomfort is my teacher. I grow through what I go through.\"",
+        "materials": "Rope/string for timeline, indoor obstacle course props, flip-chart paper, markers, small containers/jars, decorations"
+      },
+      {
+        "title": "Day 3 close: reflection, mindfulness and wrap-up",
+        "duration": "60 min",
+        "activities": "2:30-3:00PM Group reflection and journaling (complete remaining Superstar:ME Journal prompts)\n3:00-3:15PM Mindfulness closing with guided grounding exercise; closing circle \"What is one word that describes how you feel right now?\"\n3:15-3:30PM Wrap-up and dismissal",
+        "materials": "Superstar:ME Journal, pens"
       }
     ],
     "materials": [
-      "laptops (1 per participant)",
-      "mice",
-      "headphones",
-      "quick-start guides",
-      "challenge cards",
-      "certificates"
+      "Superstar:ME Journal Booklet (1 per pax, A5, 20 pages, B&W printing, stapled)",
+      "Writing materials (pen/pencil per pax)",
+      "Art supplies (markers, coloured pencils, glue, scissors)",
+      "Stickers",
+      "Index cards",
+      "Ring binder clips",
+      "Air-dry clay",
+      "Small cardboard boxes",
+      "Wooden/cardboard circles",
+      "Small jars with lids",
+      "Glitter",
+      "Printed activity cards",
+      "Flip-chart paper",
+      "Sticky notes (2 colours)",
+      "String",
+      "Straws",
+      "Printed templates (compass, sleep log, etc.)",
+      "Portable speaker (for music)",
+      "Whiteboard/flip-chart stand",
+      "Markers",
+      "Projector (optional)",
+      "Tables and chairs arranged for group work",
+      "Keep-safe box for phones"
     ],
-    "budget": "~$250 (printing, certificates, snacks; laptops borrowed from venue)",
-    "riskNotes": "Use offline or school-safe accounts with no public sharing or chat features, and do not collect personal information. Check cable trip hazards and schedule screen breaks.",
-    "outcomes": "Every participant presents a working game with at least one loop, condition and variable. Short end-of-programme quiz and a \"would you code again?\" poll.",
-    "status": "delivered",
-    "rating": 4,
-    "notes": "Mixed abilities were the main challenge; extension challenge cards worked well for fast finishers. Need more helpers for session 3.",
-    "document": [],
-    "templateId": null,
-    "createdAt": "2026-01-20T14:00:00.000Z",
-    "updatedAt": "2026-03-28T12:10:00.000Z"
-  },
-  {
-    "id": "seed-prog-04",
-    "title": "Wild Horizons Adventure Camp",
-    "summary": "A three-day residential camp combining hiking, navigation, shelter building and campfire reflection to build confidence and teamwork outdoors. Participants take increasing responsibility for planning each day.",
-    "ageGroup": "13-15",
-    "themes": [
-      "outdoor adventure",
-      "teamwork",
-      "resilience"
-    ],
-    "format": "Camp",
-    "duration": "3 days, 2 nights",
-    "groupSize": "16-24",
-    "objectives": [
-      "Develop basic map reading and navigation skills",
-      "Work as a team to solve practical outdoor challenges",
-      "Practise Leave No Trace principles",
-      "Reflect on personal growth through challenge"
-    ],
-    "sessions": [
-      {
-        "title": "Arrival and Camp Set-up",
-        "duration": "3 hours",
-        "activities": "Arrival, kit check and safety briefing (45 min). Tent pitching in teams (60 min). Camp tour, boundaries and buddy system (30 min). Team naming and flag design (30 min). Evening meal prep rota introduced (15 min).",
-        "materials": "tents, ground mats, team flags, fabric pens, first aid kit"
-      },
-      {
-        "title": "Navigation Challenge",
-        "duration": "4 hours",
-        "activities": "Map symbols and compass basics (45 min). Practice orienteering on a short marked course (60 min). Lunch (45 min). Team navigation hike with checkpoints and leaders (90 min).",
-        "materials": "maps, compasses, checkpoint markers, radios, packed lunches"
-      },
-      {
-        "title": "Bushcraft and Shelter Building",
-        "duration": "3 hours",
-        "activities": "Knot tying stations (40 min). Shelter building with tarps and found materials (90 min). Shelter \"inspection\" and rain test with watering cans (30 min). Debrief (20 min).",
-        "materials": "tarps, rope, pegs, watering cans, knot guides"
-      },
-      {
-        "title": "Campfire Reflection",
-        "duration": "90 min",
-        "activities": "Fire safety briefing and supervised campfire (15 min). Songs and stories (30 min). Reflection circle: \"a challenge I faced and what I learned\" (35 min). Quiet stargazing (10 min).",
-        "materials": "fire bucket, fire blanket, reflection prompts, torches"
-      },
-      {
-        "title": "Pack Down and Celebration",
-        "duration": "2 hours",
-        "activities": "Leave No Trace sweep (40 min). Pack down tents (40 min). Awards and goodbyes with families (40 min).",
-        "materials": "bin bags, awards, checklists"
-      }
-    ],
-    "materials": [
-      "tents and sleeping mats",
-      "maps and compasses",
-      "tarps and rope",
-      "first aid kits",
-      "radios",
-      "cooking equipment",
-      "torches"
-    ],
-    "budget": "~$2,400 (site hire, food, transport, equipment hire)",
-    "riskNotes": "Full written risk assessment, qualified first aider and appropriate adult-to-young-person ratios at all times, including separate sleeping arrangements. Collect medical and emergency contact forms in advance and have a weather-contingency plan.",
-    "outcomes": "Teams complete the navigation hike unaided by staff and every participant contributes to camp roles. Post-camp survey measures confidence, teamwork and enjoyment.",
+    "budget": "",
+    "riskNotes": "Psychological safety: sharing is optional; no fixing or judging rule stated; clear group agreements; facilitator models vulnerability appropriately.\nFacilitation best practices: use open-ended questions (\"What did you notice?\" rather than \"Did you like it?\"); validate all responses without judgment; keep a calm, grounded demeanour; allow silence; adjust pacing to group energy and needs; celebrate small wins and efforts, not just outcomes; model patience, kindness and self-compassion; use participant names.\nGeneral mitigation listed: explain and demonstrate all equipment before issuing; ensure activities suit participants' age; avoid dangerous tools if not age appropriate and supervise younger participants or those with certain needs when handling equipment.\nEmergency contact: Jeremy 92243993 (second contact blank).\nNote: the Potential Risks and Wet Weather Plan sections were copied from the Bathing with Nature forest walk form (hike, monkeys, ponchos, tea appreciation) and do not apply to this indoor programme.",
+    "outcomes": "Intended outcomes: stronger sense of self-worth across the six dimensions; practical skills in emotional regulation, independent thinking, conversation, resilience and self-compassion; a safe, supportive space to express themselves and connect with peers; concrete tools (Pause Button, calm jar, conversation cards, worth statement) for daily life; a completed personal reflection journal.\nSuccess criteria: participants complete the Superstar:ME Journal (all 6 reflection prompts); actively participate in all 6 sessions; show engagement in discussions and reflections; can articulate at least one personal takeaway; create at least 3 tangible tools.\nFeedback collection: pre- and post-programme self-assessment surveys (5-point scale on confidence, emotional regulation, self-worth); facilitator observation notes; verbal sharing during debriefs; written journal reflections; anonymous post-programme feedback form; end-of-programme group reflection circle.\nIndicators: applying coping strategies (Pause Button, breathing techniques); intrinsic self-worth not tied to external performance; improved confidence in social interactions; greater comfort with self-reflection.",
     "status": "draft",
     "rating": 0,
-    "notes": "Still waiting on site availability for June. Need two more volunteers with outdoor leadership experience.",
+    "notes": "Venue: Brahm Centre Aljunied (indoor). Date: not given. Transport: nil. F&B: lunch and refreshments (packed lunch).\n\nFacilitators: Jeremy, Lyndon, Mei Jing, Venessa, Xenon, Erwin, Raymond (depends on session).\n\nAttire: comfortable indoor clothes, covered shoes.\n\nSession structure: each session follows four segments - The Warm-Up (game), The Main Event (hands-on activity), The Cool Down (debrief) and The Spotlight (takeaway action and mantra) - plus a reflection prompt in the Superstar:ME Journal. Phones are stored in bags or a keep-safe box for each session. Journal Pack: journal booklet, coloured markers and pens, stickers, plus session-specific materials.\n\nCore youth need: youths face record stress, anxiety and pressure from academics, social media comparison, peer pressure and an uncertain future; many tie their worth to grades, likes and external validation and lack safe spaces to explore identity and process emotions. \"In a world that constantly asks young people to perform, this programme invites them to simply be - and discover that they are enough, exactly as they are.\"\n\nCore competencies: all six form competencies, one per session; primary emphasis on Define Self-Worth Beyond Performance (clay sculpture, worth statement, reflection) and Regulate Emotions Before Acting (Pause Button, calm jar, role-play).\n\nIcebreaker: Two Truths and a Dream - introduces self-discovery and personal sharing in a low-stakes way; normalises sharing both realities and aspirations without deep emotional disclosure, since youths often feel pressure to present a \"perfect\" version of themselves.\n\nMindfulness element: framed as \"paying attention to the present moment with kindness and curiosity\". Opening grounding (three deep breaths); sensory check-in (5 see, 4 touch, 3 hear, 2 smell, 1 taste); body scan (feet, hands, shoulders, relax); reflective pause after each session (\"What is one thing you noticed about yourself today?\"); private journaling; closing circle (\"one word that describes how you feel right now\").\n\nPlan inconsistencies to check: the overview gives 1PM-5PM but the per-day timeline runs 9:00AM-3:30PM; the per-day timeline repeats the introduction and icebreaker each day; budget, date and group size were left blank; the text says all six competencies are targeted but only three are ticked; risk and wet weather sections are copied from the forest walk form.\n\nTarget ages ticked: 13-16 (Secondary), 17-19 (Upper Sec/ITE/JC).\n\nFormat ticked: Structured Programme (5-8 Sessions).\n\nIntended setting ticked: School, Youth Centre.\n\nCompetencies ticked: Regulate Emotions Before Acting; Embrace Discomfort Without Escape; Define Self-Worth Beyond Performance.\n\nIcebreaker ticks: purpose Reduce Awkwardness, Encourage Interaction, Normalise Sharing; time 15 minutes.\n\nMindfulness ticks: objective Awareness And Focus, Reflection And Insight, Attention Control; type Sensory Grounding, Mindful Listening Or Speaking; infused at Multiple Points; total time 11-15 minutes.\n\nObservable indicators ticked: Increased Participation, Improved Peer Interaction, Greater Emotional Awareness.\n\nSource: Superstar_ME_self_worth_programme_recovered.docx",
     "document": [],
     "templateId": null,
-    "createdAt": "2026-03-05T08:45:00.000Z",
-    "updatedAt": "2026-06-11T17:30:00.000Z"
+    "createdAt": "2026-10-16T09:56:00.000Z",
+    "updatedAt": "2026-10-16T09:56:00.000Z"
   },
   {
-    "id": "seed-prog-05",
-    "title": "Beats & Brushes Creative Studio",
-    "summary": "A creative arts workshop series where young people explore music-making, visual art and spoken word to express their identity. It culminates in a mixed-media exhibition and live performance.",
-    "ageGroup": "13-15",
-    "themes": [
-      "arts",
-      "music",
-      "self-expression"
-    ],
-    "format": "Workshop",
-    "duration": "5 sessions, 2h each",
-    "groupSize": "10-20",
-    "objectives": [
-      "Experiment with at least three creative mediums",
-      "Create an original piece that reflects their identity or story",
-      "Collaborate on a group exhibition and performance",
-      "Give respectful feedback on others' creative work"
-    ],
-    "sessions": [
-      {
-        "title": "Creative Warm-Up",
-        "duration": "2 hours",
-        "activities": "Icebreaker: \"draw your playlist\" (20 min). Rotate through music loops, collage and poetry taster stations (75 min). Group sharing (20 min). Close (5 min).",
-        "materials": "tablets with music app, collage materials, magazines, glue, poetry prompt cards"
-      },
-      {
-        "title": "Finding Your Voice",
-        "duration": "2 hours",
-        "activities": "Identity mapping (25 min). Choose a medium and start a personal piece (80 min). Peer gallery check-in (15 min).",
-        "materials": "sketchbooks, paints, brushes, headphones, notebooks"
-      },
-      {
-        "title": "Collaborate and Remix",
-        "duration": "2 hours",
-        "activities": "Pairs swap and remix an element of each other's work (40 min). Continued creation (60 min). Plan the exhibition layout (20 min).",
-        "materials": "art supplies, music app, exhibition planning sheet"
-      },
-      {
-        "title": "Rehearse and Refine",
-        "duration": "2 hours",
-        "activities": "Final creation time (60 min). Performance rehearsal and artwork labelling (50 min). Close (10 min).",
-        "materials": "labels, frames or card mounts, microphone, speaker"
-      },
-      {
-        "title": "Exhibition and Performance",
-        "duration": "2 hours",
-        "activities": "Set-up (40 min). Exhibition opens to families and community (60 min). Celebration and reflection (20 min).",
-        "materials": "display boards, speaker, microphone, refreshments"
-      }
-    ],
-    "materials": [
-      "acrylic paints and brushes",
-      "sketchbooks",
-      "collage materials",
-      "tablets with music software",
-      "headphones",
-      "display boards",
-      "portable PA"
-    ],
-    "budget": "~$600 (art supplies, equipment hire, refreshments)",
-    "riskNotes": "Personal pieces may touch on sensitive experiences; offer opt-outs from sharing and have a plan to follow up privately. Obtain consent before displaying names or photographing artwork.",
-    "outcomes": "Each participant exhibits or performs at least one original piece. Short reflection card on confidence and creative enjoyment collected at the exhibition.",
-    "status": "delivered",
-    "rating": 4,
-    "notes": "Spoken word was unexpectedly popular. Equipment hire ran over budget; look into borrowing from a partner school next time.",
-    "document": [],
-    "templateId": null,
-    "createdAt": "2026-02-14T10:00:00.000Z",
-    "updatedAt": "2026-05-09T19:15:00.000Z"
-  },
-  {
-    "id": "seed-prog-06",
-    "title": "Multi-Sport Mini Movers",
-    "summary": "A playful weekly sports club introducing young children to fundamental movement skills through games. The focus is on fun, participation and fair play rather than competition.",
-    "ageGroup": "5-8",
-    "themes": [
-      "sport",
-      "physical activity",
-      "fair play"
-    ],
-    "format": "Weekly club",
-    "duration": "8 weeks, 45 min per week",
-    "groupSize": "12-20",
-    "objectives": [
-      "Develop agility, balance and coordination",
-      "Practise throwing, catching and kicking skills",
-      "Learn to take turns and celebrate others",
-      "Enjoy being active as part of a group"
-    ],
-    "sessions": [
-      {
-        "title": "Animal Moves",
-        "duration": "45 min",
-        "activities": "Warm-up: move like different animals (10 min). Balance challenges on lines and beams (15 min). \"Zoo keeper\" tag game (15 min). Cool-down stretch story (5 min).",
-        "materials": "cones, floor lines, low balance beams"
-      },
-      {
-        "title": "Throw and Catch",
-        "duration": "45 min",
-        "activities": "Warm-up (8 min). Beanbag throwing to targets (12 min). Partner catching with soft balls (12 min). \"Clean your room\" team game (10 min). Cool-down (3 min).",
-        "materials": "beanbags, soft balls, hoops, targets"
-      },
-      {
-        "title": "Kick It",
-        "duration": "45 min",
-        "activities": "Warm-up (8 min). Dribbling around cones (12 min). Target kicking into goals (12 min). Mini small-sided games with everyone on the ball (10 min). Cool-down (3 min).",
-        "materials": "small footballs, cones, pop-up goals"
-      },
-      {
-        "title": "Obstacle Course Olympics",
-        "duration": "45 min",
-        "activities": "Warm-up (5 min). Children help build an obstacle course (10 min). Complete the course in pairs, cheering each other (25 min). Medal ceremony for everyone and cool-down (5 min).",
-        "materials": "hoops, tunnels, cones, mats, medals"
-      }
-    ],
-    "materials": [
-      "cones",
-      "beanbags",
-      "soft balls",
-      "hoops",
-      "pop-up goals",
-      "mats",
-      "stickers or medals"
-    ],
-    "budget": "~$180 (equipment top-up, stickers, medals)",
-    "riskNotes": "Check the floor and space for hazards before each session and keep water available. Follow agreed collection procedures so children are only released to authorised adults.",
-    "outcomes": "Facilitator skills checklist completed at weeks 1 and 8, plus attendance rates. Success = most children show improvement in at least two movement skills.",
-    "status": "ready",
-    "rating": 0,
-    "notes": "Venue is the community hall; book equipment storage cupboard. Recruit one parent helper per week.",
-    "document": [],
-    "templateId": null,
-    "createdAt": "2026-04-01T09:00:00.000Z",
-    "updatedAt": "2026-07-22T08:30:00.000Z"
-  },
-  {
-    "id": "seed-prog-07",
-    "title": "Green Guardians Eco Action",
-    "summary": "Young people investigate environmental issues in their neighbourhood, from waste to biodiversity, and then design and deliver a practical action such as a litter survey, pollinator garden or swap shop.",
-    "ageGroup": "9-12",
-    "themes": [
-      "environment",
-      "sustainability",
-      "community action"
-    ],
-    "format": "Weekly club",
-    "duration": "7 weeks, 1.5h per week",
-    "groupSize": "10-20",
-    "objectives": [
-      "Understand key local environmental issues",
-      "Collect and interpret simple environmental data",
-      "Plan and deliver a group eco-action project",
-      "Share learning with the wider community"
-    ],
-    "sessions": [
-      {
-        "title": "Our Planet, Our Place",
-        "duration": "90 min",
-        "activities": "Eco-quiz with buzzers (20 min). Neighbourhood walk to spot nature and problems (45 min). Map findings on a big poster (20 min). Close (5 min).",
-        "materials": "quiz cards, clipboards, pens, large map poster"
-      },
-      {
-        "title": "Waste Detectives",
-        "duration": "90 min",
-        "activities": "Safe litter-picking briefing (10 min). Litter survey in teams (45 min). Sort and tally waste types (25 min). Discussion of results (10 min).",
-        "materials": "gloves, litter pickers, bin bags, tally sheets, hand sanitiser"
-      },
-      {
-        "title": "Bugs and Biodiversity",
-        "duration": "90 min",
-        "activities": "Minibeast hunt with magnifiers (40 min). Identification charts (20 min). Why pollinators matter - short story and discussion (20 min). Close (10 min).",
-        "materials": "magnifiers, bug pots, ID charts, trays"
-      },
-      {
-        "title": "Choose Our Action",
-        "duration": "90 min",
-        "activities": "Review evidence from previous weeks (20 min). Brainstorm actions and vote (25 min). Plan the action: jobs, materials, timeline (40 min). Close (5 min).",
-        "materials": "flipchart, voting dots, planning sheets"
-      },
-      {
-        "title": "Action Day",
-        "duration": "90 min",
-        "activities": "Deliver the chosen action, e.g. planting a pollinator bed or running a swap shop (75 min). Photos with consent and reflection (15 min).",
-        "materials": "seeds, compost, trowels, gloves or swap shop tables"
-      },
-      {
-        "title": "Spread the Word",
-        "duration": "90 min",
-        "activities": "Make posters or a short video about the project (60 min). Present to families and invite pledges (25 min). Close and certificates (5 min).",
-        "materials": "poster paper, art supplies, tablet, certificates"
-      }
-    ],
-    "materials": [
-      "gloves and litter pickers",
-      "magnifiers and bug pots",
-      "seeds and trowels",
-      "clipboards",
-      "poster supplies",
-      "certificates"
-    ],
-    "budget": "~$320 (gardening supplies, safety equipment, printing)",
-    "riskNotes": "Outdoor sessions need a site check, gloves for litter handling, and a rule never to pick up sharp or hazardous items. Maintain ratios on walks and check for allergies before gardening activities.",
-    "outcomes": "Group completes one visible eco-action and records before/after data. Pledge count from families and participant reflection on what they changed at home.",
-    "status": "delivered",
-    "rating": 5,
-    "notes": "The pollinator bed is thriving and the venue wants a follow-up. Kids loved the bug hunt - make it longer.",
-    "document": [],
-    "templateId": null,
-    "createdAt": "2026-01-08T13:20:00.000Z",
-    "updatedAt": "2026-06-30T15:00:00.000Z"
-  },
-  {
-    "id": "seed-prog-08",
-    "title": "Money Smart: Real-World Finance",
-    "summary": "Interactive workshops that demystify budgeting, saving, borrowing and avoiding scams for young people about to manage their own money. Learning is built around realistic simulations rather than lectures.",
+    "id": "brahm-social-entrepreneurship",
+    "title": "Social Entrepreneurship Workshop",
+    "summary": "A two-day hands-on social entrepreneurship workshop for youths aged 15-18 from youth homes and shelters, built on the IDEA framework (Identify, Design, Execute, Adapt). Groups find the root cause of a given problem, design and craft a minimum viable product with Brahm Centre's art trainers and BOfA mentors, then pitch it to an audience. Participants experience the whole cycle of entrepreneurship and build soft skills like resilience and agile thinking, using AI to complement their learning.",
     "ageGroup": "16-18",
-    "themes": [
-      "financial literacy",
-      "life skills",
-      "independence"
-    ],
     "format": "Workshop",
-    "duration": "4 sessions, 2h each",
-    "groupSize": "12-24",
+    "duration": "2 days, a week apart (Day 1 9:30AM-5PM, Day 2 10AM-5PM)",
+    "groupSize": "",
+    "themes": [
+      "social entrepreneurship",
+      "problem solving",
+      "creativity",
+      "crafts",
+      "presentation skills",
+      "teamwork"
+    ],
     "objectives": [
-      "Create and stick to a simple monthly budget",
-      "Compare saving and borrowing options and understand interest",
-      "Recognise common scams and protect personal information",
-      "Set a personal financial goal with clear steps"
+      "Identify and analyse real-world social problems using root cause analysis techniques",
+      "Generate and evaluate innovative solution ideas using structured ideation tools",
+      "Design and curate a product (a minimum viable product) for their chosen social enterprise concept",
+      "Communicate effectively by pitching their solution with AI-assisted slide decks and handling Q&A",
+      "Collaborate with BOA coaches to move from problem identification to a presentable product within a tight timeline",
+      "Learn to pitch to different target groups to sell their ideas, moving beyond presentation slides",
+      "Adapt to changes, not giving up and relooking when issues arise"
     ],
     "sessions": [
       {
-        "title": "Where Does the Money Go?",
-        "duration": "2 hours",
-        "activities": "Needs vs. wants card sort (20 min). Budget simulation with a randomly assigned income and life events (60 min). Debrief on surprises (25 min). Close (15 min).",
-        "materials": "needs/wants cards, budget simulation packs, calculators"
+        "title": "Day 1: Registration and admin",
+        "duration": "40 min",
+        "activities": "9:30-10:10AM Registration and admin\nCheck that all facilitators and students are here",
+        "materials": ""
       },
       {
-        "title": "Saving and Borrowing",
-        "duration": "2 hours",
-        "activities": "Compound interest demo with a growing tower of blocks (25 min). Compare savings, credit cards and loans using fictional offers (50 min). \"Buy now, pay later\" debate (30 min). Close (15 min).",
-        "materials": "blocks, fictional product sheets, calculators"
+        "title": "Day 1: Icebreakers",
+        "duration": "35 min",
+        "activities": "10:10-10:45AM\n5-minute quick fix crafts: create a simple craft together using simple materials (e.g. toilet roll stand, cup holder, portable container)\nBridge Challenge: give a limited amount of materials and see which \"bridge\" can withstand the most weight\nIdea is to get participants into a creative problem-solving mode",
+        "materials": "Simple craft materials, limited bridge-building materials"
       },
       {
-        "title": "Scam Spotters",
-        "duration": "2 hours",
-        "activities": "Spot the scam: real-style fake messages and adverts (40 min). Personal data protection tips (20 min). Teams design a scam-awareness poster for peers (45 min). Close (15 min).",
-        "materials": "printed example messages, poster paper, markers"
+        "title": "Day 1: Ideating workshop (Identify + Sketch and plan idea)",
+        "duration": "105 min",
+        "activities": "10:45AM-12:30PM Guided brainstorming (as elaborated in slides)\nProblem statement is given; groups find the root cause of the problem (5 Whys, e.g. Problem: ran through a red light - Why? late for work - Why? woke up late - Why? alarm didn't work - Why? exhausted battery - Why? I forgot to check it = root cause)\nMentors and facilitators help groups plan a solution they would like to curate; groups able to self-ideate are free to design on their own\nSketch + plan idea (sketching used to teach storyboarding and how to present ideas)\nIntroduce art trainers and split into groups to try different craft works based on their ideas",
+        "materials": "Brainstorming slides, sketching materials"
       },
       {
-        "title": "My Money Plan",
-        "duration": "2 hours",
-        "activities": "Goal-setting with a savings target (30 min). Build a personal money plan (50 min). Quiz show recap (25 min). Evaluation (15 min).",
-        "materials": "money plan worksheets, quiz slides, evaluation forms"
+        "title": "Day 1: Lunch with mentors",
+        "duration": "60 min",
+        "activities": "12:30-1:30PM Catered lunch; mentors from BOfA get to know the youths and vice versa",
+        "materials": "Catered lunch"
+      },
+      {
+        "title": "Day 1: Craft creation and drafting session",
+        "duration": "180 min",
+        "activities": "1:30-4:30PM Students prototype and continue to consult the art trainers with their questions\nWood craft OR decoupage workshop guided by Brahm Centre's art trainers; groups able to create their own products are free to do so\nAim: a minimum viable product by the end of the programme",
+        "materials": "Wood craft materials (recycled wood), decoupage materials and old products to repurpose"
+      },
+      {
+        "title": "Day 1: Wrap-up",
+        "duration": "30 min",
+        "activities": "4:30-5:00PM Groups submit prototypes for safekeeping to continue next week",
+        "materials": ""
+      },
+      {
+        "title": "Day 2: Wrap up on prototyping",
+        "duration": "60 min",
+        "activities": "10:00-11:00AM Finish the product creation process; if a product is too complicated, groups may form rough prototype shells and explain the actual functions hypothetically",
+        "materials": "Prototypes from Day 1, craft materials"
+      },
+      {
+        "title": "Day 2: Launch of marketplace (Execute)",
+        "duration": "60 min",
+        "activities": "11:00AM-12:00PM (listed as 10:00AM-12:00PM)\nEither presentation of the live product OR creating videos/images of the product using AI tools\n1 Minute Elevator Pitch Activity: participants practise marketing a single item\nAdapt twist: each team gets a taboo word that cannot be said during the 1-minute pitch (any other words allowed); the more capable a team is, the more taboo words they get",
+        "materials": "Products/prototypes, devices with AI image/video tools"
+      },
+      {
+        "title": "Day 2: Lunch with mentors",
+        "duration": "60 min",
+        "activities": "12:00-1:00PM Catered lunch; mentors from BOfA get to know the youths and vice versa",
+        "materials": "Catered lunch"
+      },
+      {
+        "title": "Day 2: Moodboard and presentation prep OR show and tell",
+        "duration": "120 min",
+        "activities": "1:00-3:00PM Create a moodboard to explain the product, OR show and tell of products for willing groups\nUse Canva to go through a basic product presentation\nEach team member creates basic slides focusing on one part, then shares their part internally within the group\nCreate and finalise slides; BOA mentors work with them to present\nAlternative: ask a BOA mentor to present/share ideas with the group based on needs",
+        "materials": "Laptops/tablets with Canva"
+      },
+      {
+        "title": "Day 2: Presentations",
+        "duration": "60 min",
+        "activities": "3:00-4:00PM Round-robin presentations to school teachers and friends",
+        "materials": ""
+      },
+      {
+        "title": "Day 2: Prize presentation",
+        "duration": "30 min",
+        "activities": "4:00-4:30PM Present all groups with prizes based on the different milestones achieved. Make everyone excited and well-rewarded!\nMain prize tiers: Tier 1 - at least 1 interest from public; Tier 2 - at least 5; Tier 3 - at least 8\nSpecial prizes: Most innovative product; People's Pick",
+        "materials": "Prizes (TBC)"
+      },
+      {
+        "title": "Day 2: Reflections and wrap-up",
+        "duration": "30 min",
+        "activities": "4:30-5:00PM Reflections and wrap-up",
+        "materials": ""
       }
     ],
     "materials": [
-      "budget simulation packs",
-      "calculators",
-      "fictional product sheets",
-      "scam example cards",
-      "worksheets",
-      "quiz slides"
+      "Presentation slides for guided brainstorming",
+      "Simple craft materials for icebreakers",
+      "Limited materials for Bridge Challenge",
+      "Sketching materials",
+      "Wood craft materials (recycled wood)",
+      "Decoupage materials and old products to repurpose",
+      "Devices with Canva and AI image/video tools",
+      "Catered lunch for both days",
+      "Prizes (TBC)"
     ],
-    "budget": "~$150 (printing, prizes, snacks)",
-    "riskNotes": "Some participants may face financial hardship at home; avoid asking for personal financial details and keep examples fictional. Provide signposting to independent money advice.",
-    "outcomes": "Pre/post knowledge quiz with a target improvement of 25%. Participants leave with a completed personal money plan.",
+    "budget": "",
+    "riskNotes": "",
+    "outcomes": "Groups produce a minimum viable product (or rough prototype shell) by the end of the programme and pitch it in round-robin presentations. Prizes track milestones: Tier 1 at least 1 interest from the public, Tier 2 at least 5, Tier 3 at least 8; special prizes for Most Innovative Product and People's Pick.",
     "status": "draft",
     "rating": 0,
-    "notes": "Looking for a volunteer from a local credit union to co-deliver session 2.",
+    "notes": "Target participants: youths aged 15-18 from youth homes and shelters. Date: July/August (exact dates not given). Venue: not given.\n\nFramework: IDEA - Identify (and analyse root cause of problems and evaluate ideas), Design (an MVP to showcase their ideas to the audience), Execute (ideas; presenting them and creating a plan), Adapt (to changes, not giving up and relooking when issues arise). Product creation draws on the 5 phases of a design sprint: Understand, Sketch, Decide, Prototype, Validate.\n\nFacilitators and partners: Brahm Centre art trainers; BOfA (BOA) mentors/coaches; school teachers and friends attend the presentations.\n\nArt classes:\nArt class 1, Wood craft - good for large, purely physical products; not useful for small, specific details. Suggested problem statement: \"How can we make recycled wood into something practical for youths?\"\nArt class 2, Decoupage - good for laying over/repurposing old products; not useful for creating products from scratch. Suggested problem statements: \"How can we allow café owners to give a new look and feel to their premises without buying new furniture?\" (decorating tables and chairs with decoupage); \"How can we create DIY personalised gift boxes which are cheap and unique?\"\nArt class 3, Sketching - used to teach storyboarding and how to present ideas; not useful for creating or demonstrating products other than for the pitch.\nSuggested flow: Session 1 Sketch + Plan Idea, then Session 2 Wood craft OR Decoupage workshop.\n\nUnique aspects: interactive sessions instead of lectures; the whole cycle of entrepreneurship is covered; soft skills like resilience and agile thinking which are highly sought after; AI used to complement learning, giving access to the latest skills.\n\nPlan inconsistencies to check: Day 2 lists \"Wrap up on prototyping\" 10-11AM and \"Launch of Marketplace\" 10AM-12PM (overlapping); the slide deck describes a 2-hour product creation session while the Day 1 schedule gives 3 hours (1:30-4:30PM); all prize rewards are TBC; no budget, group size, venue or risk plan given.\n\nSource: Social_Entrepreneurship_Workshop_Proposal.docx; Social_entrepreneurship_V4.pdf",
     "document": [],
     "templateId": null,
-    "createdAt": "2026-05-06T10:15:00.000Z",
-    "updatedAt": "2026-08-14T09:40:00.000Z"
+    "createdAt": "2026-10-16T09:55:00.000Z",
+    "updatedAt": "2026-10-16T09:55:00.000Z"
   },
   {
-    "id": "seed-prog-09",
-    "title": "Hands Up: Community Service Challenge",
-    "summary": "A volunteering programme where young adults explore community needs, complete placements with local organisations and reflect on the impact of their service. It suits those building experience for study or employment.",
-    "ageGroup": "18-25",
+    "id": "brahm-mind-craft-exam-stress",
+    "title": "Mind Craft - Stress Management Programme",
+    "summary": "An interactive exam-stress workshop for teens that normalises exam anxiety, explains why the brain goes blank under pressure, and teaches silent coping skills for the exam hall plus evidence-based study habits. Participants leave with a personalised, portable toolkit: an Exam Day Blueprint card and a lanyard cue card with their go-to breath, anchor and mantra.",
+    "ageGroup": "13-15",
+    "format": "Workshop",
+    "duration": "1 session, 3 hours (180 min)",
+    "groupSize": "",
     "themes": [
-      "community service",
-      "volunteering",
-      "civic engagement"
+      "exam stress",
+      "stress management",
+      "coping skills",
+      "mindfulness",
+      "study habits",
+      "mental wellbeing"
     ],
-    "format": "Mentoring",
-    "duration": "10 weeks, 2h per week plus placement hours",
-    "groupSize": "8-15",
     "objectives": [
-      "Understand the needs and assets of their local community",
-      "Complete at least 20 hours of volunteering with a partner organisation",
-      "Reflect on personal learning through structured mentoring",
-      "Articulate transferable skills for CVs and applications"
+      "Normalise exam anxiety and get honest data on participants' biggest fears",
+      "Teach the biology of memory retrieval under pressure, and differentiate between pre-exam stress and during-exam stress",
+      "Teach coping skills specifically designed for use during an exam, when you cannot leave your seat or make noise",
+      "Ditch the all-nighters and teach evidence-based revision techniques that actually reduce stress",
+      "Turn knowledge into a personalised, portable toolkit"
     ],
     "sessions": [
       {
-        "title": "Induction and Community Mapping",
-        "duration": "2 hours",
-        "activities": "Introductions and expectations (20 min). Community asset mapping (45 min). Meet partner organisations via short video intros (35 min). Placement preferences (20 min).",
-        "materials": "maps, sticky notes, partner info packs, preference forms"
+        "title": "Welcome & Ice-Breaker: \"The Exam Fear Factor\"",
+        "duration": "10 min",
+        "activities": "Place 4 large buckets/bowls at the front labelled \"Going Blank / Memory Freeze\", \"Running Out of Time\", \"Letting My Parents/Teachers Down\", \"Other\".\nGive each teen 3 ping-pong balls or crumpled paper balls; they throw them into the bucket that represents their biggest exam fear.\nFacilitator script: \"Look at that. Every single bucket has balls in it. You are NOT weird, broken, or alone. The fear of going blank is actually your brain's threat-detector misfiring. Today, we are going to hack that system.\"",
+        "materials": "4 buckets/bowls with labels, ping-pong balls or crumpled paper (3 per teen)"
       },
       {
-        "title": "Ready to Serve",
-        "duration": "2 hours",
-        "activities": "Professional boundaries and code of conduct (40 min). Scenario practice: tricky situations on placement (50 min). Mentor matching (30 min).",
-        "materials": "code of conduct, scenario cards, mentor profiles"
+        "title": "Segment 1: Understanding Exam Stress - \"Why does my brain go blank?\"",
+        "duration": "50 min",
+        "activities": "1. The \"Whiteboard vs. Sticky Notes\" Brain Demo (15 min) - A volunteer gets 5 seconds to remember and write a 10-digit number you shout out (e.g. 7482910563). Debrief: Working Memory (the whiteboard) holds only 3-5 things; stress pumps adrenaline which shrinks the whiteboard. The \"Sticky Note\" fix: Long-Term Memory (the filing cabinet) is infinite; the trick is retrieval practice, actively pulling information out rather than re-reading.\n2. The \"Stress Timeline\" Floor Map (20 min) - Masking-tape timeline on the floor: 1 Month Before, 1 Week Before, Night Before, Morning of Exam, In the Exam Hall, During the Last 10 Minutes. Teens walk the timeline and place symptom cards (e.g. \"Can't sleep\", \"Heart racing\", \"Stomach cramps\", \"Mind goes blank\", \"Sweaty palms\", \"Overwhelming urge to check phone\") where they feel them most. Debrief: chronic stress (weeks before) depletes energy, acute stress (in the hall) triggers fight/flight; they are treated differently.\n3. The \"A+ vs. Pass\" Myth-Busting (15 min) - Two columns on the board: \"What I think I need to do\" vs. \"What actually works\". Teens shout out myths (e.g. \"I need to study for 6 hours straight\"); debunk with science: after 45 minutes of focus the brain stops retaining info; retrieval practice is 50% more effective than re-reading; nervousness is just energy, reframe it as excitement.",
+        "materials": "Whiteboard and marker, masking tape, symptom cards"
       },
       {
-        "title": "Mid-Point Reflection",
-        "duration": "2 hours",
-        "activities": "Placement story sharing (40 min). Reflection model introduced and practised (40 min). One-to-one mentor check-ins (40 min).",
-        "materials": "reflection journals, mentoring prompt sheets"
+        "title": "Active Brain Break: \"The Revision Shake\"",
+        "duration": "5 min",
+        "activities": "Play a fast-paced song. Shout out a subject topic (e.g. \"Pythagoras!\", \"Photosynthesis!\"); teens do 5 star-jumps while shouting back ONE fact about it. Physically anchors knowledge to movement.",
+        "materials": "Speaker, fast-paced song"
       },
       {
-        "title": "Skills to CV",
-        "duration": "2 hours",
-        "activities": "Identify transferable skills from placements (40 min). Write achievement statements (50 min). Peer review (30 min).",
-        "materials": "laptops, CV templates, skills cards"
+        "title": "Segment 2: Coping Mechanisms - \"The Exam-Hall Rescue Kit\"",
+        "duration": "50 min",
+        "activities": "1. The \"Silent SOS\" Stations (30 min) - 4 stations, teens rotate every 7 minutes; each technique can be done silently at a desk during an exam.\nStation A: The \"Box Breath\" Reset - 4-4-4-4 breathing (inhale 4, hold 4, exhale 4, hold 4) for 2 minutes with a metronome/timer while holding a pencil; do it as soon as the invigilator says \"You may begin\".\nStation B: The \"Page Pause\" Grounding - palms flat on the desk, feel the surface, press gently, say in your head \"This desk is solid. I am solid.\", then trace the margin line of the exam paper with a finger.\nStation C: The \"Brain-Dump\" Technique - on spare paper, spend 60 seconds writing everything remembered about a topic before reading the question; practise with a random topic (e.g. \"World War 2 causes\").\nStation D: The \"Micro-Movement\" Release - ankle rotations under the desk, shoulder shrugs, jaw release.\n2. The \"Worst-Case Scenario\" Roleplay (20 min) - Scenario cards for exam-hall disasters (e.g. \"You read Question 5 and you have NO idea what it means\", \"15 minutes left and 3 essays to write\", \"The person next to you is sniffing and tapping their pen loudly\"). In pairs, a \"Panicked Student\" and a \"Calm Coach\" who walks them through a station technique. Key script: \"Stop. Breathe. Anchor. Then attack the question you DO know first.\"",
+        "materials": "Metronome or phone timer, pencils, spare paper, laminated scenario/roleplay cards"
       },
       {
-        "title": "Celebration of Service",
-        "duration": "2 hours",
-        "activities": "Short presentations on impact (60 min). Partner thank-yous and certificates (40 min). Evaluation (20 min).",
-        "materials": "projector, certificates, refreshments, evaluation forms"
+        "title": "Passive Brain Break: \"The 2-Minute Exam Reset\"",
+        "duration": "5 min",
+        "activities": "Teens sit upright with eyes closed. Guided visualisation: \"Imagine you are sitting in the exam hall. You flip the paper over. Your heart thumps. Now, pause. You place your palms on the desk. You take 3 box breaths. You look at the clock and say to yourself, 'I have time.' You read the first question and underline the keywords. You are calm. You are capable. Open your eyes.\"",
+        "materials": ""
+      },
+      {
+        "title": "Segment 3: Mindfulness & Study Habits - \"Studying Smarter, Not Harder\"",
+        "duration": "50 min",
+        "activities": "1. The \"Pomodoro vs. Marathon\" Race (15 min) - Two teams. Team Marathon writes 1 to 100 without stopping; Team Pomodoro writes 1-20, stands and stretches 30 seconds, then 21-40, and so on. Time them. Debrief: Pomodoro technique, 25 minutes focused revision (phones face down) then a 5-minute active break (walk, stretch, hydrate, no scrolling).\n2. The \"Revision Roulette\" Game (20 min) - Spinner/cards with retrieval techniques: \"Blurt it out\" (60 seconds on a topic), \"Draw it\" (diagram/mind-map with no words), \"Teach it\" (explain like they are 5), \"Quiz it\" (write 3 exam questions). Spin for a random subject (e.g. Photosynthesis, Quadratic Equations, Macbeth) and revise it on the spot. Script: \"Re-reading your notes is like watching a cooking show. Retrieval practice is actually cooking the meal.\"\n3. The \"Night-Before & Morning-Of\" Blueprint (15 min) - Double-sided Exam Day Blueprint card. Side A, The Night Before: stop-studying time (8 PM max), one relaxing activity, pack your bag now (pens, calculator, water, snack). Side B, The Morning Of: eat protein, 5 minutes of box breathing before leaving, arrive early but avoid panicked friends who are cramming. Keep it in the phone case or pencil case.",
+        "materials": "Timer, paper and pens, Revision Roulette spinner/wheel or cards, Exam Day Blueprint cards"
+      },
+      {
+        "title": "Closing & Commitment Ceremony: \"The Exam Day Lanyard\"",
+        "duration": "10 min",
+        "activities": "The \"Lanyard Cue Card\": each teen writes ONLY 3 things on a blank laminated card on a string/keyring: My go-to breath (e.g. Box Breath), My anchor (e.g. palms on the desk), My mantra (e.g. \"I know more than I think I do.\"). Wear it as a lanyard or keep it in the pencil case for every exam.\nThe \"Post-Exam\" Rule: the 10-Minute Rule, vent to a friend for exactly 10 minutes after an exam, then talk about something else; set a phone timer for it.\nFinal facilitator script: \"Exams don't define your intelligence; they test your ability to retrieve information under artificial pressure. Your body is not your enemy... You have the tools. When you sit down in that hall, you are not alone, you are carrying this entire room with you.\"",
+        "materials": "Blank laminated cards, keyrings/string"
       }
     ],
     "materials": [
-      "partner organisation packs",
-      "code of conduct",
-      "reflection journals",
-      "CV templates",
-      "certificates"
+      "4 buckets/bowls",
+      "Ping-pong balls or crumpled paper",
+      "Masking tape (for floor timeline)",
+      "Symptom cards (for Stress Timeline)",
+      "Whiteboard and markers",
+      "Scenario/roleplay cards (laminated)",
+      "Spinner/wheel or cards for Revision Roulette",
+      "Timer (for Pomodoro race)",
+      "Exam Day Blueprint cards (double-sided)",
+      "Blank laminated cards + keyrings/string for lanyards",
+      "Spare paper (for brain-dump station)",
+      "Metronome or phone timer (for breathwork station)",
+      "Speaker and fast-paced song (Revision Shake)"
     ],
-    "budget": "~$400 (travel bursaries, printing, celebration event)",
-    "riskNotes": "Confirm each partner has its own safeguarding and supervision arrangements, especially placements involving children or vulnerable adults. Agree a clear process for participants to raise concerns about placements.",
-    "outcomes": "Volunteering hours logged and verified by partners, plus mentor-rated progress on reflection. Success = 80% complete 20+ hours and produce an updated CV.",
-    "status": "delivered",
-    "rating": 3,
-    "notes": "Placement matching took too long and some lost momentum. Recruit partners earlier and set a firm start date for placements.",
+    "budget": "",
+    "riskNotes": "",
+    "outcomes": "",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Programme schedule overview: Welcome & Ice-Breaker (10 min); Segment 1 Understanding Exam Stress (50 min); Active Brain Break (5 min); Segment 2 Coping Mechanisms (50 min); Passive Brain Break (5 min); Segment 3 Mindfulness & Study Habits (50 min); Closing (10 min).\n\nKey mantra: \"Stop. Breathe. Anchor. Then attack the question you DO know first.\"\n\nFacilitator note on stress types: you cannot use a \"calm-down\" technique if you haven't been sleeping well for 3 weeks; chronic and acute stress are treated differently.\n\nMissing details: the document is a run-sheet only; it has no date, venue, facilitators, group size, budget, risk management or evaluation plan.\n\nSource: Mind_Craft_-_stress_Management_Programme.docx",
     "document": [],
     "templateId": null,
-    "createdAt": "2026-01-15T09:00:00.000Z",
-    "updatedAt": "2026-05-27T14:25:00.000Z"
+    "createdAt": "2026-10-16T09:54:00.000Z",
+    "updatedAt": "2026-10-16T09:54:00.000Z"
   },
   {
-    "id": "seed-prog-10",
-    "title": "Roots & Stories: Cultural Heritage Project",
-    "summary": "Children explore their own and each other's family heritage through food, music, games and storytelling. Together they create a shared story quilt celebrating the diversity of the group.",
-    "ageGroup": "9-12",
+    "id": "brahm-mixing-bowl-creative-baking",
+    "title": "The Mixing Bowl - Creative Baking",
+    "summary": "A customisable baking experience where participants work together in small groups to create Granola Power Bars (granola cups), choosing their own add-ins and toppings. It gives youths a safe space to make self-directed decisions, experiment and make mistakes, and builds agency, communication and basic kitchen life skills. Youths should leave with a greater sense of achievement and better self-confidence.",
+    "ageGroup": "13-15",
+    "format": "Workshop",
+    "duration": "1 session, 5:00-6:30pm (90 min)",
+    "groupSize": "12 participants (budget based on 12 pax; groups of 3-4)",
     "themes": [
-      "cultural heritage",
-      "identity",
-      "inclusion"
+      "cooking",
+      "life skills",
+      "autonomy",
+      "teamwork",
+      "self-confidence",
+      "social bonding"
     ],
+    "objectives": [
+      "Competency in preparing and creating the dish",
+      "Greater confidence in self",
+      "Building of self-identity and autonomy through self-directed decisions",
+      "Engage with peers through a mix of group and individual activities, building communicative and innovative skills",
+      "Equip participants with life skills in food preparation and basic kitchen usage"
+    ],
+    "sessions": [
+      {
+        "title": "Arrival",
+        "duration": "5 min",
+        "activities": "17:00-17:05 Participants arrive",
+        "materials": ""
+      },
+      {
+        "title": "Introduction and icebreaker: Guess the food",
+        "duration": "20 min",
+        "activities": "17:05-17:25 Introduction of facilitator and icebreaker\nParticipants are divided into 2 groups.\nEach group takes turns sending out 1-2 group members, who are blindfolded.\nSmall food items are handed out for them to try; they have 2 tries to guess what they ate.\nSuccessful guesses get a point each.\nGame ends at first to 3 points or after 5 rounds.\nCheck allergies and choking hazards before the icebreaker.",
+        "materials": "Blindfolds, small food items"
+      },
+      {
+        "title": "Main activity: Granola Power Bars",
+        "duration": "50 min",
+        "activities": "17:25-18:15 Main activity\nDivide into groups of 3-4 members; hand out instruction lists; explain general dos and don'ts while baking.\nMix oats, chosen add-ins, salt and dry spices in a bowl.\nWarm honey and nut butter slightly (microwave 30 sec) to make it runny, mix into dry ingredients. Add egg white or mashed banana if using.\nPress mixture firmly into greased or lined muffin cups to form a cup shape (use back of a spoon to make an indentation).\nBake at 160°C for 12-15 minutes until golden (optional: set in fridge 1 hour for no-bake).\nCool completely, then pop out of tin.\nFill with yogurt, fresh fruit or a dollop of Nutella when serving.\nWhen done, participants pack up and get ready for debrief.",
+        "materials": "Base ingredients, customisation bowls, mixing bowl, measuring cups, rubber spatula, mini bowls, oven mitts, baking tray, baking sheet/cups, wax paper, oven, microwave, instruction lists"
+      },
+      {
+        "title": "Debrief and reflection",
+        "duration": "10 min",
+        "activities": "18:15-18:25 Debrief and reflection (allow baked items to cool down)\nSurvey form and verbal feedback.",
+        "materials": "Survey form"
+      },
+      {
+        "title": "Pack up",
+        "duration": "5 min",
+        "activities": "18:25-18:30 Pack up and get ready to leave\n18:30 End of session",
+        "materials": "Container to store food"
+      }
+    ],
+    "materials": [
+      "Rolled oats: 200 g (per batch)",
+      "Honey or maple syrup: 80 ml (or agave for vegan option)",
+      "Peanut butter or almond butter: 100 g",
+      "A pinch of salt",
+      "Binding help: 1 egg white (baked) or mashed banana (no-bake)",
+      "Crunch add-ins: chopped almonds, pumpkin seeds, Rice Krispies, toasted coconut flakes",
+      "Sweetness & flavour: mini chocolate chips, dried cranberries or raisins, chopped dried mango or apricot, cinnamon or cocoa powder",
+      "Toppings: chocolate chips, yogurt or nut butter drizzle, fresh fruit",
+      "Muffin liners and cooking spray",
+      "Mixing bowl",
+      "Measuring cups",
+      "Rubber spatula",
+      "Mini bowls",
+      "Oven mitts",
+      "Baking tray",
+      "Baking sheet/cups",
+      "Wax paper",
+      "Container to store food",
+      "Blindfolds and small food items (icebreaker)",
+      "Instruction lists",
+      "Survey form"
+    ],
+    "budget": "~S$10 for 12 pax (base S$2.60, customisation S$6.20, liners/cooking spray ~S$1.20); ~S$0.83 per pax; total for run S$40",
+    "riskNotes": "Centre risk: fall risk in centre (climbing, running and slip risks). Mitigation: proper rules and instructions for all activities; ground rules and consequences for breaking them.\n\nDuring activity: cuts, bruises or other injuries; burns from mishandling the oven. Mitigation: proper supervision where risk is present; instructions for proper handling; never leave high-risk objects unattended; maintain observation of oven use at all times; no playing with equipment except for intended use.\n\nFood safety: take note of any allergies and choking hazards (during icebreaker).\n\nPsychological safety: sharing is optional; no fixing or judging rule stated; clear group agreements; facilitator models vulnerability appropriately.\n\nEmergency contact: Jeremy, 92243993.",
+    "outcomes": "Intended outcomes: youths leave with a greater sense of achievement, better self-confidence and an observable difference in basic life skills.\n\nSuccess criteria: youths leave satisfied with their product, or feeling motivated to try again, exhibiting a greater desire for autonomy and self-directed decision making.\n\nFeedback: survey form and verbal feedback.",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Target ages ticked on the form: 10–12 (Upper Primary) and 13–16 (Secondary). Format ticked: One-off session.\n\nVenue: Brahm Centre @ Aljunied (no transport; no F&B provided). Date and time listed as TBC in the overview; activity timeline runs 17:00-18:30.\n\nFacilitator: Jeremy (main facilitator).\n\nAttire: comfortable clothes, optional extra clothes to change, jacket, covered shoes.\n\nRecipe yield: makes about 12 cups. Customisation options are set up in bowls for participants to choose: crunch add-ins (pick 1-2), sweetness & flavour (pick 1-2), and post-baking toppings after cups are shaped (chocolate chips pressed on top, drizzle of yogurt or nut butter after cooling, fresh fruit when serving).\n\nYouth need addressed: youths' need for agency and autonomy; making self-directed decisions without external pressure. The centre provides a safe space to experiment, explore and make mistakes, and to engage with peers through group and individual activities.\n\nWhy it matters for this age group: a critical period to build a stable self-identity; youths are most curious and open to change, and restricting options can hinder willingness to try new experiences. The brain is most flexible, so a novel environment to explore freely helps it learn and adapt. Basic life skills strengthen their internal sense of autonomy.\n\nIcebreaker suitability: youths enjoy activities that are interactive, competitive and allow exploration.\n\nBudget notes: ingredient estimates based on typical Singapore supermarket prices; customisation sample set for 12 pax assumes small portions. \"Total session - 1 / Total for run - 40\" as written in the original.\n\nNaming: the title says Creative Baking while the file name says Creative Cooking; filed as Proposal 1 for Youth Connect.\n\nMindfulness element: not filled in.\n\nSource: Proposal_1_for_Youth_Connect_The_Mixing_Bowl-_Creative_Cooking.docx",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-10-16T09:53:00.000Z",
+    "updatedAt": "2026-10-16T09:53:00.000Z"
+  },
+  {
+    "id": "brahm-king-of-the-table",
+    "title": "King of the Table (Game On! Night)",
+    "summary": "Weekly social gathering sessions focused on engagement through board games and social games at Brahm Centre @ Aljunied. Youths get to interact with like-minded peers in a safe space without fear of being judged, build friendships, and take a break from their usual worries and stresses. Along the way they build critical thinking and flexible thinking through strategy and creativity across different games.",
+    "ageGroup": "13-15",
     "format": "Weekly club",
-    "duration": "5 weeks, 1.5h per week",
-    "groupSize": "10-18",
+    "duration": "6 sessions, 2 hours each (5:00-7:00pm)",
+    "groupSize": "10 participants",
+    "themes": [
+      "social bonding",
+      "board games",
+      "critical thinking",
+      "friendship",
+      "mental wellbeing"
+    ],
     "objectives": [
-      "Share something meaningful about their family or cultural background",
-      "Show curiosity and respect for others' traditions",
-      "Interview a family or community member",
-      "Contribute to a collaborative heritage artwork"
+      "Build self confidence",
+      "Foster prosocial behaviour among peers in a safe manner",
+      "Build critical thinking and flexible thinking through games",
+      "Meet the need for social interaction through play and fun in a safe environment, so participants can build friendships without fear of being judged",
+      "Give participants a break from their usual space to escape their worries and stresses"
     ],
     "sessions": [
       {
-        "title": "Where We Come From",
-        "duration": "90 min",
-        "activities": "Name story circle: what my name means (25 min). Object show-and-tell from home (35 min). Introduce the story quilt project (20 min). Close (10 min).",
-        "materials": "world map, string, pins, sample quilt square"
+        "title": "Arrival",
+        "duration": "5 min",
+        "activities": "17:00-17:05 Participants arrive at centre",
+        "materials": ""
       },
       {
-        "title": "Games Around the World",
-        "duration": "90 min",
-        "activities": "Children teach a traditional game from their family or one researched together (60 min). Reflection: what is similar, what is different (20 min). Close (10 min).",
-        "materials": "game equipment, chalk, cards with game rules"
+        "title": "Icebreaker and introduction: Name Unscrambler",
+        "duration": "15 min",
+        "activities": "17:05-17:20 Icebreaker and introduction\nParticipants are given a paper each and tasked with writing out the letters in their name (letters should be jumbled up)\nEach participant takes turns trying to guess each others' name\n1 point awarded for each correct guess\nSubsequently, facilitator can change the game: participants spell out as many words as possible using the alphabets in their name",
+        "materials": "Paper, pens"
       },
       {
-        "title": "Interview Skills",
-        "duration": "90 min",
-        "activities": "What makes a good question (20 min). Practise interviews in pairs (30 min). Prepare questions for a family or community elder (30 min). Close (10 min).",
-        "materials": "question templates, voice recorders or tablets (optional)"
+        "title": "Main activity: board and social games",
+        "duration": "85 min",
+        "activities": "17:20-18:45 Main activity commence\nFacilitator introduces available games for the day (1-4 games)\nParticipants form groups of not more than 4-5 each\nAfter splitting, facilitator explains each game to the groups playing\nA timer is set indicating the end of session\nGame concludes either by points system within game or mutual agreement",
+        "materials": "Board games (2-4 player cooperative games e.g. Pandemic, Forbidden series; social deduction games e.g. Avalon, Chameleon, Spyfall, Two Rooms and a Boom; group competitive games e.g. DnD, Azul), dice, small props, props for atmosphere, snacks, drinks, bowls, cups"
       },
       {
-        "title": "Stories into Squares",
-        "duration": "90 min",
-        "activities": "Share interview highlights (25 min). Design and make a fabric or paper quilt square (55 min). Close (10 min).",
-        "materials": "fabric squares, fabric pens, felt, glue, paper alternative"
+        "title": "Debrief and reflection",
+        "duration": "10 min",
+        "activities": "18:45-18:55 Debrief and reflection",
+        "materials": ""
       },
       {
-        "title": "Heritage Celebration",
-        "duration": "90 min",
-        "activities": "Assemble the quilt (30 min). Families invited for a shared food table and quilt unveiling (50 min). Close (10 min).",
-        "materials": "quilt backing, display stand, labelled food table, allergy cards"
+        "title": "Pack up",
+        "duration": "5 min",
+        "activities": "18:55-19:00 Pack up and get ready to leave\n19:00 End of session",
+        "materials": ""
       }
     ],
     "materials": [
-      "world map",
-      "fabric squares and fabric pens",
-      "felt and glue",
-      "game equipment",
-      "question templates",
-      "display stand"
+      "Paper and pens",
+      "Small props",
+      "Dice",
+      "Board games of varying types and sizes",
+      "2-4 player cooperative games (Pandemic, Forbidden series)",
+      "Social deduction games (Avalon, Chameleon, Spyfall, Two Rooms and a Boom)",
+      "Group competitive games (DnD, Azul)",
+      "Props for atmosphere (fairy lights, small figurines)",
+      "Bowls for snacks",
+      "Cups",
+      "Light snacks (e.g. Harvest Snaps, Want Want, Dewberry, gummies) or fruits (watermelon, blueberries, mixed fruits)",
+      "Drinks (green tea, Ribena, packet tea)"
     ],
-    "budget": "~$280 (craft materials, celebration food contribution)",
-    "riskNotes": "Be sensitive to children whose family circumstances are complex (e.g. care-experienced or displaced) and offer alternative prompts. Shared food requires clear ingredient labelling and an allergy check.",
-    "outcomes": "Completed story quilt with a square from every child, and a short pre/post \"I know about my friends' cultures\" rating.",
+    "budget": "~S$20 per session for 10 pax (snacks or fruits S$5, drinks S$5, small props S$10 one-time); S$2 per pax; 6 sessions = S$120 per run",
+    "riskNotes": "Centre risks: fall risk in centre (climbing, running and slip risks). Mitigation: give proper rules and instructions for all activities; set ground rules and consequences for breaking rules.\nDuring activity: participants might get injured (cuts, bruises, other injuries). Mitigation: ensure proper supervision for each activity if risk is present; give instructions for proper handling; never leave any high-risk objects unattended.\nPsychological safety: sharing is optional; no fixing or judging rule stated; clear group agreements; facilitator models vulnerability appropriately.\nBest practices for facilitation: TBC.\nEmergency contact: Jeremy, 92243993 (second contact not filled in).",
+    "outcomes": "Intended outcomes: participants leave feeling they have found a social circle they want to subscribe to, opting in for future sessions and forming connections within the group; improved critical thinking, flexible thinking and greater adaptiveness to change.\nSuccess criteria: display a greater level of adaptive thinking and critical thinking skills; form small healthy independent social circles outside of sessions.\nFeedback: survey and verbal feedback.\nObservable indicators: increased participation, improved peer interaction, willingness to communicate.",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Venue: Brahm Centre @ Aljunied (youth centre setting), 17:00-19:00. Date not set. Transport: nil. Food: light snacks and drinks.\n\nFacilitators: Jeremy (main facilitator).\n\nAttire: comfortable clothes, jacket.\n\nTarget age (as ticked): 13-16 Secondary and 17-19 Upper Sec / ITE / JC. Format ticked: Ongoing / Open Group.\n\nCore competencies: Think Independently Of Trends; Define Self-Worth Beyond Performance.\n\nWhy it matters: youths are at a critical stage where self-identity is tied strongly to social belonging; isolation from peers raises risk of mental health struggles (depression, anxiety, even suicide ideation). Prosocial behaviour encourages empathy, strengthens self-identity and lessens risk of mental health issues.\n\nIcebreaker: Name Unscrambler, 15 minutes; purpose: encourage interaction, energise the group.\n\nMindfulness element: objectives emotional regulation, awareness and focus, attention control; type mindful listening or speaking; infused at multiple points; 2-5 minutes total (no specific activity described).\n\nSource: Proposal_2_for_youth_connect_King_of_the_Table.docx",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-10-16T09:52:00.000Z",
+    "updatedAt": "2026-10-16T09:52:00.000Z"
+  },
+  {
+    "id": "brahm-masquerade-mystery",
+    "title": "Masquerade Mystery – Ex Alumni Christmas Programme",
+    "summary": "A warm and welcoming Christmas masquerade gathering that bridges the past and the future of the youth community, inviting former interns to reconnect, share stories and reignite old friendships while meeting the newest youth team members. Through casual icebreakers, sharing circles and free-flowing conversation, young adults build social confidence, a sense of belonging and fresh connections.",
+    "ageGroup": "18-25",
+    "format": "Event",
+    "duration": "1 session, 2 hours (22 Dec 2026, 6:00-8:00pm)",
+    "groupSize": "50 guests (groups of 5)",
+    "themes": [
+      "social bonding",
+      "belonging",
+      "communication",
+      "community",
+      "festive celebration"
+    ],
+    "objectives": [
+      "Reconnect former interns, share stories and reignite old friendships",
+      "Help former interns meet and mingle with the newest youth team members",
+      "Build interpersonal communication: initiating conversations, active listening and articulating personal stories",
+      "Foster a sense of belonging by bridging past interns with new members, reinforcing that everyone is valued regardless of tenure",
+      "Cultivate empathy and awareness through sharing and listening to others' stories"
+    ],
+    "sessions": [
+      {
+        "title": "Icebreaker: Behind the Mask",
+        "duration": "15 min",
+        "activities": "Inside your group (5 people): each person takes 2 minutes to share their alias name and their connection to the team (current role, past internship, or how they're involved), and the inspiration behind their mask or costume (why they chose it, what it represents, or if it reflects a hidden talent, personality trait or favourite character)\nGroup introduction: after everyone has shared, the group selects one representative to introduce all 5 members to the wider room, briefly sharing each person's name and team connection and one memorable highlight from each person's mask or costume story\nRotation (optional): if time permits, groups rotate and mix after 15-20 minutes to meet new people beyond their initial group",
+        "materials": "Masks, speaker and microphone"
+      },
+      {
+        "title": "Main activity: Human Bingo",
+        "duration": "20-25 min",
+        "activities": "Prepare the cards: a 5x5 Bingo card per participant with 25 fun, inclusive icebreaker statements (e.g. \"Has worn a costume before\", \"Speaks two or more languages\", \"Has been to a masquerade\"), with a FREE SPACE in the centre\nDistribute and explain: hand out one card and a pen to each participant; goal is to mingle and find someone who matches each statement and have them sign that square; no one may sign their own card\nSet the timer: announce a time limit (e.g. 20-25 minutes) to circulate, introduce themselves and collect signatures from as many different people as possible\nStart mingling: approach others with a friendly introduction and ask if they fit a square; if yes they sign, if no move on\nCall BINGO: on completing a row, column or diagonal, participant shouts BINGO and comes to the front; facilitator verifies by having them briefly introduce the people who signed each square\nContinue or wrap up: announce additional winners for a full house if time permits",
+        "materials": "Human Bingo cards (50, 5 varieties), pens, lucky draw prizes"
+      },
+      {
+        "title": "Debrief",
+        "duration": "",
+        "activities": "Gather everyone back; ask a few participants to share one interesting thing they learned about someone new before transitioning to the next activity",
+        "materials": ""
+      },
+      {
+        "title": "Sharing circles, open networking and light dinner",
+        "duration": "",
+        "activities": "Sharing circles and free-flowing conversations (talking cards); open networking with spontaneous mingling; light dinner; lucky draw (no detailed run-sheet given)",
+        "materials": "Talking cards (10 sets), food, lucky draw prizes"
+      },
+      {
+        "title": "Feedback and close",
+        "duration": "15 min",
+        "activities": "Participants complete the feedback form in the last 15 minutes of the session; door gifts",
+        "materials": "Feedback form, door gifts"
+      }
+    ],
+    "materials": [
+      "Wall decorations x5",
+      "Table cloths x10",
+      "Masks for participants x35",
+      "Neon lights for door gift table x2",
+      "Door gifts x50 (small care pack, TBC)",
+      "Nuggets (2 x 1kg packets)",
+      "Popcorn chicken (2 x 1kg packets)",
+      "Mashed potatoes (3kg potatoes, 2 blocks butter, 500ml milk)",
+      "Cup corn (3 x 1kg packets)",
+      "Human Bingo cards x50 (5 varieties)",
+      "Talking cards x10 sets",
+      "Lucky draw prizes x5",
+      "Pens",
+      "Speaker and microphone",
+      "Tables for 10 groups",
+      "Chairs for 50 pax",
+      "Laptop and projector"
+    ],
+    "budget": "~S$250 total for 50 guests; S$5 per guest (itemised costing TBC)",
+    "riskNotes": "Centre risks: fall risk in centre (climbing, running and slip risks). Mitigation: give proper rules and instructions for all activities; set ground rules and consequences for breaking rules.\nDuring activity: participants might get injured (cuts, bruises, other injuries). Mitigation: ensure proper supervision where risk is present; give instructions for proper handling; never leave high-risk objects unattended.\nPsychological safety: sharing is optional; non-judgemental if prompts or final output doesn't turn out as expected; clear group agreements.\nStaffing: Jeremy and Raymond (main staff on site), Lyndon, Mei Jing and Xenon (care staff on site).\nEmergency contacts: Jeremy, 92243993; Raymond (number not filled in).",
+    "outcomes": "Intended outcomes: build social confidence by initiating conversations, introducing themselves and articulating personal stories; foster belonging by bridging past interns with new members; cultivate empathy through active listening and perspective-taking.\nSuccess criteria: 80% of participants sign up for future programmes; at least 50% willing to come back as volunteers in the near future; at least 80% report feeling more comfortable initiating conversations with new people after the event; participants actively interact with at least 5 different people during Human Bingo; observed increase in spontaneous mingling and peer-to-peer interaction during open networking.\nFeedback: feedback form completed in the last 15 minutes of the session.\nObservable indicators: increased participation, improved peer interaction, willingness to communicate.",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Venue: Brahm Centre @ Aljunied (youth centre setting), 22 Dec 2026, 6:00-8:00pm. Transport: nil. Food: light dinner.\n\nFacilitators: Jeremy, Raymond – main staff on site; Lyndon, Mei Jing, Xenon – care staff on site.\n\nAttire: smart formal clothes; jacket in case cold. Participants come in mask or costume.\n\nTarget age (as ticked): 13-16, 17-19, 20-24 and 25-34; the icebreaker rationale targets 17-25 year olds (former interns and new youth team members).\n\nCore competencies: Think Independently Of Trends; Embrace Discomfort Without Escape; Start And Conduct Conversations. Primary focus: interpersonal communication, built through Behind the Mask and Human Bingo.\n\nCore youth need: sense of belonging and community; continuity and purpose after internships (avoiding engagement drop-off); mentorship and peer learning; emotional safety and validation; transition support between life stages.\n\nIcebreaker: Behind the Mask, 15 minutes; purpose: reduce awkwardness, encourage interaction, build trust and safety, normalise sharing. Suits 17-25s because the masquerade theme allows mature self-expression, builds networking confidence in a low-stakes format, and balances fun with meaningful connection.\n\nHow youths are involved: every youth is an active player, moving around the room, initiating conversations and collecting signatures.\n\nMindfulness element: reflection and insight through mindful listening; infused mid-session, 6-10 minutes; framed as listening to others share their stories and focusing on the details.\n\nSource: Masquerade_Mystery_-_Ex_Intern_Christmas_Programme.docx",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-10-16T09:51:00.000Z",
+    "updatedAt": "2026-10-16T09:51:00.000Z"
+  },
+  {
+    "id": "brahm-chillout-youth-circle",
+    "title": "Chillout @ Youth Circle",
+    "summary": "A weekly after-school space for youths to come chill and hang out, gather for games or study, and seek help. Participants can pick up stress relief techniques, meet new friends and interact with others in a safe and protected environment.",
+    "ageGroup": "13-15",
+    "format": "Weekly club",
+    "duration": "Every Monday, 3-5pm (120 min)",
+    "groupSize": "",
+    "themes": [
+      "social bonding",
+      "stress relief",
+      "mental wellbeing",
+      "safe space",
+      "games"
+    ],
+    "objectives": [
+      "Provide a space for individuals to come chill and hang out, gather for games or study, and seek help",
+      "Offer stress relief techniques",
+      "Give participants a space to meet new friends and interact with others after school"
+    ],
+    "sessions": [],
+    "materials": [
+      "Board games (simple group games)",
+      "Low chairs and pillows",
+      "Fairy lights",
+      "Blanket/throw",
+      "Candles (fake, possibly scented)",
+      "Drinks (mixture of packet drinks)",
+      "Light snacks (crackers, biscuits, popcorn)",
+      "Speaker and microphone",
+      "Tables and chairs",
+      "Carpet",
+      "Guitar, piano, cajon"
+    ],
+    "budget": "S$300 total estimated cost (not itemised)",
+    "riskNotes": "Unedited template defaults (marked \"Delete when applicable\"): centre fall risk (climbing, running, slips) mitigated by rules, instructions and ground rules with consequences; activity injuries (cuts, bruises) mitigated by supervision, handling instructions and never leaving high-risk objects unattended. Psychological safety: sharing is optional; no fixing or judging rule; clear group agreements; facilitator models vulnerability appropriately. Emergency contacts not filled in.",
+    "outcomes": "",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Target ages ticked on the form: 10–12, 13–16 and 17–19. Format ticked: Ongoing / open group. Session length: 120 minutes.\n\nVenue: Brahm Centre @ Aljunied (meeting location Brahm @ Aljunied; no transport; light refreshments).\n\nFacilitator: Jeremy (main facilitator).\n\nAttire: comfortable clothes to chill in; jacket in case it is cold.\n\nYouth need addressed: youths might not have a conducive location to study, unwind or meet up and chill with friends. This lack of a safe and secure space can lead to a constant sense of oppression, pressure and unease that could worsen their mental health. The programme provides space to explore and chill in a safe and protected environment.\n\nWhy it matters for this age group: youths need a space to explore, feel safe and secure (sentence incomplete in the original).\n\nIncomplete form: core competencies, icebreaker, main activities/timeline, mindfulness infusion, outcomes, success criteria and feedback method were all left blank or as template prompts.\n\nSource: Chillout__Brahm.docx",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-10-16T09:50:00.000Z",
+    "updatedAt": "2026-10-16T09:50:00.000Z"
+  },
+  {
+    "id": "brahm-project-sprouts",
+    "title": "Project Sprouts: Grow A Garden",
+    "summary": "A culinary experience where participants work together to create different sweet treats and easy snacks in a fun and guided way. Participants explore the joys of creating dishes, treats and snacks that are both healthy and tasty, while developing greater self-confidence and a sense of accomplishment as they make their own.",
+    "ageGroup": "13-15",
+    "format": "Workshop",
+    "duration": "2 hours per session (Sat 07 Mar 2026, 2:00-4:00pm), every fortnight",
+    "groupSize": "20 participants",
+    "themes": [
+      "cooking",
+      "baking",
+      "healthy eating",
+      "self-confidence",
+      "teamwork"
+    ],
+    "objectives": [
+      "Create a variety of different food, learning step by step how to make them",
+      "Develop greater self-confidence as you prepare and make your own",
+      "Enjoy a sense of accomplishment as you create your own work"
+    ],
+    "sessions": [],
+    "materials": [
+      "All materials will be provided"
+    ],
+    "budget": "Free for Brahm Centre Youth Circle members (S$0, subsidised); non-refundable",
+    "riskNotes": "Registration asks about food allergies or special needs so staff can accommodate them. Participants agree not to hold the Centre liable for claims, personal injury, property loss or damage arising from participation. Workshop requires a minimum number of participants; participants are notified 1-3 working days in advance if it is cancelled.",
+    "outcomes": "",
+    "status": "draft",
+    "rating": 0,
+    "notes": "Document type: Eventbrite (EB) write-up form for the public event listing, not a run-sheet. No age group, programme flow, risk plan or evaluation is given.\n\nVenue: Brahm Centre @ Aljunied, 108 Aljunied Crescent #01-36, S380108.\n\nSynopsis: explore different tastes, smells and cultures on a culinary journey that spans countries, cuisines and techniques. From baking to cooking, hot to cold dishes, sweet to salty, we will try them all.\n\nSchedule: every fortnight.\n\nFee: S$0 for Youth Circle members (subsidy). Join free as a member at https://t.me/brahmcentreyouth; members must verify membership at the workshop.\n\nRegistration form: mobile number, gender, age, food allergies or special needs, other queries; acknowledgements on minimum numbers, photography/videography, liability waiver and membership; agreement to attend all sessions if more than one.\n\nEnquiries: Youth Care Team, call/WhatsApp 88664811 or youthcare@brahmcentre.com.\n\nEvent organiser: Jeremy Chen. EB write-up approved by Sharine on 30/3/26.\n\nLinks: poster Canva https://canva.link/3q6e1rr149s709x; Salesforce campaign https://brahmcentre.lightning.force.com/lightning/r/Campaign/701OQ00000XqjxJYAR/view\n\nCaution: the title is about growing a garden, but the summary, synopsis and outcomes all describe a cooking and baking workshop, apparently carried over from The Mixing Bowl write-up the file is named after. Confirm the content before use.\n\nSource: The_Mixing_Bowl_EB_write-up_template2460.docx",
+    "document": [],
+    "templateId": null,
+    "createdAt": "2026-10-16T09:49:00.000Z",
+    "updatedAt": "2026-10-16T09:49:00.000Z"
+  },
+  {
+    "id": "brahm-cre8-innovation-workshop",
+    "title": "Cre8 Innovation and Creative Workshop",
+    "summary": "",
+    "ageGroup": "13-15",
+    "format": "Workshop",
+    "duration": "",
+    "groupSize": "",
+    "themes": [
+      "creativity",
+      "innovation"
+    ],
+    "objectives": [],
+    "sessions": [],
+    "materials": [],
+    "budget": "",
+    "riskNotes": "",
+    "outcomes": "",
     "status": "idea",
     "rating": 0,
-    "notes": "Idea came from parent feedback. Need to test the interview session with a small group first.",
+    "notes": "Placeholder: the source file is an unfilled Youth Programme Planning Form. Every field (title, date, objectives, age group, format, logistics, icebreaker, programme flow, mindfulness, risk, outcomes) is blank or still holds the form's prompt text, and no checkboxes are ticked. Title, format and themes come only from the file name; the age group is a placeholder, not taken from the document.\n\nSource: Cre8_Innovation_and_creative_workshop.docx",
     "document": [],
     "templateId": null,
-    "createdAt": "2026-08-20T16:00:00.000Z",
-    "updatedAt": "2026-09-03T11:45:00.000Z"
-  },
-  {
-    "id": "seed-prog-11",
-    "title": "Launchpad: Young Entrepreneurs Weekend",
-    "summary": "An intensive weekend event where teams of young adults go from idea to prototype to pitch for a social or commercial venture. Local entrepreneurs act as coaches and judges.",
-    "ageGroup": "18-25",
-    "themes": [
-      "entrepreneurship",
-      "innovation",
-      "problem solving"
-    ],
-    "format": "Event",
-    "duration": "2 days (Saturday-Sunday), 6h per day",
-    "groupSize": "20-40",
-    "objectives": [
-      "Identify a real problem and validate it with potential users",
-      "Develop a simple business model using a one-page canvas",
-      "Build a low-cost prototype or mock-up",
-      "Deliver a persuasive three-minute pitch"
-    ],
-    "sessions": [
-      {
-        "title": "Ideas and Teams",
-        "duration": "2 hours",
-        "activities": "Welcome and inspiration talk (20 min). Idea speed-pitching, 60 seconds each (40 min). Team formation around top ideas (30 min). Problem statement drafting (30 min).",
-        "materials": "name badges, timer, idea cards, problem statement template"
-      },
-      {
-        "title": "Talk to Users",
-        "duration": "2 hours",
-        "activities": "Interview techniques input (20 min). Teams interview passers-by or peers about the problem (60 min). Synthesise insights (40 min).",
-        "materials": "interview guides, clipboards, sticky notes"
-      },
-      {
-        "title": "Business Model Canvas",
-        "duration": "2 hours",
-        "activities": "Canvas walkthrough (20 min). Teams fill in canvases with coach support (70 min). Lightning feedback round (30 min).",
-        "materials": "printed canvases, sticky notes, markers"
-      },
-      {
-        "title": "Prototype Sprint",
-        "duration": "3 hours",
-        "activities": "Prototyping methods demo (20 min). Build a mock-up, landing page sketch or physical prototype (120 min). User test with another team (40 min).",
-        "materials": "cardboard, craft supplies, laptops, paper prototyping kits"
-      },
-      {
-        "title": "Pitch and Awards",
-        "duration": "3 hours",
-        "activities": "Pitch coaching (60 min). Final pitches to judges, 3 min plus 2 min questions (75 min). Awards, networking and next steps (45 min).",
-        "materials": "projector, judging rubrics, prizes, refreshments"
-      }
-    ],
-    "materials": [
-      "business model canvases",
-      "sticky notes",
-      "prototyping supplies",
-      "laptops",
-      "judging rubrics",
-      "prizes"
-    ],
-    "budget": "~$1,200 (venue, meals, prizes, materials)",
-    "riskNotes": "Brief coaches and judges on the code of conduct and keep interactions in shared spaces. Plan for long days with breaks, meals and a quiet room, and be clear about intellectual property belonging to the teams.",
-    "outcomes": "Every team delivers a final pitch; post-event survey measures entrepreneurial confidence. Follow-up at three months on how many ideas are still being developed.",
-    "status": "ready",
-    "rating": 0,
-    "notes": "Three judges confirmed. Consider adding a small seed grant as the top prize if sponsorship comes through.",
-    "document": [],
-    "templateId": null,
-    "createdAt": "2026-06-02T12:00:00.000Z",
-    "updatedAt": "2026-09-25T18:05:00.000Z"
-  },
-  {
-    "id": "seed-prog-12",
-    "title": "Safe Online: Digital Smarts",
-    "summary": "An online programme that helps young people navigate social media, privacy, misinformation and online wellbeing. Short live sessions are combined with interactive polls, breakout rooms and creative challenges.",
-    "ageGroup": "13-15",
-    "themes": [
-      "digital safety",
-      "media literacy",
-      "online wellbeing"
-    ],
-    "format": "Online",
-    "duration": "4 weeks, 1h per week",
-    "groupSize": "15-30",
-    "objectives": [
-      "Adjust privacy settings and manage their digital footprint",
-      "Evaluate online information for reliability",
-      "Respond safely to online pressure, bullying or unwanted contact",
-      "Reflect on healthy screen-time habits"
-    ],
-    "sessions": [
-      {
-        "title": "My Digital Footprint",
-        "duration": "60 min",
-        "activities": "Welcome and online group agreement (10 min). Poll: which apps do you use most? (5 min). \"What can a stranger learn about me?\" fictional profile investigation (20 min). Privacy settings walkthrough (15 min). Challenge set: review one account's settings (10 min).",
-        "materials": "video platform, poll tool, fictional profile slides"
-      },
-      {
-        "title": "Fact or Fake?",
-        "duration": "60 min",
-        "activities": "Check-in (5 min). Real or fake headline game (15 min). Lateral reading techniques demo (15 min). Breakout teams fact-check a viral claim (20 min). Share back (5 min).",
-        "materials": "headline slides, breakout rooms, fact-check worksheet"
-      },
-      {
-        "title": "Pressure and Boundaries",
-        "duration": "60 min",
-        "activities": "Check-in (5 min). Anonymous scenario poll on online pressure (15 min). Discuss block, report, tell responses (20 min). Create a \"what I would say\" script (15 min). Signposting (5 min).",
-        "materials": "scenario slides, anonymous poll tool, signposting list"
-      },
-      {
-        "title": "Balance and Wellbeing",
-        "duration": "60 min",
-        "activities": "Check-in (5 min). Screen-time reflection and mood link (15 min). Design a personal digital wellbeing plan (25 min). Showcase and evaluation (15 min).",
-        "materials": "digital wellbeing plan template, evaluation form"
-      }
-    ],
-    "materials": [
-      "video conferencing platform",
-      "poll tool",
-      "slide deck",
-      "digital worksheets",
-      "signposting list"
-    ],
-    "budget": "~$100 (platform licence share, digital resources)",
-    "riskNotes": "Use a platform with waiting rooms, disabled private chat between participants and at least two facilitators online. Never record without consent, and have a clear process for following up concerns raised in chat or polls.",
-    "outcomes": "Pre/post confidence survey on online safety skills and completed digital wellbeing plans. Success = 75% report they changed at least one privacy setting.",
-    "status": "delivered",
-    "rating": 4,
-    "notes": "Engagement was strongest in breakout rooms; cameras-off was fine. Add a parent briefing session next time.",
-    "document": [],
-    "templateId": null,
-    "createdAt": "2026-02-22T15:30:00.000Z",
-    "updatedAt": "2026-04-20T13:00:00.000Z"
-  },
-  {
-    "id": "seed-prog-13",
-    "title": "Character Compass Retreat",
-    "summary": "A values-neutral weekend retreat helping older teens reflect on character strengths such as honesty, kindness and perseverance. Activities combine outdoor challenges, journalling and small-group dialogue open to young people of all beliefs and backgrounds.",
-    "ageGroup": "16-18",
-    "themes": [
-      "character",
-      "values",
-      "reflection"
-    ],
-    "format": "Retreat",
-    "duration": "2 days, 1 night",
-    "groupSize": "12-20",
-    "objectives": [
-      "Identify their top character strengths",
-      "Explore how values guide everyday decisions",
-      "Practise respectful dialogue across different viewpoints",
-      "Set one personal intention to carry forward"
-    ],
-    "sessions": [
-      {
-        "title": "Arrival and Strengths Discovery",
-        "duration": "2 hours",
-        "activities": "Arrival and welcome circle (20 min). Character strengths card sort (40 min). Pair interviews: a time I used this strength (40 min). Group agreement for respectful dialogue (20 min).",
-        "materials": "strengths card sets, journals, pens"
-      },
-      {
-        "title": "Values Under Pressure",
-        "duration": "2 hours",
-        "activities": "Moral dilemma scenarios discussed in small groups (60 min). Values line: agree/disagree spectrum activity (40 min). Journalling (20 min).",
-        "materials": "dilemma cards, agree/disagree signs, journals"
-      },
-      {
-        "title": "Perseverance Trail",
-        "duration": "3 hours",
-        "activities": "Outdoor team challenge trail with problem-solving stations (120 min). Debrief: what kept you going? (40 min). Free time (20 min).",
-        "materials": "challenge station kits, maps, first aid kit, radios"
-      },
-      {
-        "title": "Evening Reflection",
-        "duration": "90 min",
-        "activities": "Quiet reflective walk (30 min). Letter to my future self (40 min). Sharing circle (optional) (20 min).",
-        "materials": "envelopes, writing paper, lanterns or torches"
-      },
-      {
-        "title": "Intentions and Departure",
-        "duration": "90 min",
-        "activities": "Personal intention setting (30 min). Appreciation web with a ball of string (30 min). Evaluation and departure (30 min).",
-        "materials": "ball of string, intention cards, evaluation forms"
-      }
-    ],
-    "materials": [
-      "character strengths cards",
-      "journals",
-      "dilemma cards",
-      "challenge trail kits",
-      "envelopes",
-      "first aid kit"
-    ],
-    "budget": "~$1,500 (venue, meals, transport, materials)",
-    "riskNotes": "Overnight stays require consent forms, medical information, appropriate staffing ratios and separate sleeping arrangements. Ensure discussions remain inclusive and that no belief system is promoted or criticised.",
-    "outcomes": "Participants complete a strengths profile and set an intention; letters to future self are posted back after three months. Post-retreat survey on self-awareness and respect for differing views.",
-    "status": "draft",
-    "rating": 0,
-    "notes": "Venue shortlist of two. Check accessibility for a participant who uses a wheelchair before confirming the trail route.",
-    "document": [],
-    "templateId": null,
-    "createdAt": "2026-07-10T10:30:00.000Z",
-    "updatedAt": "2026-09-29T09:15:00.000Z"
-  },
-  {
-    "id": "seed-prog-14",
-    "title": "Future Pathways Careers Mentoring",
-    "summary": "A mentoring programme pairing young people with volunteer professionals to explore careers, build employability skills and plan their next steps after education. Group workshops run alongside fortnightly one-to-one mentoring.",
-    "ageGroup": "16-18",
-    "themes": [
-      "careers",
-      "employability",
-      "mentoring"
-    ],
-    "format": "Mentoring",
-    "duration": "12 weeks, fortnightly 1h mentoring plus 3 group workshops",
-    "groupSize": "10-20 pairs",
-    "objectives": [
-      "Explore at least three career pathways relevant to their interests",
-      "Produce a strong CV and personal statement",
-      "Practise interview skills with feedback",
-      "Create a realistic 12-month action plan"
-    ],
-    "sessions": [
-      {
-        "title": "Kick-Off and Matching",
-        "duration": "2 hours",
-        "activities": "Welcome and programme overview (20 min). Interests and values profile (30 min). Speed-meeting with mentors (45 min). Mentoring agreement and boundaries (25 min).",
-        "materials": "interest profiles, mentor bios, mentoring agreements"
-      },
-      {
-        "title": "Career Explorer",
-        "duration": "60 min",
-        "activities": "Mentor shares their career journey (15 min). Explore job families using online career tools (30 min). Choose three pathways to research (15 min).",
-        "materials": "laptops, career exploration worksheet"
-      },
-      {
-        "title": "CV and Personal Statement Clinic",
-        "duration": "2 hours",
-        "activities": "What employers look for (20 min). Draft or improve CVs with mentor input (60 min). Personal statement workshop (40 min).",
-        "materials": "laptops, CV templates, example statements"
-      },
-      {
-        "title": "Mock Interviews",
-        "duration": "2 hours",
-        "activities": "Interview tips and STAR technique (25 min). Two rounds of mock interviews with feedback (75 min). Reflection (20 min).",
-        "materials": "interview question bank, feedback forms, quiet rooms"
-      },
-      {
-        "title": "Action Planning and Graduation",
-        "duration": "60 min",
-        "activities": "Build a 12-month action plan with mentor (40 min). Graduation and certificates (20 min).",
-        "materials": "action plan templates, certificates"
-      }
-    ],
-    "materials": [
-      "mentor bios and agreements",
-      "CV templates",
-      "interview question bank",
-      "action plan templates",
-      "laptops",
-      "certificates"
-    ],
-    "budget": "~$500 (mentor background checks, refreshments, printing)",
-    "riskNotes": "All mentors must complete background checks and safeguarding training, and meetings should take place in public or supervised settings or via monitored platforms. Provide a clear route for mentees to raise concerns.",
-    "outcomes": "Mentee and mentor feedback at midpoint and end, completed CVs and action plans. Track six-month destinations (education, training or employment).",
-    "status": "ready",
-    "rating": 0,
-    "notes": "Twelve mentors recruited so far. Graduation could be combined with a local employer networking event.",
-    "document": [],
-    "templateId": null,
-    "createdAt": "2026-05-21T13:45:00.000Z",
-    "updatedAt": "2026-10-08T10:00:00.000Z"
+    "createdAt": "2026-10-16T09:48:00.000Z",
+    "updatedAt": "2026-10-16T09:48:00.000Z"
   }
 ]

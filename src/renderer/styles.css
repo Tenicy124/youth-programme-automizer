@@ -350,3 +350,4 @@ input[type=search]::-webkit-search-cancel-button { -webkit-appearance: none; dis
   .print-only .pbreak { page-break-before: always; }
   .print-only .pcover ol li { margin-bottom: 6pt; }
 }
+.facts b { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }

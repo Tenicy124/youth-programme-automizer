@@ -5,6 +5,8 @@ const path = require('path');
 const crypto = require('crypto');
 
 const EMPTY = { version: 1, programmes: [], templates: [], settings: {} };
+// Bump when new built-in programmes/templates ship; existing libraries get the missing ones once.
+const SEED_VERSION = 2;
 
 class Store {
   constructor(dir, seedDir) {
@@ -13,6 +15,7 @@ class Store {
     if (fs.existsSync(this.file)) {
       try {
         this.data = { ...EMPTY, ...JSON.parse(fs.readFileSync(this.file, 'utf8')) };
+        this.topUp(seedDir);
       } catch (e) {
         // Keep the unreadable file for recovery and start fresh.
         fs.renameSync(this.file, this.file + '.corrupt-' + Date.now());
@@ -31,6 +34,19 @@ class Store {
     };
     this.data.programmes = read('programmes.json');
     this.data.templates = read('templates.json');
+    this.data.seedVersion = SEED_VERSION;
+    this.save();
+  }
+
+  // Adds built-in items that an older library doesn't have yet (never re-adds after this version).
+  topUp(seedDir) {
+    if (!seedDir || (this.data.seedVersion || 1) >= SEED_VERSION) return;
+    for (const kind of ['programmes', 'templates']) {
+      let items = [];
+      try { items = JSON.parse(fs.readFileSync(path.join(seedDir, kind + '.json'), 'utf8')); } catch { continue; }
+      for (const item of items) if (!this.data[kind].some(x => x.id === item.id)) this.data[kind].push(item);
+    }
+    this.data.seedVersion = SEED_VERSION;
     this.save();
   }
 

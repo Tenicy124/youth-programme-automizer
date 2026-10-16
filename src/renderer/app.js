@@ -271,16 +271,16 @@ function programmeReadHtml(p) {
     <div class="facts">
       <div><span>Age group</span><b>${esc(p.ageGroup || '-')}</b></div>
       <div><span>Format</span><b>${esc(p.format || '-')}</b></div>
-      <div><span>Duration</span><b>${esc(p.duration || '-')}</b></div>
-      <div><span>Group size</span><b>${esc(p.groupSize || '-')}</b></div>
-      <div><span>Budget</span><b>${esc(p.budget || '-')}</b></div>
+      <div><span>Duration</span><b title="${esc(p.duration)}">${esc(p.duration || '-')}</b></div>
+      <div><span>Group size</span><b title="${esc(p.groupSize)}">${esc(p.groupSize || '-')}</b></div>
+      <div><span>Budget</span><b title="${esc(p.budget)}">${esc(String(p.budget || '-').split(/[;(]/)[0].trim() || '-')}</b></div>
     </div>
     ${block('Summary', para(p.summary) + ((p.themes || []).length ? `<div class="chips">${p.themes.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''), 'basics')}
     ${block('Objectives', list(p.objectives) + (p.outcomes ? `<h3 class="sub">How success is measured</h3>${para(p.outcomes)}` : ''), 'goals')}
     ${block(`Sessions <span class="count">${(p.sessions || []).length}</span>`, (p.sessions || []).length ? p.sessions.map((s, i) => `
       <div class="read-session"><div class="rs-head"><span class="num">${i + 1}</span><b>${esc(s.title || 'Untitled session')}</b>${s.duration ? `<span class="faint">${esc(s.duration)}</span>` : ''}</div>
         ${s.activities ? `<p class="prose">${esc(s.activities)}</p>` : ''}${s.materials ? `<p class="faint small">Materials: ${esc(s.materials)}</p>` : ''}</div>`).join('') : none, 'sessions')}
-    ${block('Resources &amp; safety', `<h3 class="sub">Materials</h3>${list(p.materials)}<h3 class="sub">Risk &amp; safeguarding</h3>${para(p.riskNotes)}`, 'resources')}
+    ${block('Resources &amp; safety', `<h3 class="sub">Materials</h3>${list(p.materials)}<h3 class="sub">Risk &amp; safeguarding</h3>${para(p.riskNotes)}${p.budget ? `<h3 class="sub">Budget</h3>${para(p.budget)}` : ''}`, 'resources')}
     ${(p.document || []).length ? block(`Document${tpl ? `: ${esc(tpl.name)}` : ''}`, p.document.map(d => `<h3 class="sub">${esc(d.heading)}</h3><p class="prose">${esc(d.content)}</p>`).join(''), 'documents') : ''}
     ${p.notes || p.rating ? block('Notes &amp; reflection', `${p.rating ? `<p>${stars(p.rating)}</p>` : ''}${para(p.notes)}`, 'notes') : ''}`;
 }
