@@ -22,6 +22,7 @@
   const MF_WHEN = ['Opening', 'Mid-session', 'Closing', 'Multiple points'];
   const MF_TIMES = ['2-5 min', '6-10 min', '11-15 min'];
   const FEEDBACK = ['Post-programme survey', 'Verbal check-out / sharing circle', 'Feedback cards or sticky notes', 'Reflection journal', 'Facilitator observation', 'Before-and-after self-rating'];
+  const VENUES = ['Indoor', 'Outdoor', 'Indoor & outdoor'];
   const INDICATORS = ['Increased participation', 'Improved peer interaction', 'Greater emotional awareness', 'Willingness to communicate', 'Improved focus or calmness'];
 
   // Safety catalogue. Each risk lists the measures that usually go with it,
@@ -120,7 +121,7 @@
       mfObjectives: [], mfTypes: [], mfWhen: [], mfFraming: '', mfTime: '',
       risks: [], mitigations: [], contacts: [], psychSafety: [], bestPractices: [], riskNotes: '',
       intendedOutcomes: '', successCriteria: '', feedbackMethods: [], indicators: [],
-      status: 'draft', rating: 0, notes: '', document: [], templateId: null,
+      venue: '', status: 'draft', rating: 0, notes: '', document: [], templateId: null,
     };
   }
 
@@ -157,6 +158,16 @@
     return out;
   }
 
+  // Indoor or outdoor: the catalog setting if chosen, otherwise worked out from the plan.
+  const OUTDOOR = /outdoor|outside|nature|forest|park|reserve|trail|hike|hiking|beach|garden|camp(ing|site)?\b|kayak|cycling|walk(ing)? tour|wildlife/i;
+  function venueOf(p) {
+    if (VENUES.includes(p.venue)) return p.venue;
+    const text = [p.setting, p.location, p.meetingPoint, p.title, (p.risks || []).join(' ')].join(' ');
+    return OUTDOOR.test(text) ? 'Outdoor' : 'Indoor';
+  }
+  const isIndoor = p => venueOf(p) !== 'Outdoor';
+  const isOutdoor = p => venueOf(p) !== 'Indoor';
+
   // Which mandatory sections are still empty.
   function missingMandatory(p) {
     const miss = [];
@@ -169,6 +180,6 @@
   return {
     AGE_GROUPS, AGE_HINTS, FORMATS, SESSION_LENGTHS, SETTINGS, COMPETENCIES, ICE_PURPOSES, ICE_TIMES, INVOLVEMENT,
     MF_OBJECTIVES, MF_TYPES, MF_WHEN, MF_TIMES, FEEDBACK, INDICATORS, RISKS, RISK_LABELS, MITIGATIONS, PSYCH, BEST_PRACTICES,
-    SECTIONS, blank, normalize, missingMandatory, mitigationsFor,
+    SECTIONS, VENUES, blank, normalize, missingMandatory, mitigationsFor, venueOf, isIndoor, isOutdoor,
   };
 });

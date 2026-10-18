@@ -4,6 +4,7 @@
   if (typeof module === 'object' && module.exports) module.exports = factory();
   else root.PSearch = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
+  const F = typeof module === 'object' && module.exports ? require('./form.js') : self.PForm;
   const STOP = new Set(('a an and are as at be by for from has have in into is it its of on or that the their them they this to was were will with ' +
     'we you your our us can each per week weeks session sessions young people youth programme program').split(' '));
 
@@ -105,6 +106,9 @@
     if (f.format && p.format !== f.format) return false;
     if (f.status && p.status !== f.status) return false;
     if (f.theme && !(p.themes || []).some(t => t.toLowerCase() === f.theme.toLowerCase())) return false;
+    if (f.competency && !(p.competencies || []).includes(f.competency)) return false;
+    if (f.venue === 'Indoor' && !F.isIndoor(p)) return false;
+    if (f.venue === 'Outdoor' && !F.isOutdoor(p)) return false;
     return true;
   }
 

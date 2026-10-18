@@ -7,10 +7,12 @@ const STATUSES = ['idea', 'draft', 'ready', 'delivered', 'archived'];
 const STATUS_HELP = { idea: 'Just an idea', draft: 'Being planned', ready: 'Ready to run', delivered: 'Has been run', archived: 'No longer used' };
 const PLACEHOLDERS = ['programme_title', 'age_group', 'format', 'duration', 'group_size', 'objectives', 'summary', 'facilitator', 'organisation', 'date'];
 
+const EMPTY_FILTERS = { q: '', ageGroup: '', format: '', status: '', theme: '', competency: '', venue: '' };
+
 const S = {
   programmes: [], templates: [], settings: {},
   view: 'home', id: null, tab: 'overview',
-  filters: { q: '', ageGroup: '', format: '', status: '', theme: '' },
+  filters: { q: '', ageGroup: '', format: '', status: '', theme: '', competency: '', venue: '' },
   draft: null, dirty: false,         // programme being edited (edit page)
   wiz: null,                         // create wizard state { step, p, ideas, brief }
   tplEdit: null,
@@ -138,43 +140,31 @@ function bindOpen(root) {
 // ---------- Home ----------
 function viewHome() {
   const P = S.programmes;
-  const count = s => P.filter(p => p.status === s).length;
   const name = S.settings.facilitator ? `, ${esc(S.settings.facilitator.split(' ')[0])}` : '';
-  const tally = key => { const m = {}; P.forEach(p => { const vs = key === 'ageGroup' ? (p.ageGroups || []) : [p[key]]; vs.forEach(v => { if (v) m[v] = (m[v] || 0) + 1; }); }); return m; };
-  const bars = (title, m, order, filterKey) => {
-    const rows = (order || Object.keys(m).sort((a, b) => m[b] - m[a])).filter(k => m[k]);
-    const max = Math.max(1, ...rows.map(k => m[k]));
-    return `<div class="panel"><h2>${title}</h2>${rows.length ? rows.map(k => `
-      <button class="bar-row" data-filter="${filterKey}" data-v="${esc(k)}"><span class="bar-label">${esc(filterKey === 'ageGroup' ? 'Ages ' + k : k)}</span><span class="bar"><i style="width:${Math.round(m[k] / max * 100)}%"></i></span><b>${m[k]}</b></button>`).join('') : '<p class="faint">Nothing yet.</p>'}</div>`;
-  };
-  const themes = {}; P.forEach(p => (p.themes || []).forEach(t => { themes[t] = (themes[t] || 0) + 1; }));
-  const topThemes = Object.keys(themes).sort((a, b) => themes[b] - themes[a]).slice(0, 10);
-  const last = P.slice().sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)))[0];
+  const n = f => P.filter(f).length;
+  const tile = (cls, attrs, num, label, sub = '') => `<button class="${cls}" ${attrs}><b>${num}</b><span>${esc(label)}</span>${sub ? `<small>${esc(sub)}</small>` : ''}</button>`;
   main().innerHTML = `
-    ${header(`Welcome back${name}`, 'A summary of your youth programmes.', '<button class="btn primary" data-go="create">＋ Create new</button>')}
-    <div class="stats">
-      <button class="stat" data-status=""><b>${P.length}</b><span>Programmes</span></button>
-      <button class="stat st-ready-c" data-status="ready"><b>${count('ready')}</b><span>Ready to run</span></button>
-      <button class="stat st-plan-c" data-status="draft"><b>${count('draft') + count('idea')}</b><span>In planning</span></button>
-      <button class="stat st-done-c" data-status="delivered"><b>${count('delivered')}</b><span>Delivered</span></button>
+    ${header(`Welcome back${name}`, `${P.length} programme${P.length === 1 ? '' : 's'} in your catalog.`, '<button class="btn primary" data-go="create">＋ Create new</button>')}
+    <div class="stats three">
+      ${tile('stat st-in', 'data-filter="venue" data-v="Indoor"', n(PForm.isIndoor), 'Indoor programmes')}
+      ${tile('stat st-out', 'data-filter="venue" data-v="Outdoor"', n(PForm.isOutdoor), 'Outdoor programmes')}
+      ${tile('stat st-draft', 'data-filter="status" data-v="draft"', n(p => p.status === 'draft'), 'Draft programmes')}
     </div>
-    ${P.length ? `<div class="home-grid">
-      ${bars('By age group', tally('ageGroup'), AGE_GROUPS, 'ageGroup')}
-      ${bars('By format', tally('format'), null, 'format')}
-      <div class="panel"><h2>Most common tags</h2><div class="chips">${topThemes.map(t => `<button class="tag big tag-btn" data-filter="theme" data-v="${esc(t)}">${esc(t)} <span class="faint">${themes[t]}</span></button>`).join('')}</div>
-        ${last ? `<p class="faint small last-up">Last updated: <a href="#" data-open="${esc(last.id)}">${esc(last.title)}</a>, ${fmtDate(last.updatedAt)}</p>` : ''}</div>
-    </div>` : '<div class="empty">No programmes yet. Click <b>Create new</b> to plan your first one, or bring existing ones in from <b>Import</b>.</div>'}`;
+    <h2 class="home-h">Programme formats</h2>
+    <div class="format-tiles">${FORMATS.map((f, i) => tile(`ftile f${i}`, `data-filter="format" data-v="${esc(f)}"`, n(p => p.format === f), f)).join('')}</div>
+    <h2 class="home-h">Core competencies <span class="faint small">Click one to see every programme that builds it</span></h2>
+    <div class="comp-links">${PForm.COMPETENCIES.map((c, i) => `<button class="comp-link" data-filter="competency" data-v="${esc(c)}"><span class="comp-num">${i + 1}</span><span class="comp-name">${esc(c)}</span><span class="comp-count">${n(p => (p.competencies || []).includes(c))} programme${n(p => (p.competencies || []).includes(c)) === 1 ? '' : 's'} →</span></button>`).join('')}</div>`;
   $$('[data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
-  const toCatalog = patch => { S.filters = { q: '', ageGroup: '', format: '', status: '', theme: '', ...patch }; go('catalog'); };
-  $$('[data-status]').forEach(b => b.onclick = () => toCatalog({ status: b.dataset.status }));
+  const toCatalog = patch => { S.filters = { ...EMPTY_FILTERS, ...patch }; go('catalog'); };
   $$('[data-filter]').forEach(b => b.onclick = () => toCatalog({ [b.dataset.filter]: b.dataset.v }));
-  $$('[data-open]').forEach(a => a.onclick = e => { e.preventDefault(); go('programme', a.dataset.open); });
 }
 
 // ---------- Catalog ----------
 const FILTER_GROUPS = [
   { key: 'ageGroup', label: 'Age group', list: () => AGE_GROUPS, show: v => 'Ages ' + v },
   { key: 'format', label: 'Format', list: () => FORMATS, show: v => v },
+  { key: 'competency', label: 'Core competency', list: () => PForm.COMPETENCIES, show: v => v },
+  { key: 'venue', label: 'Indoor / outdoor', list: () => ['Indoor', 'Outdoor'], show: v => v },
   { key: 'status', label: 'Status', list: () => STATUSES, show: v => v[0].toUpperCase() + v.slice(1) },
   { key: 'theme', label: 'Tag', list: () => PSearch.allThemes(S.programmes), show: v => '#' + v },
 ];
@@ -496,7 +486,8 @@ const SECTIONS = {
 // Catalog-only details (not on the planning form): the card description and tags.
 function catalogFields(p) {
   return `${field('Catalog description', area(p, 'summary', 'Two or three sentences shown on the catalog card.'), { forId: 'f-summary', help: 'What the programme is, who it is for and what they get out of it.' })}
-    ${field('Tags', `<div data-tags></div>`, { help: 'Topics such as <i>music</i>, <i>cooking</i> or <i>nature</i>. They power search and recommendations.' })}`;
+    ${field('Tags', `<div data-tags></div>`, { help: 'Topics such as <i>music</i>, <i>cooking</i> or <i>nature</i>. They power search and recommendations.' })}
+    ${field('Indoor or outdoor', choice('venue', PForm.VENUES, p.venue), { help: `Used for the Home page counts and the Catalog filter. If you leave it blank, the app works it out from the setting and location (currently <b>${esc(PForm.venueOf({ ...p, venue: '' }))}</b>).` })}`;
 }
 const FORM_KEYS = PForm.SECTIONS.map(s => s.key);
 
@@ -1166,7 +1157,7 @@ async function openShared(fromPending) {
       }
       await reload();
       toast(`Added ${pick.length} programme${pick.length === 1 ? '' : 's'} to your catalog`);
-      S.filters = { q: '', ageGroup: '', format: '', status: '', theme: '' };
+      S.filters = { ...EMPTY_FILTERS };
       go('catalog');
     };
   });

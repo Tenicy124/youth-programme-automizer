@@ -212,7 +212,8 @@
   "id": "brahm-bathing-with-nature",
   "createdAt": "2026-10-16T09:59:00.000Z",
   "updatedAt": "2026-10-18T10:00:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:59:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:59:00.000Z",
+  "venue": ""
  },
  {
   "title": "The Vocal Palette (Songcraft Studio)",
@@ -383,7 +384,8 @@
   "id": "brahm-vocal-palette",
   "createdAt": "2026-10-16T09:58:00.000Z",
   "updatedAt": "2026-10-18T09:59:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:58:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:58:00.000Z",
+  "venue": ""
  },
  {
   "title": "Build with AI",
@@ -546,7 +548,8 @@
   "id": "brahm-build-with-ai",
   "createdAt": "2026-10-16T09:57:00.000Z",
   "updatedAt": "2026-10-18T09:58:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:57:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:57:00.000Z",
+  "venue": ""
  },
  {
   "title": "Superstar: ME - A 3-Day Self-Worth Discovery Programme",
@@ -802,7 +805,8 @@
   "id": "brahm-superstar-me",
   "createdAt": "2026-10-16T09:56:00.000Z",
   "updatedAt": "2026-10-18T09:57:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:56:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:56:00.000Z",
+  "venue": ""
  },
  {
   "title": "Social Entrepreneurship Workshop",
@@ -980,7 +984,8 @@
   "id": "brahm-social-entrepreneurship",
   "createdAt": "2026-10-16T09:55:00.000Z",
   "updatedAt": "2026-10-18T09:56:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:55:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:55:00.000Z",
+  "venue": ""
  },
  {
   "title": "Mind Craft - Stress Management Programme",
@@ -1133,7 +1138,8 @@
   "id": "brahm-mind-craft-exam-stress",
   "createdAt": "2026-10-16T09:54:00.000Z",
   "updatedAt": "2026-10-18T09:55:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:54:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:54:00.000Z",
+  "venue": ""
  },
  {
   "title": "The Mixing Bowl - Creative Baking",
@@ -1313,7 +1319,8 @@
   "id": "brahm-mixing-bowl-creative-baking",
   "createdAt": "2026-10-16T09:53:00.000Z",
   "updatedAt": "2026-10-18T09:54:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:53:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:53:00.000Z",
+  "venue": ""
  },
  {
   "title": "King of the Table (Game On! Night)",
@@ -1479,7 +1486,8 @@
   "id": "brahm-king-of-the-table",
   "createdAt": "2026-10-16T09:52:00.000Z",
   "updatedAt": "2026-10-18T09:53:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:52:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:52:00.000Z",
+  "venue": ""
  },
  {
   "title": "Masquerade Mystery – Ex Alumni Christmas Programme",
@@ -1655,7 +1663,8 @@
   "id": "brahm-masquerade-mystery",
   "createdAt": "2026-10-16T09:51:00.000Z",
   "updatedAt": "2026-10-18T09:52:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:51:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:51:00.000Z",
+  "venue": ""
  },
  {
   "title": "Chillout @ Youth Circle",
@@ -1744,7 +1753,8 @@
   "id": "brahm-chillout-youth-circle",
   "createdAt": "2026-10-16T09:50:00.000Z",
   "updatedAt": "2026-10-18T09:51:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:50:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:50:00.000Z",
+  "venue": ""
  },
  {
   "title": "Project Sprouts: Grow A Garden",
@@ -1825,7 +1835,8 @@
   "id": "brahm-project-sprouts",
   "createdAt": "2026-10-16T09:49:00.000Z",
   "updatedAt": "2026-10-18T09:50:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:49:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:49:00.000Z",
+  "venue": ""
  },
  {
   "title": "Cre8 Innovation and Creative Workshop",
@@ -1891,6 +1902,7 @@
   "id": "brahm-cre8-innovation-workshop",
   "createdAt": "2026-10-16T09:48:00.000Z",
   "updatedAt": "2026-10-18T09:49:00.000Z",
-  "seedUpdatedFrom": "2026-10-16T09:48:00.000Z"
+  "seedUpdatedFrom": "2026-10-16T09:48:00.000Z",
+  "venue": ""
  }
 ]
