@@ -50,6 +50,7 @@ function publicSettings() {
     defaultModel: DEFAULT_MODEL,
     facilitator: s.facilitator || '',
     organisation: s.organisation || '',
+    contacts: Array.isArray(s.contacts) ? s.contacts : [],
     dataFile: store.file,
   };
 }

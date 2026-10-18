@@ -3,10 +3,11 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { normalize } = require('../shared/form');
 
 const EMPTY = { version: 1, programmes: [], templates: [], settings: {} };
 // Bump when new built-in programmes/templates ship; existing libraries get the missing ones once.
-const SEED_VERSION = 2;
+const SEED_VERSION = 3;
 
 class Store {
   constructor(dir, seedDir) {
@@ -16,6 +17,7 @@ class Store {
       try {
         this.data = { ...EMPTY, ...JSON.parse(fs.readFileSync(this.file, 'utf8')) };
         this.topUp(seedDir);
+        this.data.programmes = this.data.programmes.map(normalize);
       } catch (e) {
         // Keep the unreadable file for recovery and start fresh.
         fs.renameSync(this.file, this.file + '.corrupt-' + Date.now());
@@ -38,13 +40,18 @@ class Store {
     this.save();
   }
 
-  // Adds built-in items that an older library doesn't have yet (never re-adds after this version).
+  // Adds built-in items that an older library doesn't have yet (never re-adds after this version),
+  // and refreshes built-in items the user has never edited (same updatedAt as shipped).
   topUp(seedDir) {
     if (!seedDir || (this.data.seedVersion || 1) >= SEED_VERSION) return;
     for (const kind of ['programmes', 'templates']) {
       let items = [];
       try { items = JSON.parse(fs.readFileSync(path.join(seedDir, kind + '.json'), 'utf8')); } catch { continue; }
-      for (const item of items) if (!this.data[kind].some(x => x.id === item.id)) this.data[kind].push(item);
+      for (const item of items) {
+        const i = this.data[kind].findIndex(x => x.id === item.id);
+        if (i < 0) this.data[kind].push(item);
+        else if (item.seedUpdatedFrom && this.data[kind][i].updatedAt === item.seedUpdatedFrom) this.data[kind][i] = item;
+      }
     }
     this.data.seedVersion = SEED_VERSION;
     this.save();

@@ -1,20 +1,21 @@
 /* Youth Programme Studio — renderer */
 'use strict';
 
-const AGE_GROUPS = ['5-8', '9-12', '13-15', '16-18', '18-25'];
-const FORMATS = ['Weekly club', 'Camp', 'Workshop', 'Retreat', 'Event', 'Online', 'Mentoring'];
+const AGE_GROUPS = PForm.AGE_GROUPS;
+const FORMATS = PForm.FORMATS;
 const STATUSES = ['idea', 'draft', 'ready', 'delivered', 'archived'];
 const STATUS_HELP = { idea: 'Just an idea', draft: 'Being planned', ready: 'Ready to run', delivered: 'Has been run', archived: 'No longer used' };
 const PLACEHOLDERS = ['programme_title', 'age_group', 'format', 'duration', 'group_size', 'objectives', 'summary', 'facilitator', 'organisation', 'date'];
 
 const S = {
   programmes: [], templates: [], settings: {},
-  view: 'home', id: null, tab: 'basics',
+  view: 'home', id: null, tab: 'overview',
   filters: { q: '', ageGroup: '', format: '', status: '', theme: '' },
   draft: null, dirty: false,         // programme being edited (edit page)
   wiz: null,                         // create wizard state { step, p, ideas, brief }
   tplEdit: null,
-  chat: { messages: [], busy: false, focusId: null, focusDraft: null, draft: '' },
+  chat: { messages: [], busy: false, draft: '', getFocus: null, onNote: null },
+  aiHidden: false,
 };
 
 // ---------- helpers ----------
@@ -29,6 +30,7 @@ const stars = n => n ? `<span class="stars" title="${n} out of 5">${'★'.repeat
 const fmtDate = iso => iso ? new Date(iso).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
 const main = () => $('#main');
 const copyText = window.copyText || (t => { try { navigator.clipboard.writeText(t).catch(() => {}); } catch (e) { /* ignore */ } });
+const agesText = p => (p.ageGroups && p.ageGroups.length ? p.ageGroups : (p.ageGroup ? [p.ageGroup] : [])).join(', ');
 const statusBadge = s => `<span class="status st-${esc(s)}">${esc(s)}</span>`;
 
 function toast(msg, isError) {
@@ -69,6 +71,7 @@ async function busy(btn, label, fn) {
 
 async function reload() {
   [S.programmes, S.templates, S.settings] = await Promise.all([api.list('programmes'), api.list('templates'), api.getSettings()]);
+  S.programmes = S.programmes.map(PForm.normalize);
   renderAiStatus();
 }
 
@@ -80,14 +83,10 @@ function renderAiStatus() {
 }
 
 function newProgramme(extra) {
-  return {
-    title: '', summary: '', ageGroup: '', themes: [], format: '', duration: '', groupSize: '',
-    objectives: [], sessions: [], materials: [], budget: '', riskNotes: '', outcomes: '', status: 'draft', rating: 0,
-    notes: '', document: [], templateId: null, ...extra,
-  };
+  return PForm.normalize({ ...PForm.blank(), ...extra });
 }
 
-const NAV_FOR = { home: 'home', create: 'create', catalog: 'catalog', programme: 'catalog', edit: 'catalog', templates: 'templates', template: 'templates', import: 'import', assistant: 'assistant', settings: 'settings' };
+const NAV_FOR = { home: 'home', create: 'create', catalog: 'catalog', programme: 'catalog', edit: 'catalog', templates: 'templates', template: 'templates', import: 'import', settings: 'settings' };
 
 // ---------- routing ----------
 async function go(view, id = null, opts = {}) {
@@ -98,7 +97,9 @@ async function go(view, id = null, opts = {}) {
   S.dirty = false;
   if (view !== 'edit') S.draft = null;
   if (view !== 'template') S.tplEdit = null;
-  if (view === 'create' && !opts.keepWizard) S.wiz = null;
+  if (view === 'create' && !opts.keepWizard) { S.wiz = null; S.chat.messages = []; }
+  if (view === 'edit' && S.id !== id) S.chat.messages = [];
+  if (view !== 'create' && view !== 'edit') { S.chat.getFocus = null; S.chat.onNote = null; }
   S.view = view; S.id = id;
   if (opts.tab) S.tab = opts.tab;
   $$('#nav a').forEach(a => a.classList.toggle('active', a.dataset.view === NAV_FOR[view]));
@@ -107,7 +108,7 @@ async function go(view, id = null, opts = {}) {
 }
 
 function render() {
-  const views = { home: viewHome, create: viewCreate, catalog: viewCatalog, programme: viewProgramme, edit: viewEdit, templates: viewTemplates, template: viewTemplate, import: viewImport, assistant: viewAssistant, settings: viewSettings };
+  const views = { home: viewHome, create: viewCreate, catalog: viewCatalog, programme: viewProgramme, edit: viewEdit, templates: viewTemplates, template: viewTemplate, import: viewImport, settings: viewSettings };
   (views[S.view] || viewHome)();
   const crumbs = $('.crumbs', main()), titles = $('.topbar .titles', main());
   if (crumbs && titles) titles.prepend(crumbs);
@@ -122,7 +123,7 @@ function programmeCard(p, extra = '') {
   return `<div class="card" data-open="${esc(p.id)}" tabindex="0">
     <div class="card-head"><h3>${esc(p.title || 'Untitled programme')}</h3>${statusBadge(p.status)}</div>
     <p>${esc(p.summary)}</p>${extra}
-    <div class="meta">${p.ageGroup ? `<span>Ages ${esc(p.ageGroup)}</span>` : ''}${p.format ? `<span>${esc(p.format)}</span>` : ''}${p.duration ? `<span>${esc(p.duration)}</span>` : ''}${stars(p.rating)}</div>
+    <div class="meta">${agesText(p) ? `<span>Ages ${esc(agesText(p))}</span>` : ''}${p.format ? `<span>${esc(p.format)}</span>` : ''}${p.date ? `<span>${esc(p.date)}</span>` : ''}${stars(p.rating)}</div>
     <div class="chips">${(p.themes || []).slice(0, 4).map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>
   </div>`;
 }
@@ -138,33 +139,36 @@ function bindOpen(root) {
 function viewHome() {
   const P = S.programmes;
   const count = s => P.filter(p => p.status === s).length;
-  const sorted = P.slice().sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
   const name = S.settings.facilitator ? `, ${esc(S.settings.facilitator.split(' ')[0])}` : '';
+  const tally = key => { const m = {}; P.forEach(p => { const vs = key === 'ageGroup' ? (p.ageGroups || []) : [p[key]]; vs.forEach(v => { if (v) m[v] = (m[v] || 0) + 1; }); }); return m; };
+  const bars = (title, m, order, filterKey) => {
+    const rows = (order || Object.keys(m).sort((a, b) => m[b] - m[a])).filter(k => m[k]);
+    const max = Math.max(1, ...rows.map(k => m[k]));
+    return `<div class="panel"><h2>${title}</h2>${rows.length ? rows.map(k => `
+      <button class="bar-row" data-filter="${filterKey}" data-v="${esc(k)}"><span class="bar-label">${esc(filterKey === 'ageGroup' ? 'Ages ' + k : k)}</span><span class="bar"><i style="width:${Math.round(m[k] / max * 100)}%"></i></span><b>${m[k]}</b></button>`).join('') : '<p class="faint">Nothing yet.</p>'}</div>`;
+  };
+  const themes = {}; P.forEach(p => (p.themes || []).forEach(t => { themes[t] = (themes[t] || 0) + 1; }));
+  const topThemes = Object.keys(themes).sort((a, b) => themes[b] - themes[a]).slice(0, 10);
+  const last = P.slice().sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)))[0];
   main().innerHTML = `
-    ${header(`Welcome back${name}`, 'Your youth programmes at a glance.')}
-    <div class="actions-grid">
-      <button class="action" data-go="create"><span class="a-ico">＋</span><b>Create new</b><span>Plan a programme step by step, with optional AI help</span></button>
-      <button class="action" data-go="catalog"><span class="a-ico">▤</span><b>Catalog</b><span>Search and browse every programme</span></button>
-      <button class="action" data-go="templates"><span class="a-ico">❏</span><b>Templates</b><span>Proposals, risk assessments, session plans</span></button>
-      <button class="action" data-go="import"><span class="a-ico">⇪</span><b>Import</b><span>Bring in existing programmes and files</span></button>
-    </div>
+    ${header(`Welcome back${name}`, 'A summary of your youth programmes.', '<button class="btn primary" data-go="create">＋ Create new</button>')}
     <div class="stats">
-      <div class="stat"><b>${P.length}</b><span>Programmes</span></div>
-      <div class="stat"><b>${count('ready')}</b><span>Ready to run</span></div>
-      <div class="stat"><b>${count('draft') + count('idea')}</b><span>In planning</span></div>
-      <div class="stat"><b>${count('delivered')}</b><span>Delivered</span></div>
+      <button class="stat" data-status=""><b>${P.length}</b><span>Programmes</span></button>
+      <button class="stat st-ready-c" data-status="ready"><b>${count('ready')}</b><span>Ready to run</span></button>
+      <button class="stat st-plan-c" data-status="draft"><b>${count('draft') + count('idea')}</b><span>In planning</span></button>
+      <button class="stat st-done-c" data-status="delivered"><b>${count('delivered')}</b><span>Delivered</span></button>
     </div>
-    <div class="panel"><div class="panel-head"><h2>Your programmes</h2><button class="btn ghost" data-go="catalog">Open catalog →</button></div>
-      ${sorted.length ? `<div class="summary-list">${sorted.map(p => `
-        <div class="summary-row" data-open="${esc(p.id)}" tabindex="0">
-          <div class="sr-main"><div class="sr-title">${esc(p.title || 'Untitled programme')} ${statusBadge(p.status)}</div>
-            <div class="sr-sum">${esc(p.summary)}</div></div>
-          <div class="sr-meta">${p.ageGroup ? `<span>Ages ${esc(p.ageGroup)}</span>` : ''}<span>${esc(p.format || '')}</span><span class="faint">Updated ${fmtDate(p.updatedAt)}</span></div>
-        </div>`).join('')}</div>`
-    : '<div class="empty">No programmes yet. Click <b>Create new</b> to plan your first one.</div>'}
-    </div>`;
+    ${P.length ? `<div class="home-grid">
+      ${bars('By age group', tally('ageGroup'), AGE_GROUPS, 'ageGroup')}
+      ${bars('By format', tally('format'), null, 'format')}
+      <div class="panel"><h2>Most common tags</h2><div class="chips">${topThemes.map(t => `<button class="tag big tag-btn" data-filter="theme" data-v="${esc(t)}">${esc(t)} <span class="faint">${themes[t]}</span></button>`).join('')}</div>
+        ${last ? `<p class="faint small last-up">Last updated: <a href="#" data-open="${esc(last.id)}">${esc(last.title)}</a>, ${fmtDate(last.updatedAt)}</p>` : ''}</div>
+    </div>` : '<div class="empty">No programmes yet. Click <b>Create new</b> to plan your first one, or bring existing ones in from <b>Import</b>.</div>'}`;
   $$('[data-go]').forEach(b => b.onclick = () => go(b.dataset.go));
-  bindOpen(main());
+  const toCatalog = patch => { S.filters = { q: '', ageGroup: '', format: '', status: '', theme: '', ...patch }; go('catalog'); };
+  $$('[data-status]').forEach(b => b.onclick = () => toCatalog({ status: b.dataset.status }));
+  $$('[data-filter]').forEach(b => b.onclick = () => toCatalog({ [b.dataset.filter]: b.dataset.v }));
+  $$('[data-open]').forEach(a => a.onclick = e => { e.preventDefault(); go('programme', a.dataset.open); });
 }
 
 // ---------- Catalog ----------
@@ -213,7 +217,7 @@ function viewCatalog() {
       else closeDrop();
       return;
     }
-    drop.innerHTML = matches.map((p, i) => `<div class="drop-item ${i === hi ? 'hi' : ''}" role="option" data-i="${i}"><b>${esc(p.title)}</b><span>${p.ageGroup ? 'Ages ' + esc(p.ageGroup) + ' · ' : ''}${esc(p.format || '')}</span></div>`).join('')
+    drop.innerHTML = matches.map((p, i) => `<div class="drop-item ${i === hi ? 'hi' : ''}" role="option" data-i="${i}"><b>${esc(p.title)}</b><span>${agesText(p) ? 'Ages ' + esc(agesText(p)) + ' · ' : ''}${esc(p.format || '')}</span></div>`).join('')
       + '<div class="drop-foot">↑↓ to choose · Enter to open · Esc to close</div>';
     drop.classList.remove('hidden');
     $$('.drop-item', drop).forEach(el => el.onmousedown = e => { e.preventDefault(); go('programme', matches[+el.dataset.i].id); });
@@ -261,26 +265,56 @@ function openFilters(after) {
 }
 
 // ---------- Programme view ----------
+// The plan laid out in the planning form's sections. Used by the programme page, review step and exports.
+function programmeOutline(p) {
+  const T = (label, v) => ({ label, v: v || '' });
+  const L = (label, v) => ({ label, v: v || [], list: true });
+  const C = (label, v) => ({ label, v: v || [], chips: true });
+  return [
+    { key: 'overview', items: [T('Short description', p.summary), L('Objectives', p.objectives), T('Date', p.date), T('Time', p.time), T('Location', p.location),
+      C('Target age group', (p.ageGroups || []).map(a => PForm.AGE_HINTS[a] ? `${a} (${PForm.AGE_HINTS[a]})` : a)), T('Programme format', p.format), T('Session duration', p.sessionLength),
+      T('Intended setting', p.setting), T('Facilitators', p.facilitators), T('Group size', p.groupSize), T('Overall length', p.duration), C('Tags', p.themes)] },
+    { key: 'logistics', items: [L('Materials', p.materials), T('Attire', p.attire), T('Equipment', p.equipment), T('Meeting location', p.meetingPoint),
+      T('Transportation', p.transport), T('Food and beverages', p.food), T('Itemised budget', p.budgetItems), T('Total estimated cost', p.budget)] },
+    { key: 'purpose', items: [T('Primary challenge', p.youthNeed), T('Why this matters for this age group', p.whyItMatters), C('Core competencies', p.competencies),
+      T('Primary competency focus', p.primaryCompetency), T('How the programme builds them', p.competencyHow)] },
+    { key: 'icebreaker', items: [T('Activity', p.iceName), C('Purpose', p.icePurposes), T('Time allocated', p.iceTime), T('How it works', p.iceSteps), T('Why it suits this age group', p.iceWhy)] },
+    { key: 'activities', items: [T('Main activities', p.mainActivities), C('How youths take part', p.involvement), T('More about how they take part', p.involvementNotes)], sessions: p.sessions || [] },
+    { key: 'mindfulness', items: [C('Objective', p.mfObjectives), C('Type', p.mfTypes), C('When', p.mfWhen), T('Total time', p.mfTime), T('How it is introduced', p.mfFraming)] },
+    { key: 'safety', items: [L('Potential risks', p.risks), L('Mitigation strategies', p.mitigations),
+      L('Emergency contacts', (p.contacts || []).map(c => c.name + (c.phone ? ': ' + c.phone : ''))), L('Psychological safety', p.psychSafety),
+      L('Best practices for facilitation', p.bestPractices), T('Earlier safety notes', p.riskNotes)] },
+    { key: 'outcomes', items: [T('Intended youth outcomes', p.intendedOutcomes), T('Success criteria', p.successCriteria), C('Feedback collection', p.feedbackMethods), C('Observable indicators of impact', p.indicators)] },
+  ].map(sec => ({ ...sec, title: `${SECTIONS[sec.key].num}. ${SECTIONS[sec.key].title || SECTIONS[sec.key].label}`, mandatory: SECTIONS[sec.key].mandatory,
+    items: sec.items.filter(i => i.list || i.chips ? i.v.length : String(i.v).trim()) }));
+}
+
 function programmeReadHtml(p) {
   const tpl = p.templateId && S.templates.find(t => t.id === p.templateId);
-  const block = (title, body, tab) => `<section class="read-sec"><div class="read-head"><h2>${title}</h2>${tab && p.id ? `<button class="btn ghost small" data-edit-tab="${tab}">Edit</button>` : ''}</div>${body}</section>`;
+  const block = (title, body, tab, extra = '') => `<section class="read-sec"><div class="read-head"><h2>${title}${extra}</h2>${tab && p.id ? `<button class="btn ghost small" data-edit-tab="${tab}">Edit</button>` : ''}</div>${body}</section>`;
   const none = '<p class="faint">Not added yet.</p>';
   const para = t => t ? `<p class="prose">${esc(t)}</p>` : none;
-  const list = a => (a || []).length ? `<ul>${a.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : none;
+  const val = i => i.chips ? `<div class="chips">${i.v.map(x => `<span class="tag plain">${esc(x)}</span>`).join('')}</div>`
+    : i.list ? `<ul>${i.v.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : `<p class="prose">${esc(i.v)}</p>`;
+  const sessions = list => list.map((s, i) => `
+      <div class="read-session"><div class="rs-head"><span class="num">${i + 1}</span><b>${esc(s.title || 'Untitled segment')}</b>${s.duration ? `<span class="faint">${esc(s.duration)}</span>` : ''}</div>
+        ${s.activities ? `<p class="prose">${esc(s.activities)}</p>` : ''}${s.materials ? `<p class="faint small">Materials: ${esc(s.materials)}</p>` : ''}</div>`).join('');
+  const short = v => String(v || '-').split(/[;(\n]/)[0].trim() || '-';
   return `
     <div class="facts">
-      <div><span>Age group</span><b>${esc(p.ageGroup || '-')}</b></div>
-      <div><span>Format</span><b>${esc(p.format || '-')}</b></div>
-      <div><span>Duration</span><b title="${esc(p.duration)}">${esc(p.duration || '-')}</b></div>
-      <div><span>Group size</span><b title="${esc(p.groupSize)}">${esc(p.groupSize || '-')}</b></div>
-      <div><span>Budget</span><b title="${esc(p.budget)}">${esc(String(p.budget || '-').split(/[;(]/)[0].trim() || '-')}</b></div>
+      <div><span>Ages</span><b title="${esc(agesText(p))}">${esc(agesText(p) || '-')}</b></div>
+      <div><span>Format</span><b title="${esc(p.format)}">${esc(p.format || '-')}</b></div>
+      <div><span>Session length</span><b title="${esc(p.sessionLength)}">${esc(p.sessionLength || '-')}</b></div>
+      <div><span>Date</span><b title="${esc(p.date)}">${esc(p.date || '-')}</b></div>
+      <div><span>Budget</span><b title="${esc(p.budget)}">${esc(short(p.budget))}</b></div>
     </div>
-    ${block('Summary', para(p.summary) + ((p.themes || []).length ? `<div class="chips">${p.themes.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : ''), 'basics')}
-    ${block('Objectives', list(p.objectives) + (p.outcomes ? `<h3 class="sub">How success is measured</h3>${para(p.outcomes)}` : ''), 'goals')}
-    ${block(`Sessions <span class="count">${(p.sessions || []).length}</span>`, (p.sessions || []).length ? p.sessions.map((s, i) => `
-      <div class="read-session"><div class="rs-head"><span class="num">${i + 1}</span><b>${esc(s.title || 'Untitled session')}</b>${s.duration ? `<span class="faint">${esc(s.duration)}</span>` : ''}</div>
-        ${s.activities ? `<p class="prose">${esc(s.activities)}</p>` : ''}${s.materials ? `<p class="faint small">Materials: ${esc(s.materials)}</p>` : ''}</div>`).join('') : none, 'sessions')}
-    ${block('Resources &amp; safety', `<h3 class="sub">Materials</h3>${list(p.materials)}<h3 class="sub">Risk &amp; safeguarding</h3>${para(p.riskNotes)}${p.budget ? `<h3 class="sub">Budget</h3>${para(p.budget)}` : ''}`, 'resources')}
+    ${programmeOutline(p).map(sec => {
+      const miss = sec.mandatory && !sec.items.length;
+      const body = sec.items.length || (sec.sessions || []).length
+        ? `<dl class="kv">${sec.items.map(i => `<dt>${esc(i.label)}</dt><dd>${val(i)}</dd>`).join('')}</dl>${(sec.sessions || []).length ? `<h3 class="sub">Activity timeline <span class="count">${sec.sessions.length}</span></h3>${sessions(sec.sessions)}` : ''}`
+        : miss ? '<p class="notice small">Required on the planning form. Not filled in yet.</p>' : none;
+      return block(esc(sec.title), body, sec.key);
+    }).join('')}
     ${(p.document || []).length ? block(`Document${tpl ? `: ${esc(tpl.name)}` : ''}`, p.document.map(d => `<h3 class="sub">${esc(d.heading)}</h3><p class="prose">${esc(d.content)}</p>`).join(''), 'documents') : ''}
     ${p.notes || p.rating ? block('Notes &amp; reflection', `${p.rating ? `<p>${stars(p.rating)}</p>` : ''}${para(p.notes)}`, 'notes') : ''}`;
 }
@@ -301,39 +335,40 @@ function viewProgramme() {
             <button class="btn ai" id="aiImprove">Review &amp; improve with AI</button>
             <button class="btn" id="aiVariants">Create a variation</button>
           </div></div>
-        <div class="panel"><h2>Similar programmes</h2>${recs.length ? recs.map(r => `<div class="mini" data-open="${esc(r.programme.id)}" tabindex="0"><b>${esc(r.programme.title)}</b><span>Ages ${esc(r.programme.ageGroup)} · ${esc(r.programme.format)} ${stars(r.programme.rating)}</span></div>`).join('') : '<p class="faint">Nothing similar yet.</p>'}</div>
+        <div class="panel"><h2>Similar programmes</h2>${recs.length ? recs.map(r => `<div class="mini" data-open="${esc(r.programme.id)}" tabindex="0"><b>${esc(r.programme.title)}</b><span>Ages ${esc(agesText(r.programme) || '-')} · ${esc(r.programme.format)} ${stars(r.programme.rating)}</span></div>`).join('') : '<p class="faint">Nothing similar yet.</p>'}</div>
         <div class="panel"><button class="btn danger-text full" id="delBtn">Delete programme</button></div>
       </aside>
     </div>`;
   bindOpen($('.side'));
   $('#back').onclick = e => { e.preventDefault(); go('catalog'); };
-  $('#editBtn').onclick = () => go('edit', p.id, { tab: 'basics' });
+  $('#editBtn').onclick = () => go('edit', p.id, { tab: 'overview' });
   $$('[data-edit-tab]').forEach(b => b.onclick = () => go('edit', p.id, { tab: b.dataset.editTab }));
   $('#exportBtn').onclick = () => exportMenu(p);
   $('#shareBtn').onclick = () => shareDialog([p.id]);
   $('#dupBtn').onclick = async () => {
     const { id, createdAt, updatedAt, ...rest } = p;
     const saved = await api.upsert('programmes', { ...rest, title: p.title + ' (copy)', status: 'draft', rating: 0 });
-    await reload(); toast('Duplicated'); go('edit', saved.id, { tab: 'basics' });
+    await reload(); toast('Duplicated'); go('edit', saved.id, { tab: 'overview' });
   };
   $('#delBtn').onclick = async () => {
     if (!(await confirmBox('Delete this programme?', `"${p.title}" will be permanently removed.`, 'Delete', true))) return;
     await api.remove('programmes', p.id); await reload(); toast('Programme deleted'); go('catalog');
   };
   $('#aiImprove').onclick = () => {
-    S.chat.focusId = p.id; S.chat.focusDraft = null;
-    S.chat.draft = `Review "${p.title}" and suggest specific improvements to engagement, inclusion, session flow and safeguarding.`;
-    go('assistant');
+    go('edit', p.id, { tab: 'overview' }).then(() => {
+      S.aiHidden = false; S.chat.draft = `Review this programme and suggest specific improvements to engagement, inclusion, session flow and safeguarding.`; render();
+    });
   };
   $('#aiVariants').onclick = () => {
     go('create').then(() => {
-      S.wiz.brief = { ageGroup: p.ageGroup, format: '', duration: p.duration, interests: (p.themes || []).join(', '), goals: `A fresh variation on "${p.title}": ${p.summary}`, constraints: p.budget ? 'Budget ' + p.budget : '' };
+      S.wiz.brief = { ageGroup: (p.ageGroups || [])[0] || '', format: '', duration: p.duration, interests: (p.themes || []).join(', '), goals: `A fresh variation on "${p.title}": ${p.summary}`, constraints: p.budget ? 'Budget ' + p.budget : '' };
       S.wiz.mode = 'ai'; renderWizard();
     });
   };
 }
 
 // ---------- Form building blocks (shared by Create and Edit) ----------
+// The fields follow the Youth Programme Planning Form, section by section.
 function field(label, input, { help = '', req = false, forId = '' } = {}) {
   return `<div class="field">
     <label class="label" ${forId ? `for="${forId}"` : ''}>${label}${req ? ' <span class="req">Required</span>' : ''}</label>
@@ -342,29 +377,115 @@ function field(label, input, { help = '', req = false, forId = '' } = {}) {
 function pills(name, list, val, helpMap) {
   return `<div class="pills" role="radiogroup" data-pills="${name}">${list.map(v => `<button type="button" role="radio" aria-checked="${v === val}" class="pill-opt ${v === val ? 'on' : ''}" data-v="${esc(v)}">${esc(v)}${helpMap ? `<small>${esc(helpMap[v])}</small>` : ''}</button>`).join('')}</div>`;
 }
+// One answer from a list, optionally with an "Other" box. Click a chosen option again to clear it.
+function choice(name, list, val, other) {
+  const isOther = other && val && !list.includes(val);
+  return `<div class="pills" role="radiogroup" data-choice="${name}">${list.map(v => `<button type="button" role="radio" aria-checked="${v === val}" class="pill-opt ${v === val ? 'on' : ''}" data-v="${esc(v)}">${esc(v)}</button>`).join('')}
+    ${other ? `<button type="button" role="radio" aria-checked="${!!isOther}" class="pill-opt ${isOther ? 'on' : ''}" data-v="" data-other>Other…</button>` : ''}</div>
+    ${other ? `<input type="text" class="other-input ${isOther ? '' : 'hidden'}" data-other-for="${name}" placeholder="Type your own" value="${isOther ? esc(val) : ''}">` : ''}`;
+}
+const text = (bind, ph, cls = 'mid') => `<textarea class="${cls}" id="f-${bind}" data-bind="${bind}" placeholder="${esc(ph)}">`;
+const area = (p, bind, ph, cls) => `${text(bind, ph, cls)}${esc(p[bind])}</textarea>`;
+const input = (p, bind, ph) => `<input type="text" id="f-${bind}" data-bind="${bind}" placeholder="${esc(ph)}" value="${esc(p[bind])}">`;
+const linesArea = (p, bind, ph, cls = 'tall') => `<textarea class="${cls}" id="f-${bind}" data-bind-lines="${bind}" placeholder="${esc(ph)}">${esc((p[bind] || []).join('\n'))}</textarea>`;
+const sub = (t, req) => `<h3 class="form-sub">${t}${req ? ' <span class="req">Required</span>' : ''}</h3>`;
+
+// Tick-box groups ("select all that apply") and pick-list dropdowns, rendered by mountForm.
+const CHECKS = {
+  ageGroups: { list: PForm.AGE_GROUPS, hints: PForm.AGE_HINTS },
+  competencies: { list: PForm.COMPETENCIES },
+  icePurposes: { list: PForm.ICE_PURPOSES, other: true },
+  involvement: { list: PForm.INVOLVEMENT, other: true },
+  mfObjectives: { list: PForm.MF_OBJECTIVES, other: true },
+  mfTypes: { list: PForm.MF_TYPES, other: true },
+  mfWhen: { list: PForm.MF_WHEN },
+  feedbackMethods: { list: PForm.FEEDBACK, other: true },
+  indicators: { list: PForm.INDICATORS, other: true },
+};
+const PICKS = {
+  risks: { placeholder: 'Choose potential risks', groups: () => PForm.RISKS.map(g => ({ group: g.group, items: g.items.map(i => i.label) })) },
+  mitigations: { placeholder: 'Choose safety measures', groups: p => {
+    const sug = PForm.mitigationsFor(p.risks);
+    return (sug.length ? [{ group: 'Suggested for your risks', items: sug }] : []).concat(PForm.MITIGATIONS.map(g => ({ group: g.group, items: g.items.filter(i => !sug.includes(i)) })));
+  } },
+  psychSafety: { placeholder: 'Choose safety practices', groups: () => [{ group: '', items: PForm.PSYCH }] },
+  bestPractices: { placeholder: 'Choose facilitation practices', groups: () => [{ group: '', items: PForm.BEST_PRACTICES }] },
+};
+const checks = name => `<div data-checks="${name}"></div>`;
+const pick = name => `<div data-pick="${name}"></div>`;
 
 const SECTIONS = {
-  basics: { label: 'Basics', html: p => `
-    ${field('Programme name', `<input type="text" id="f-title" class="big" data-bind="title" placeholder="e.g. Code Creators: Build Your First Game" value="${esc(p.title)}">`, { req: true, forId: 'f-title', help: 'A short, memorable name young people and parents will recognise.' })}
-    ${field('Summary', `<textarea id="f-summary" class="tall" data-bind="summary" placeholder="What is the programme, who is it for, and what will they get out of it?">${esc(p.summary)}</textarea>`, { forId: 'f-summary', help: 'Two or three sentences. This is shown on the home page and in the catalog.' })}
-    ${field('Age group', pills('ageGroup', AGE_GROUPS, p.ageGroup), { help: 'Pick the main age range.' })}
-    ${field('Format', pills('format', FORMATS, p.format), { help: 'How the programme runs.' })}
+  overview: { label: 'Overview', num: 1, intro: 'The basics of the programme: what, when, where and who it is for.', html: p => `
+    ${field('Programme title', `<input type="text" id="f-title" class="big" data-bind="title" placeholder="e.g. Bathing with Nature: A Forest Walk Experience" value="${esc(p.title)}">`, { req: true, forId: 'f-title' })}
+    ${field('Short description', area(p, 'summary', 'What is the programme, who is it for, and what will they get out of it?'), { forId: 'f-summary', help: 'Two or three sentences. Shown in the catalog.' })}
+    ${field('Objectives', linesArea(p, 'objectives', 'Learn to calm down before reacting\nPractise starting a conversation\nWork as part of a team'), { forId: 'f-objectives', help: 'What the activity aims to achieve. One objective per line.' })}
+    <div class="grid3">
+      ${field('Date', input(p, 'date', 'e.g. Sat 14 Mar 2026'), { forId: 'f-date' })}
+      ${field('Time', input(p, 'time', 'e.g. 2-5pm'), { forId: 'f-time' })}
+      ${field('Location', input(p, 'location', 'e.g. Brahm Centre, Simei'), { forId: 'f-location' })}
+    </div>
+    ${field('Target age group', checks('ageGroups'), { help: 'Tick every age group the programme is for.' })}
+    ${field('Programme format', choice('format', PForm.FORMATS, p.format))}
+    ${field('Session duration (per session)', choice('sessionLength', PForm.SESSION_LENGTHS, p.sessionLength, true))}
+    ${field('Intended setting', choice('setting', PForm.SETTINGS, p.setting, true))}
     <div class="grid2">
-      ${field('Duration', `<input type="text" id="f-duration" data-bind="duration" placeholder="e.g. 6 weeks, 90 minutes each" value="${esc(p.duration)}">`, { forId: 'f-duration' })}
-      ${field('Group size', `<input type="text" id="f-group" data-bind="groupSize" placeholder="e.g. 12-20 young people" value="${esc(p.groupSize)}">`, { forId: 'f-group' })}
-    </div>` },
-  goals: { label: 'Goals & tags', html: p => `
-    ${field('Learning objectives', `<textarea id="f-obj" class="tall" data-bind-lines="objectives" placeholder="Build confidence speaking in a group&#10;Learn to plan a simple project&#10;Work as part of a team">${esc((p.objectives || []).join('\n'))}</textarea>`, { forId: 'f-obj', help: 'What young people will learn or be able to do. Put each objective on its own line.' })}
-    ${field('Tags', `<div data-tags></div>`, { help: 'Tags describe the topic (e.g. <i>music</i>, <i>leadership</i>, <i>outdoors</i>). They power search and recommendations.' })}
-    ${field('How you will measure success', `<textarea id="f-out" class="mid" data-bind="outcomes" placeholder="e.g. 75% attendance, every team presents at the showcase, confidence scores improve">${esc(p.outcomes)}</textarea>`, { forId: 'f-out', help: 'Optional. Helps with funding reports and evaluation.' })}` },
-  sessions: { label: 'Sessions', html: () => `
-    <div class="section-intro"><p>Plan what happens in each session. Write the run-sheet so a volunteer could follow it.</p><button type="button" class="btn ai" data-ai-sessions>Draft sessions with AI</button></div>
+      ${field('Facilitator(s) name and role', input(p, 'facilitators', 'e.g. Jamie Tan (lead), 2 volunteers'), { forId: 'f-facilitators' })}
+      ${field('Group size', input(p, 'groupSize', 'e.g. 15-20 youths'), { forId: 'f-groupSize' })}
+    </div>
+    ${field('Tags', `<div data-tags></div>`, { help: 'Topics such as <i>music</i>, <i>cooking</i> or <i>nature</i>. They power search and recommendations.' })}` },
+  logistics: { label: 'Logistics', num: '1.2', intro: 'What you need to run it, and what it costs.', html: p => `
+    ${field('Materials', linesArea(p, 'materials', 'Flipchart paper and markers\nName tags\nFirst aid kit'), { forId: 'f-materials', help: 'One item per line.' })}
+    <div class="grid2">
+      ${field('Attire', input(p, 'attire', 'e.g. Comfortable clothes, covered shoes'), { forId: 'f-attire' })}
+      ${field('Equipment', input(p, 'equipment', 'e.g. Speaker, projector'), { forId: 'f-equipment' })}
+    </div>
+    <div class="grid3">
+      ${field('Meeting location', input(p, 'meetingPoint', 'If different from the venue'), { forId: 'f-meetingPoint' })}
+      ${field('Transportation', input(p, 'transport', 'e.g. Public transport'), { forId: 'f-transport' })}
+      ${field('Food and beverages', input(p, 'food', 'e.g. Light snacks, water'), { forId: 'f-food' })}
+    </div>
+    ${field('Itemised budget', area(p, 'budgetItems', 'Snacks: S$40\nCraft materials: S$60\nPrizes: S$30'), { forId: 'f-budgetItems', help: 'One item and cost per line.' })}
+    ${field('Total estimated cost', input(p, 'budget', 'e.g. S$130'), { forId: 'f-budget' })}` },
+  purpose: { label: 'Purpose', title: 'Youth need & core competencies', num: '2-3', mandatory: true, intro: 'Why this programme matters, and which core competencies it builds.', html: p => `
+    ${sub('Core youth need addressed')}
+    ${field('Primary challenge this programme responds to', area(p, 'youthNeed', 'e.g. Exam stress and poor coping habits'), { forId: 'f-youthNeed' })}
+    ${field('Why this matters for this age group', area(p, 'whyItMatters', 'e.g. Secondary students face national exams and often bottle up stress'), { forId: 'f-whyItMatters' })}
+    ${sub('Core competencies targeted', true)}
+    ${field('Competencies this programme aims to develop', checks('competencies'), { help: 'Tick at least one.' })}
+    ${field('Primary competency focus', `<div data-primary></div>`)}
+    ${field('How this programme builds the selected competencies', area(p, 'competencyHow', 'e.g. The breathing exercise before each challenge helps youths pause before reacting'), { forId: 'f-competencyHow' })}` },
+  icebreaker: { label: 'Icebreaker', num: 4, mandatory: true, intro: 'Every programme opens with an icebreaker for social bonding.', html: p => `
+    ${field('Icebreaker activity name', input(p, 'iceName', 'e.g. Two Truths and a Lie'), { forId: 'f-iceName', req: true })}
+    ${field('Purpose of the icebreaker', checks('icePurposes'), { help: 'Tick all that apply.' })}
+    ${field('Time allocated', choice('iceTime', PForm.ICE_TIMES, p.iceTime, true))}
+    ${field('How the icebreaker works (step by step)', area(p, 'iceSteps', '1. Everyone stands in a circle\n2. …', 'tall'), { forId: 'f-iceSteps' })}
+    ${field('Why this icebreaker suits this age group', area(p, 'iceWhy', 'e.g. Low pressure, everyone speaks once, no one is put on the spot'), { forId: 'f-iceWhy' })}` },
+  activities: { label: 'Activities', num: 5, intro: 'The main activities and how the programme flows.', html: p => `
+    ${field('Main activities planned (in sequence)', area(p, 'mainActivities', 'List the key activities and their purpose', 'tall'), { forId: 'f-mainActivities' })}
+    ${field('How youths are actively involved', checks('involvement'), { help: 'Tick all that apply.' })}
+    ${field('More about how they take part', area(p, 'involvementNotes', 'Optional. e.g. Youths lead the station games in teams of four'), { forId: 'f-involvementNotes' })}
+    ${sub('Activity timeline')}
+    <div class="section-intro"><p>Break the programme into timed segments a volunteer could follow.</p><button type="button" class="btn ai" data-ai-sessions>Draft the plan with AI</button></div>
     <div data-sessions></div>
-    <button type="button" class="btn add-btn" data-add-session>＋ Add a session</button>` },
-  resources: { label: 'Resources & safety', html: p => `
-    ${field('Materials and equipment', `<textarea id="f-mat" class="tall" data-bind-lines="materials" placeholder="Flipchart paper and markers&#10;Laptops (one per pair)&#10;First aid kit">${esc((p.materials || []).join('\n'))}</textarea>`, { forId: 'f-mat', help: 'Everything you need across the whole programme. One item per line.' })}
-    ${field('Budget', `<input type="text" id="f-budget" data-bind="budget" placeholder="e.g. ~$300 (materials $200, snacks $100)" value="${esc(p.budget)}">`, { forId: 'f-budget' })}
-    ${field('Risk and safeguarding', `<textarea id="f-risk" class="tall" data-bind="riskNotes" placeholder="Staff ratios, consent and medical forms, venue risks, how young people can raise concerns…">${esc(p.riskNotes)}</textarea>`, { forId: 'f-risk', help: 'Key risks and how you will manage them.' })}` },
+    <button type="button" class="btn add-btn" data-add-session>＋ Add a segment</button>` },
+  mindfulness: { label: 'Mindfulness', num: 6, mandatory: true, intro: 'Every programme includes an intentional mindfulness moment.', html: p => `
+    ${field('Mindfulness objective', checks('mfObjectives'), { help: 'Tick all that apply.', req: true })}
+    ${field('Type of mindfulness planned', checks('mfTypes'), { help: 'Tick all that apply.' })}
+    ${field('When is mindfulness included?', checks('mfWhen'))}
+    ${field('Total time for mindfulness', choice('mfTime', PForm.MF_TIMES, p.mfTime))}
+    ${field('How mindfulness is introduced', area(p, 'mfFraming', 'Use everyday, non-clinical language, e.g. "Let\'s take a minute to notice what we can hear"'), { forId: 'f-mfFraming', help: 'Keep it accessible and non-therapeutic.' })}` },
+  safety: { label: 'Safety', num: 7, intro: 'Pick from the lists. Choosing a risk adds its usual safety measures, which you can remove. Use "Add your own" for anything not listed.', html: p => `
+    ${field('Potential risks', pick('risks'))}
+    ${field('Mitigation strategies', pick('mitigations'))}
+    ${field('Emergency contacts', `<div data-contacts></div>`, { help: 'Saved contacts appear in the list. Choose "Add a new contact" to save another.' })}
+    ${field('Psychological safety', pick('psychSafety'))}
+    ${field('Best practices for facilitation', pick('bestPractices'))}
+    ${p.riskNotes ? field('Earlier safety notes', area(p, 'riskNotes', '', 'mid'), { forId: 'f-riskNotes', help: 'Written before this form had pick-lists. Move them into the lists above, then clear this box.' }) : ''}` },
+  outcomes: { label: 'Outcomes', num: 8, intro: 'What youths should gain, and how you will know.', html: p => `
+    ${field('Intended youth outcomes', area(p, 'intendedOutcomes', 'Skills, awareness or confidence youths should gain'), { forId: 'f-intendedOutcomes' })}
+    ${field('Success criteria', area(p, 'successCriteria', 'e.g. 80% attend every session; every youth tries one breathing technique'), { forId: 'f-successCriteria' })}
+    ${field('How feedback is collected', checks('feedbackMethods'), { help: 'Tick all that apply.' })}
+    ${field('Observable indicators of impact', checks('indicators'), { help: 'Tick all that apply.' })}` },
   documents: { label: 'Documents', html: () => `
     <div class="section-intro"><p>Attach a document built from a template, such as a funding proposal or risk assessment.</p></div>
     <div data-docs></div>` },
@@ -373,6 +494,12 @@ const SECTIONS = {
     ${field('Rating', `<div class="rating" data-rating></div>`, { help: 'How well it went, once delivered.' })}
     ${field('Facilitator notes', `<textarea id="f-notes" class="tall" data-bind="notes" placeholder="What worked, what to change next time, ideas for follow-up…">${esc(p.notes)}</textarea>`, { forId: 'f-notes' })}` },
 };
+const FORM_KEYS = PForm.SECTIONS.map(s => s.key);
+
+function sectionTitle(key) {
+  const s = SECTIONS[key];
+  return `<div class="form-head"><h2 class="form-title">${s.num ? `<span class="sec-num">Section ${s.num}</span>` : ''}${esc(s.title || s.label)}${s.mandatory ? ' <span class="req">Required</span>' : ''}</h2>${s.intro ? `<p class="sec-intro">${esc(s.intro)}</p>` : ''}</div>`;
+}
 
 // Binds every interactive part of a form section to programme p.
 function mountForm(root, p, onChange) {
@@ -384,14 +511,160 @@ function mountForm(root, p, onChange) {
     $$('.pill-opt', g).forEach(x => { const on = x === b; x.classList.toggle('on', on); x.setAttribute('aria-checked', on); });
     changed();
   }));
+  $$('[data-choice]', root).forEach(g => {
+    const key = g.dataset.choice, other = $(`[data-other-for="${key}"]`, root);
+    $$('.pill-opt', g).forEach(b => b.onclick = () => {
+      const wasOn = b.classList.contains('on');
+      $$('.pill-opt', g).forEach(x => { x.classList.remove('on'); x.setAttribute('aria-checked', 'false'); });
+      if (!wasOn) { b.classList.add('on'); b.setAttribute('aria-checked', 'true'); }
+      if (b.hasAttribute('data-other')) {
+        other.classList.toggle('hidden', wasOn);
+        p[key] = wasOn ? '' : other.value.trim();
+        if (!wasOn) other.focus();
+      } else {
+        if (other) other.classList.add('hidden');
+        p[key] = wasOn ? '' : b.dataset.v;
+      }
+      changed();
+    });
+    if (other) other.addEventListener('input', () => { p[key] = other.value.trim(); changed(); });
+  });
+  const primary = $('[data-primary]', root);
+  const renderPrimary = () => {
+    if (!primary) return;
+    const list = p.competencies || [];
+    if (p.primaryCompetency && !list.includes(p.primaryCompetency)) p.primaryCompetency = '';
+    primary.innerHTML = list.length
+      ? `<select id="f-primary">${opts(list, p.primaryCompetency, 'Choose the main one')}</select>`
+      : '<p class="faint small">Tick competencies above first.</p>';
+    const sel = $('select', primary); if (sel) sel.onchange = () => { p.primaryCompetency = sel.value; changed(); };
+  };
+  $$('[data-checks]', root).forEach(box => renderChecks(box, p, box.dataset.checks, () => { changed(); if (box.dataset.checks === 'competencies') renderPrimary(); }));
+  renderPrimary();
+  const remount = key => { const b = $(`[data-pick="${key}"]`, root); if (b) renderPick(b, p, key, changed, remount); };
+  $$('[data-pick]', root).forEach(b => remount(b.dataset.pick));
+  const contacts = $('[data-contacts]', root); if (contacts) renderContacts(contacts, p, changed);
   const tags = $('[data-tags]', root); if (tags) renderTagEditor(tags, p, changed);
   const sess = $('[data-sessions]', root); if (sess) renderSessionsEditor(sess, p, changed);
   const add = $('[data-add-session]', root);
   if (add) add.onclick = () => { p.sessions = p.sessions || []; p.sessions.push({ title: '', duration: '', activities: '', materials: '' }); changed(); renderSessionsEditor(sess, p, changed); $$('.session', sess).pop().querySelector('input').focus(); };
   const aiS = $('[data-ai-sessions]', root);
-  if (aiS) aiS.onclick = async () => { if (await aiBuildPlan(p, aiS)) { changed(); renderSessionsEditor(sess, p, changed); } };
+  if (aiS) aiS.onclick = async () => { if (await aiBuildPlan(p, aiS)) { changed(); render(); } };
   const docs = $('[data-docs]', root); if (docs) renderDocsEditor(docs, p, changed);
   const rating = $('[data-rating]', root); if (rating) renderRating(rating, p, changed);
+}
+
+// "Tick all that apply" group. Own entries (not in the list) show as extra ticked options.
+function renderChecks(box, p, key, changed) {
+  const cfg = CHECKS[key], vals = p[key] || (p[key] = []);
+  const all = cfg.list.concat(vals.filter(v => !cfg.list.includes(v)));
+  box.className = 'checks';
+  box.innerHTML = all.map(v => `<button type="button" role="checkbox" aria-checked="${vals.includes(v)}" class="check-opt ${vals.includes(v) ? 'on' : ''} ${cfg.list.includes(v) ? '' : 'own'}" data-v="${esc(v)}"><span class="box" aria-hidden="true"></span><span>${esc(v)}${cfg.hints && cfg.hints[v] ? `<small>${esc(cfg.hints[v])}</small>` : ''}</span></button>`).join('')
+    + (cfg.other ? `<span class="check-add"><input type="text" placeholder="Other…" aria-label="Add your own"><button type="button" class="btn small">Add</button></span>` : '');
+  $$('.check-opt', box).forEach(b => b.onclick = () => {
+    const v = b.dataset.v, i = vals.indexOf(v);
+    if (i >= 0) vals.splice(i, 1); else vals.push(v);
+    if (cfg.list.includes(v) || i < 0) { b.classList.toggle('on', i < 0); b.setAttribute('aria-checked', i < 0); } else renderChecks(box, p, key, changed);
+    changed();
+  });
+  const inp = $('.check-add input', box);
+  if (inp) {
+    const addOwn = () => { const v = inp.value.trim(); if (!v) return; if (!vals.includes(v)) vals.push(v); changed(); renderChecks(box, p, key, changed); $('.check-add input', box).focus(); };
+    inp.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); addOwn(); } };
+    $('.check-add .btn', box).onclick = addOwn;
+  }
+}
+
+// Click-to-open dropdown with grouped tick options, a search box and "Add your own".
+function renderPick(box, p, key, changed, remount) {
+  const cfg = PICKS[key], vals = p[key] || (p[key] = []);
+  const wasOpen = box.querySelector('.ms-pop:not(.hidden)'), q = wasOpen ? $('.ms-q', box).value : '';
+  box.innerHTML = `<div class="ms">
+      <button type="button" class="ms-btn" aria-haspopup="listbox" aria-expanded="${!!wasOpen}"><span>${vals.length ? `${vals.length} selected` : esc(cfg.placeholder)}</span><span class="ms-caret">▾</span></button>
+      <div class="ms-pop ${wasOpen ? '' : 'hidden'}" role="listbox" aria-multiselectable="true">
+        <input type="search" class="ms-q" placeholder="Search the list" value="${esc(q)}">
+        <div class="ms-list"></div>
+        <div class="ms-own"><input type="text" placeholder="Add your own…"><button type="button" class="btn small">Add</button></div>
+      </div></div>
+    <div class="ms-chips">${vals.map((v, i) => `<span class="ms-chip">${esc(v)}<button type="button" data-rm="${i}" aria-label="Remove ${esc(v)}">✕</button></span>`).join('')}</div>`;
+  const pop = $('.ms-pop', box), list = $('.ms-list', box), qIn = $('.ms-q', box);
+  const toggle = (v, on) => {
+    const i = vals.indexOf(v);
+    if (on && i < 0) vals.push(v); if (!on && i >= 0) vals.splice(i, 1);
+    if (key === 'risks' && on) {
+      const add = PForm.mitigationsFor([v]).filter(m => !p.mitigations.includes(m));
+      if (add.length) { p.mitigations.push(...add); toast(`Added ${add.length} matching safety measure${add.length === 1 ? '' : 's'}`); }
+      remount('mitigations');
+    }
+    changed();
+  };
+  const drawList = () => {
+    const f = qIn.value.trim().toLowerCase();
+    const groups = cfg.groups(p).map(g => ({ ...g, items: g.items.filter(i => !f || i.toLowerCase().includes(f)) })).filter(g => g.items.length);
+    const own = vals.filter(v => !cfg.groups(p).some(g => g.items.includes(v)) && (!f || v.toLowerCase().includes(f)));
+    if (own.length) groups.push({ group: 'Your own', items: own });
+    list.innerHTML = groups.length ? groups.map(g => `${g.group ? `<div class="ms-group">${esc(g.group)}</div>` : ''}${g.items.map(v => `<label class="ms-opt"><input type="checkbox" value="${esc(v)}" ${vals.includes(v) ? 'checked' : ''}><span>${esc(v)}</span></label>`).join('')}`).join('')
+      : '<div class="faint small ms-none">Nothing matches. Add it as your own below.</div>';
+    $$('input', list).forEach(c => c.onchange = () => { toggle(c.value, c.checked); refresh(); });
+  };
+  const refresh = () => {
+    $('.ms-btn span', box).textContent = vals.length ? `${vals.length} selected` : cfg.placeholder;
+    $('.ms-chips', box).innerHTML = vals.map((v, i) => `<span class="ms-chip">${esc(v)}<button type="button" data-rm="${i}" aria-label="Remove ${esc(v)}">✕</button></span>`).join('');
+    bindChips();
+  };
+  const bindChips = () => $$('[data-rm]', box).forEach(b => b.onclick = () => { toggle(vals[+b.dataset.rm], false); refresh(); drawList(); });
+  const open = on => { $$('.ms-pop').forEach(x => { if (x !== pop) { x.classList.add('hidden'); x.previousElementSibling.setAttribute('aria-expanded', 'false'); } }); pop.classList.toggle('hidden', !on); $('.ms-btn', box).setAttribute('aria-expanded', on); if (on) { drawList(); qIn.focus(); } };
+  $('.ms-btn', box).onclick = () => open(pop.classList.contains('hidden'));
+  qIn.oninput = drawList;
+  const ownIn = $('.ms-own input', box);
+  const addOwn = () => { const v = ownIn.value.trim(); if (!v) return; ownIn.value = ''; if (!vals.includes(v)) toggle(v, true); refresh(); drawList(); };
+  ownIn.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); addOwn(); } };
+  $('.ms-own .btn', box).onclick = addOwn;
+  bindChips();
+  if (wasOpen) drawList();
+}
+// Close any open pick-list when clicking elsewhere.
+document.addEventListener('mousedown', e => {
+  $$('.ms-pop:not(.hidden)').forEach(pop => { if (!pop.parentElement.contains(e.target)) { pop.classList.add('hidden'); pop.previousElementSibling.setAttribute('aria-expanded', 'false'); } });
+});
+
+// Emergency contacts: chosen from saved contacts, or added once and saved for next time.
+function knownContacts() {
+  const all = [...(S.settings.contacts || []), ...S.programmes.flatMap(p => p.contacts || [])];
+  const seen = new Set();
+  return all.filter(c => { const k = (c.name + '|' + c.phone).toLowerCase(); if (!c.name || seen.has(k)) return false; seen.add(k); return true; });
+}
+function renderContacts(box, p, changed) {
+  const known = knownContacts();
+  const label = c => c.name + (c.phone ? ' · ' + c.phone : '');
+  box.innerHTML = [0, 1].map(i => {
+    const cur = p.contacts[i];
+    const idx = cur ? known.findIndex(c => c.name === cur.name && c.phone === cur.phone) : -1;
+    return `<div class="contact-row"><span class="faint small">Contact person ${i + 1}</span>
+      <select data-contact="${i}"><option value="">Choose a contact</option>${known.map((c, k) => `<option value="${k}" ${k === idx ? 'selected' : ''}>${esc(label(c))}</option>`).join('')}<option value="new">＋ Add a new contact…</option></select></div>`;
+  }).join('');
+  $$('[data-contact]', box).forEach(sel => sel.onchange = () => {
+    const i = +sel.dataset.contact;
+    if (sel.value === 'new') {
+      modal(`<h2>Add an emergency contact</h2>
+        ${field('Name and role', '<input type="text" id="cName" placeholder="e.g. Ms Lim (centre manager)">', { forId: 'cName' })}
+        ${field('Phone number', '<input type="text" id="cPhone" placeholder="e.g. 9123 4567">', { forId: 'cPhone' })}
+        <div class="foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="cSave">Save contact</button></div>`, (m, close) => {
+        $('#cName', m).focus();
+        $('[data-close]', m).addEventListener('click', () => renderContacts(box, p, changed));
+        $('#cSave', m).onclick = async () => {
+          const c = { name: $('#cName', m).value.trim(), phone: $('#cPhone', m).value.trim() };
+          if (!c.name) { toast('Add a name first.', true); return; }
+          S.settings = await api.setSettings({ contacts: [...(S.settings.contacts || []), c] });
+          p.contacts[i] = c; p.contacts = p.contacts.filter(Boolean); changed(); close(); renderContacts(box, p, changed);
+        };
+      });
+      return;
+    }
+    if (sel.value === '') p.contacts.splice(i, 1); else p.contacts[i] = { ...known[+sel.value] };
+    p.contacts = p.contacts.filter(Boolean);
+    changed(); renderContacts(box, p, changed);
+  });
 }
 
 function renderTagEditor(box, p, changed) {
@@ -469,23 +742,27 @@ function viewEdit() {
   if (!S.draft || S.draft.id !== S.id) {
     const src = S.programmes.find(x => x.id === S.id);
     if (!src) return go('catalog');
-    S.draft = clone(src);
+    S.draft = PForm.normalize(clone(src));
   }
   const p = S.draft;
-  if (!SECTIONS[S.tab]) S.tab = 'basics';
+  if (!SECTIONS[S.tab]) S.tab = 'overview';
   main().innerHTML = `
     <div class="crumbs"><a href="#" id="back">← ${esc(p.title || 'Programme')}</a></div>
-    ${header('Edit programme', esc(p.title))}
-    <div class="tabs" role="tablist">${Object.entries(SECTIONS).map(([k, s]) => `<button role="tab" aria-selected="${k === S.tab}" class="tab ${k === S.tab ? 'on' : ''}" data-tab="${k}">${esc(s.label)}</button>`).join('')}</div>
-    <div class="form-card" id="form">${SECTIONS[S.tab].html(p)}</div>
+    ${header('Edit programme', esc(p.title), S.aiHidden ? '<button class="btn ai" id="aiOpen">AI helper</button>' : '')}
+    <div class="tabs" role="tablist">${Object.entries(SECTIONS).map(([k, s]) => `<button role="tab" aria-selected="${k === S.tab}" class="tab ${k === S.tab ? 'on' : ''}" data-tab="${k}">${s.num ? `<span class="tab-num">${s.num}</span>` : ''}${esc(s.label)}${s.mandatory ? '<span class="tab-req" title="Required">*</span>' : ''}</button>`).join('')}</div>
+    <div class="with-ai ${S.aiHidden ? 'ai-off' : ''}"><div class="wiz-main">
+    <div class="form-card" id="form">${SECTIONS[S.tab].num ? sectionTitle(S.tab) : ''}${SECTIONS[S.tab].html(p)}</div>
     <div class="savebar"><span class="faint" id="saveState">All changes saved</span><div class="spacer"></div>
-      <button class="btn" id="cancel">Cancel</button><button class="btn primary" id="save">Save changes</button></div>`;
+      <button class="btn" id="cancel">Cancel</button><button class="btn primary" id="save">Save changes</button></div>
+    </div>${S.aiHidden ? '' : aiPanelHtml()}</div>`;
   const state = () => { $('#saveState').textContent = S.dirty ? 'Unsaved changes' : 'All changes saved'; };
   mountForm($('#form'), p, state);
   $$('[data-tab]').forEach(t => t.onclick = () => { S.tab = t.dataset.tab; const d = S.dirty; render(); S.dirty = d; state(); });
   $('#back').onclick = e => { e.preventDefault(); go('programme', p.id); };
   $('#cancel').onclick = () => go('programme', p.id);
   $('#save').onclick = saveDraft;
+  if ($('#aiOpen')) $('#aiOpen').onclick = () => { S.aiHidden = false; const d = S.dirty; render(); S.dirty = d; };
+  mountAiPanel(() => S.draft, 'edit', text => { p.notes = (p.notes ? p.notes + '\n\n' : '') + text; S.dirty = true; state(); });
   state();
 }
 
@@ -500,14 +777,7 @@ async function saveDraft() {
 }
 
 // ---------- Create (step by step) ----------
-const WIZ_STEPS = [
-  { key: 'start', label: 'Start' },
-  { key: 'basics', label: 'Basics' },
-  { key: 'goals', label: 'Goals & tags' },
-  { key: 'sessions', label: 'Sessions' },
-  { key: 'resources', label: 'Resources & safety' },
-  { key: 'review', label: 'Review & save' },
-];
+const WIZ_STEPS = [{ key: 'start', label: 'Start' }, ...FORM_KEYS.map(k => ({ key: k, label: SECTIONS[k].label, mandatory: SECTIONS[k].mandatory })), { key: 'review', label: 'Review & save' }];
 
 function viewCreate() {
   if (!S.wiz) S.wiz = { step: 0, p: newProgramme(), mode: null, ideas: null, brief: { ageGroup: '', format: '', duration: '', interests: '', goals: '', constraints: '' } };
@@ -516,25 +786,28 @@ function viewCreate() {
 
 function renderWizard() {
   const W = S.wiz;
+  W.p = PForm.normalize(W.p);
   const step = WIZ_STEPS[W.step];
   main().innerHTML = `
     ${header('Create a programme', 'Work through each step. You can go back at any time, and nothing is saved until the last step.')}
-    <ol class="stepper">${WIZ_STEPS.map((s, i) => `<li class="${i === W.step ? 'on' : i < W.step ? 'done' : ''}"><button type="button" data-step="${i}" ${i > W.step && !W.p.title ? 'disabled' : ''}><span class="sn">${i < W.step ? '✓' : i + 1}</span>${esc(s.label)}</button></li>`).join('')}</ol>
+    <ol class="stepper">${WIZ_STEPS.map((s, i) => `<li class="${i === W.step ? 'on' : i < W.step ? 'done' : ''}"><button type="button" data-step="${i}" ${i > W.step && !W.p.title ? 'disabled' : ''}><span class="sn">${i < W.step ? '✓' : i + 1}</span>${esc(s.label)}${s.mandatory ? '<span class="tab-req" title="Required">*</span>' : ''}</button></li>`).join('')}</ol>
+    <div class="with-ai ${S.aiHidden ? 'ai-off' : ''}"><div class="wiz-main">
     <div class="form-card" id="form"></div>
     <div class="savebar ${W.step === 0 ? 'hidden' : ''}">
       ${W.step > 0 ? '<button class="btn" id="prev">← Back</button>' : ''}
       <div class="spacer"></div>
       ${W.step > 0 && W.step < WIZ_STEPS.length - 1 ? '<button class="btn primary" id="next">Next: ' + esc(WIZ_STEPS[W.step + 1].label) + ' →</button>' : ''}
       ${W.step === WIZ_STEPS.length - 1 ? '<button class="btn primary" id="saveNew">Save programme</button>' : ''}
-    </div>`;
+    </div></div>${aiPanelHtml()}</div>`;
   const form = $('#form');
   if (step.key === 'start') renderStart(form);
   else if (step.key === 'review') renderReview(form);
-  else { form.innerHTML = `<h2 class="form-title">${esc(step.label)}</h2>` + SECTIONS[step.key].html(W.p); mountForm(form, W.p); }
+  else { form.innerHTML = sectionTitle(step.key) + SECTIONS[step.key].html(W.p); mountForm(form, W.p); }
   $$('[data-step]').forEach(b => b.onclick = () => gotoStep(+b.dataset.step));
   if ($('#prev')) $('#prev').onclick = () => gotoStep(W.step - 1);
   if ($('#next')) $('#next').onclick = () => gotoStep(W.step + 1);
   if ($('#saveNew')) $('#saveNew').onclick = saveNew;
+  mountAiPanel(() => S.wiz && S.wiz.p, step.key, text => { const p = S.wiz.p; p.notes = (p.notes ? p.notes + '\n\n' : '') + text; S.dirty = true; });
 }
 
 function gotoStep(n) {
@@ -625,7 +898,7 @@ function renderIdeas() {
       <h3>${esc(d.title)}</h3>
       <div class="hook">${esc(d.hook)}</div>
       <p>${esc(d.summary)}</p>
-      <div class="meta"><span>Ages ${esc(d.ageGroup)}</span><span>${esc(d.format)}</span><span>${esc(d.duration)}</span></div>
+      <div class="meta"><span>Ages ${esc((d.ageGroups || [d.ageGroup]).filter(Boolean).join(', '))}</span><span>${esc(d.format)}</span><span>${esc(d.duration)}</span></div>
       <div class="why"><b>Why it works:</b> ${esc(d.whyItWorks)}</div>
       <div class="idea-actions">
         <button type="button" class="btn primary small" data-use="${i}">Use this idea</button>
@@ -638,23 +911,25 @@ function renderIdeas() {
     const similar = PSearch.recommend(S.programmes, d, { limit: 3 }).map(r => r.programme);
     const full = await busy(x, 'Drafting plan…', () => api.ai.develop({ idea: d, brief: W.lastBrief, similar }));
     if (!full) return;
-    W.p = { ...W.p, ...full, themes: (full.themes || []).map(t => t.toLowerCase()) };
+    W.p = PForm.normalize({ ...W.p, ...full, themes: (full.themes || []).map(t => t.toLowerCase()) });
     S.dirty = true; gotoStep(1); toast('Full plan drafted. Check each step, then save.');
   });
 }
 
 function ideaFields(d) {
-  return { title: d.title, summary: d.summary, ageGroup: d.ageGroup, format: d.format, duration: d.duration, themes: (d.themes || []).map(t => t.toLowerCase()), objectives: d.objectives || [], notes: d.whyItWorks ? 'Why it works: ' + d.whyItWorks : '' };
+  return { title: d.title, summary: d.summary, ageGroups: d.ageGroups || (d.ageGroup ? [d.ageGroup] : []), format: d.format, duration: d.duration, themes: (d.themes || []).map(t => t.toLowerCase()), objectives: d.objectives || [], notes: d.whyItWorks ? 'Why it works: ' + d.whyItWorks : '' };
 }
 
 function renderReview(form) {
   const p = S.wiz.p;
   const tpl = p.templateId && S.templates.find(t => t.id === p.templateId);
   if (tpl && !(p.document || []).length) p.document = tpl.sections.map(s => ({ heading: s.heading, content: fillPlaceholders(s.content, p) }));
-  const missing = [!p.summary && 'summary', !p.ageGroup && 'age group', !(p.objectives || []).length && 'objectives', !(p.sessions || []).length && 'sessions'].filter(Boolean);
+  const req = PForm.missingMandatory(p);
+  const missing = [!p.summary && 'short description', !(p.ageGroups || []).length && 'age group', !p.format && 'format', !(p.objectives || []).length && 'objectives', !(p.sessions || []).length && 'activity timeline', !(p.risks || []).length && 'risks'].filter(Boolean);
   form.innerHTML = `
     <h2 class="form-title">Review &amp; save</h2>
-    ${missing.length ? `<div class="notice">Not filled in yet: <b>${missing.join(', ')}</b>. You can save now and add them later.</div>` : '<div class="notice ok">Everything is filled in.</div>'}
+    ${req.length ? `<div class="notice warn">Required sections still empty: <b>${req.join(', ')}</b>. The planning form needs these before the programme runs.</div>` : ''}
+    ${missing.length ? `<div class="notice">Also not filled in yet: <b>${missing.join(', ')}</b>. You can save now and add them later.</div>` : !req.length ? '<div class="notice ok">Every section is filled in.</div>' : ''}
     ${field('Status', pills('status', STATUSES.slice(0, 3), p.status, STATUS_HELP))}
     <h1 class="review-title">${esc(p.title)}</h1>
     <div class="read">${programmeReadHtml(p)}</div>
@@ -680,19 +955,19 @@ function stripForAi(p) {
 
 async function aiBuildPlan(p, btn) {
   if (!p.title.trim() && !p.summary.trim()) { toast('Add a name or summary first so AI knows what to plan.', true); return false; }
-  if ((p.sessions || []).length && !(await confirmBox('Replace the current sessions?', 'AI will draft a full plan. It fills sessions, objectives, materials and safety notes, replacing what is there now. Nothing is saved until you save.', 'Draft plan'))) return false;
+  if ((p.sessions || []).length && !(await confirmBox('Replace the current sessions?', 'AI will draft a full plan and fill every section of the form, replacing what is there now. Nothing is saved until you save.', 'Draft plan'))) return false;
   const similar = PSearch.recommend(S.programmes, p, { excludeId: p.id, limit: 3 }).map(r => r.programme);
   const result = await busy(btn, 'Drafting plan…', () => api.ai.develop({ idea: stripForAi(p), similar }));
   if (!result) return false;
   const { title, ...rest } = result;
-  Object.assign(p, rest, { themes: (rest.themes || p.themes || []).map(t => t.toLowerCase()) });
+  Object.assign(p, PForm.normalize({ ...p, ...rest, themes: (rest.themes || p.themes || []).map(t => t.toLowerCase()) }));
   toast('Plan drafted. Review it, then save.');
   return true;
 }
 
 function fillPlaceholders(text, p) {
   const vals = {
-    programme_title: p.title, age_group: p.ageGroup, format: p.format, duration: p.duration, group_size: p.groupSize,
+    programme_title: p.title, age_group: agesText(p), format: p.format, duration: p.duration, group_size: p.groupSize,
     objectives: (p.objectives || []).map(o => '- ' + o).join('\n'), summary: p.summary,
     facilitator: S.settings.facilitator, organisation: S.settings.organisation,
     date: new Date().toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }),
@@ -734,31 +1009,29 @@ async function aiFillDocument(p, btn) {
 
 // ---------- Export ----------
 function programmeMarkdown(p) {
-  const out = [`# ${p.title}`, '', p.summary, '',
-    `**Age group:** ${p.ageGroup}  `, `**Format:** ${p.format}  `, `**Duration:** ${p.duration || '-'}  `, `**Group size:** ${p.groupSize || '-'}  `, `**Budget:** ${p.budget || '-'}  `, `**Tags:** ${(p.themes || []).join(', ')}`, ''];
-  if ((p.objectives || []).length) out.push('## Objectives', ...p.objectives.map(o => `- ${o}`), '');
-  if ((p.sessions || []).length) {
-    out.push('## Sessions');
-    p.sessions.forEach((s, i) => out.push('', `### ${i + 1}. ${s.title}${s.duration ? ` (${s.duration})` : ''}`, '', s.activities || '', s.materials ? `\n*Materials:* ${s.materials}` : ''));
-    out.push('');
+  const out = [`# ${p.title}`, ''];
+  for (const sec of programmeOutline(p)) {
+    if (!sec.items.length && !(sec.sessions || []).length) continue;
+    out.push(`## ${sec.title}`, '');
+    for (const i of sec.items) {
+      if (i.list) out.push(`**${i.label}:**`, ...i.v.map(x => `- ${x}`), '');
+      else if (i.chips) out.push(`**${i.label}:** ${i.v.join(', ')}  `, '');
+      else out.push(`**${i.label}:** ${String(i.v).includes('\n') ? '\n\n' + i.v : i.v}`, '');
+    }
+    (sec.sessions || []).forEach((x, n) => out.push(`### ${n + 1}. ${x.title}${x.duration ? ` (${x.duration})` : ''}`, '', x.activities || '', x.materials ? `\n*Materials:* ${x.materials}` : '', ''));
   }
-  if ((p.materials || []).length) out.push('## Materials', ...p.materials.map(m => `- ${m}`), '');
-  if (p.riskNotes) out.push('## Risk & safeguarding', p.riskNotes, '');
-  if (p.outcomes) out.push('## Measuring success', p.outcomes, '');
   if ((p.document || []).length) { out.push('---', ''); p.document.forEach(d => out.push(`## ${d.heading}`, d.content, '')); }
   return out.join('\n');
 }
 
 function programmePrintHtml(p, docOnly) {
-  const meta = `Ages ${esc(p.ageGroup)} · ${esc(p.format)}${p.duration ? ' · ' + esc(p.duration) : ''}${p.groupSize ? ' · Group ' + esc(p.groupSize) : ''}`;
+  const meta = [agesText(p) && 'Ages ' + esc(agesText(p)), esc(p.format), esc(p.date), esc(p.location)].filter(Boolean).join(' · ');
   const tpl = p.templateId && S.templates.find(t => t.id === p.templateId);
   if (docOnly) return `<h1>${esc(tpl ? tpl.name : 'Document')}: ${esc(p.title)}</h1><div class="pmeta">${meta}</div>` + p.document.map(d => `<h2>${esc(d.heading)}</h2><p>${esc(d.content)}</p>`).join('');
-  return `<h1>${esc(p.title)}</h1><div class="pmeta">${meta}${p.budget ? ' · Budget ' + esc(p.budget) : ''}</div><p>${esc(p.summary)}</p>
-    ${(p.objectives || []).length ? `<h2>Objectives</h2><ul>${p.objectives.map(o => `<li>${esc(o)}</li>`).join('')}</ul>` : ''}
-    ${(p.sessions || []).length ? `<h2>Sessions</h2>${p.sessions.map((s, i) => `<div class="psession"><b>${i + 1}. ${esc(s.title)}</b>${s.duration ? ` (${esc(s.duration)})` : ''}<p>${esc(s.activities)}</p>${s.materials ? `<p><i>Materials:</i> ${esc(s.materials)}</p>` : ''}</div>`).join('')}` : ''}
-    ${(p.materials || []).length ? `<h2>Materials</h2><ul>${p.materials.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : ''}
-    ${p.riskNotes ? `<h2>Risk &amp; safeguarding</h2><p>${esc(p.riskNotes)}</p>` : ''}
-    ${p.outcomes ? `<h2>Measuring success</h2><p>${esc(p.outcomes)}</p>` : ''}
+  const val = i => i.list ? `<ul>${i.v.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : i.chips ? esc(i.v.join(', ')) : `<span class="pre">${esc(i.v)}</span>`;
+  return `<h1>${esc(p.title)}</h1><div class="pmeta">Youth Programme Planning Form${meta ? ' · ' + meta : ''}</div>
+    ${programmeOutline(p).map(sec => `<h2>${esc(sec.title)}</h2>${sec.items.length ? `<table class="ptable">${sec.items.map(i => `<tr><th>${esc(i.label)}</th><td>${val(i)}</td></tr>`).join('')}</table>` : (sec.sessions || []).length ? '' : '<p><i>Not filled in.</i></p>'}
+      ${(sec.sessions || []).map((x, n) => `<div class="psession"><b>${n + 1}. ${esc(x.title)}</b>${x.duration ? ` (${esc(x.duration)})` : ''}<p>${esc(x.activities)}</p>${x.materials ? `<p><i>Materials:</i> ${esc(x.materials)}</p>` : ''}</div>`).join('')}`).join('')}
     ${(p.document || []).length ? p.document.map(d => `<h2>${esc(d.heading)}</h2><p>${esc(d.content)}</p>`).join('') : ''}`;
 }
 
@@ -809,7 +1082,7 @@ function buildCatalog(ids, name, sharedBy, includeNotes) {
 function catalogPrintHtml(cat) {
   return `<div class="pcover"><h1>${esc(cat.name)}</h1>
     <div class="pmeta">${cat.sharedBy ? 'Shared by ' + esc(cat.sharedBy) + ' · ' : ''}${fmtDate(cat.createdAt)} · ${cat.programmes.length} programme${cat.programmes.length === 1 ? '' : 's'}</div>
-    <h2>Contents</h2><ol>${cat.programmes.map(p => `<li><b>${esc(p.title)}</b> (ages ${esc(p.ageGroup || '-')}, ${esc(p.format || '-')})<br>${esc(p.summary)}</li>`).join('')}</ol></div>`
+    <h2>Contents</h2><ol>${cat.programmes.map(p => `<li><b>${esc(p.title)}</b> (ages ${esc(agesText(p) || '-')}, ${esc(p.format || '-')})<br>${esc(p.summary)}</li>`).join('')}</ol></div>`
     + cat.programmes.map(p => `<div class="pbreak">${programmePrintHtml(p)}</div>`).join('');
 }
 
@@ -825,7 +1098,7 @@ function shareDialog(preselect) {
     ${field('Catalog name', `<input type="text" id="shName" value="${esc(defName)}">`, { forId: 'shName' })}
     ${field('Shared by', `<input type="text" id="shBy" value="${esc([st.facilitator, st.organisation].filter(Boolean).join(', '))}" placeholder="Your name or organisation">`, { forId: 'shBy' })}
     <div class="field"><div class="label">Programmes to include <span class="count" id="shCount"></span><span class="spacer"></span><button type="button" class="btn ghost small" id="shAll">All</button><button type="button" class="btn ghost small" id="shNone">None</button></div>
-      <div class="pick-list">${list.map(p => `<label class="pick"><input type="checkbox" value="${esc(p.id)}" ${sel.has(p.id) ? 'checked' : ''}><span class="pick-main"><b>${esc(p.title || 'Untitled programme')}</b><small>${p.ageGroup ? 'Ages ' + esc(p.ageGroup) + ' · ' : ''}${esc(p.format || '')}</small></span>${statusBadge(p.status)}</label>`).join('')}</div></div>
+      <div class="pick-list">${list.map(p => `<label class="pick"><input type="checkbox" value="${esc(p.id)}" ${sel.has(p.id) ? 'checked' : ''}><span class="pick-main"><b>${esc(p.title || 'Untitled programme')}</b><small>${agesText(p) ? 'Ages ' + esc(agesText(p)) + ' · ' : ''}${esc(p.format || '')}</small></span>${statusBadge(p.status)}</label>`).join('')}</div></div>
     <label class="check"><input type="checkbox" id="shNotes"> Include my private notes and ratings</label>
     <div class="foot"><button class="btn" data-close>Cancel</button><div class="spacer"></div><button class="btn" id="shPdf">Save as PDF</button><button class="btn primary" id="shSave">Save catalog file</button></div>`, (m, close) => {
     const boxes = $$('.pick input', m);
@@ -863,7 +1136,7 @@ async function openShared(fromPending) {
   modal(`<h2>${esc(cat.name || 'Shared catalog')}</h2>
     <p class="faint">${cat.sharedBy ? 'Shared by <b>' + esc(cat.sharedBy) + '</b> · ' : ''}${cat.createdAt ? fmtDate(cat.createdAt) + ' · ' : ''}${items.length} programme${items.length === 1 ? '' : 's'}. Choose which to add to your catalog.</p>
     <div class="field"><div class="label">Programmes <span class="count" id="opCount"></span><span class="spacer"></span><button type="button" class="btn ghost small" id="opAll">All</button><button type="button" class="btn ghost small" id="opNone">None</button></div>
-      <div class="pick-list">${items.map((p, i) => `<label class="pick"><input type="checkbox" value="${i}" ${have(p.id) ? '' : 'checked'}><span class="pick-main"><b>${esc(p.title)}</b><small>${p.ageGroup ? 'Ages ' + esc(p.ageGroup) + ' · ' : ''}${esc(p.format || '')}${p.summary ? ' · ' + esc(String(p.summary).slice(0, 90)) : ''}</small></span>${have(p.id) ? '<span class="pick-note">Already in your catalog. Tick to replace yours with this version.</span>' : '<span class="pick-new">New</span>'}</label>`).join('')}</div></div>
+      <div class="pick-list">${items.map((p, i) => `<label class="pick"><input type="checkbox" value="${i}" ${have(p.id) ? '' : 'checked'}><span class="pick-main"><b>${esc(p.title)}</b><small>${agesText(p) ? 'Ages ' + esc(agesText(p)) + ' · ' : ''}${esc(p.format || '')}${p.summary ? ' · ' + esc(String(p.summary).slice(0, 90)) : ''}</small></span>${have(p.id) ? '<span class="pick-note">Already in your catalog. Tick to replace yours with this version.</span>' : '<span class="pick-new">New</span>'}</label>`).join('')}</div></div>
     <div class="foot"><button class="btn" data-close>Cancel</button><button class="btn primary" id="opAdd">Add to my catalog</button></div>`, (m, close) => {
     const boxes = $$('.pick input', m);
     const chosen = () => boxes.filter(b => b.checked).map(b => items[+b.value]);
@@ -897,7 +1170,7 @@ function parseProgrammeText(text) {
   const firstIdx = rows.findIndex(l => l.trim());
   if (firstIdx < 0) return p;
   p.title = rows[firstIdx].replace(/^#+\s*/, '').trim().slice(0, 120);
-  const map = [[/objective|aim|goal|outcome/i, 'objectives'], [/session|week|day|schedule|plan/i, 'sessions'], [/material|equipment|resource/i, 'materials'], [/risk|safe/i, 'riskNotes'], [/budget|cost/i, 'budget'], [/summary|overview|about|description/i, 'summary']];
+  const map = [[/objective|aim|goal|outcome/i, 'objectives'], [/session|week|day|schedule|plan/i, 'sessions'], [/material|equipment|resource/i, 'materials'], [/risk|safe/i, 'riskNotes'], [/icebreaker/i, 'iceSteps'], [/mindful/i, 'mfFraming'], [/budget|cost/i, 'budget'], [/summary|overview|about|description/i, 'summary']];
   let cur = 'summary'; const buf = {};
   for (const raw of rows.slice(firstIdx + 1)) {
     const l = raw.trim();
@@ -910,11 +1183,14 @@ function parseProgrammeText(text) {
   p.objectives = lines(txt('objectives'));
   p.materials = lines(txt('materials'));
   p.riskNotes = txt('riskNotes');
+  p.iceSteps = txt('iceSteps');
+  p.mfFraming = txt('mfFraming');
   p.budget = txt('budget').split('\n')[0] || '';
   if (txt('sessions')) p.sessions = [{ title: 'Session plan (imported)', duration: '', activities: txt('sessions'), materials: '' }];
-  const age = text.match(/\b(5-8|9-12|13-15|16-18|18-25)\b/); if (age) p.ageGroup = age[1];
-  const fmt = FORMATS.find(f => new RegExp(f, 'i').test(text)); if (fmt) p.format = fmt;
-  return p;
+  const age = text.match(/\b(10-12|13-16|17-19|20-24|25-34|5-8|9-12|13-15|16-18|18-25)\b/); if (age) p.ageGroups = [age[1]];
+  const fmt = text.match(/weekly club|one-off|short series|structured programme|ongoing|camp|workshop|retreat|event/i);
+  if (fmt) p.format = { 'one-off': FORMATS[0], 'short series': FORMATS[1], 'structured programme': FORMATS[2], ongoing: FORMATS[3] }[fmt[0].toLowerCase()] || fmt[0].replace(/^./, c => c.toUpperCase());
+  return PForm.normalize(p);
 }
 
 // Turns pasted text into template sections: markdown headings or lines ending with ":" start a section.
@@ -999,60 +1275,80 @@ async function importLibrary() {
   } catch (e) { toast('Import failed: ' + e.message, true); }
 }
 
-// ---------- AI assistant (chat) ----------
+// ---------- AI helper panel (Create and Edit pages) ----------
+// The panel talks to Claude about the programme on screen (S.chat.getFocus) plus the catalog.
 function libraryContext() {
-  const C = S.chat;
+  const focus = S.chat.getFocus && S.chat.getFocus();
   const parts = [];
-  const focus = C.focusDraft || (C.focusId && S.programmes.find(p => p.id === C.focusId));
-  if (focus) parts.push('PROGRAMME THE USER IS WORKING ON:\n' + JSON.stringify(stripForAi(focus), null, 1));
-  parts.push('LIBRARY OVERVIEW:\n' + S.programmes.slice(0, 80).map(p => `- ${p.title} | ages ${p.ageGroup} | ${p.format} | ${p.status}${p.rating ? ' | ' + p.rating + '★' : ''} | ${(p.themes || []).join(', ')}`).join('\n'));
+  if (focus && (focus.title || focus.summary)) parts.push('PROGRAMME THE USER IS WORKING ON (unsaved draft, may be incomplete):\n' + JSON.stringify(stripForAi(focus), null, 1));
+  parts.push('LIBRARY OVERVIEW:\n' + S.programmes.slice(0, 80).map(p => `- ${p.title} | ages ${agesText(p)} | ${p.format} | ${p.status}${p.rating ? ' | ' + p.rating + '★' : ''} | ${(p.themes || []).join(', ')}`).join('\n'));
   return parts.join('\n\n');
 }
 
-function viewAssistant() {
+const AI_STARTERS = {
+  start: ['Suggest 5 programme ideas for shy 13-15 year olds', 'What programmes am I missing?', 'Ideas for a one-off mental wellbeing session'],
+  overview: ['Suggest 5 catchier names for this programme', 'Write a 2-3 sentence description', 'Suggest 4 clear objectives'],
+  logistics: ['List the materials I will need', 'Estimate an itemised budget', 'What should participants wear?'],
+  purpose: ['Which core competencies fit this programme best?', 'Explain why this matters for this age group', 'How does each activity build the chosen competencies?'],
+  icebreaker: ['Suggest 5 icebreakers that fit this programme', 'Write step-by-step instructions for my icebreaker', 'Suggest a low-pressure icebreaker for shy youths'],
+  activities: ['Suggest a timed run-sheet for this programme', 'How can youths take a more active part?', 'Suggest a closing reflection activity'],
+  mindfulness: ['Suggest a 5-minute mindfulness activity for this programme', 'How do I introduce mindfulness without sounding clinical?', 'Where in the programme should mindfulness go?'],
+  safety: ['What risks should I plan for?', 'Suggest safety measures for each risk', 'How do I keep personal sharing safe?'],
+  outcomes: ['Suggest measurable success criteria', 'Write a short feedback form', 'What outcomes can youths expect?'],
+  review: ['Review this programme and suggest improvements', 'Write a short parent/guardian letter', 'How can I make this more inclusive?'],
+  edit: ['Review this programme and suggest improvements', 'Suggest ice-breakers for this group', 'What risks should I plan for?'],
+};
+
+function aiPanelHtml() {
+  if (S.aiHidden) return `<button class="ai-fab" id="aiShow">✦ AI helper</button>`;
+  return `<aside class="ai-panel" id="aiPanel" aria-label="AI helper">
+    <div class="ai-head"><b>✦ AI helper</b><div class="spacer"></div>
+      <button type="button" class="btn ghost small" id="aiClear" title="Start a new conversation">Clear</button>
+      <button type="button" class="btn ghost small" id="aiHide" title="Hide the AI helper">Hide</button></div>
+    <p class="ai-sub">Ask about the programme you're working on. It can see what you've filled in and your catalog.</p>
+    ${!S.settings.hasApiKey ? '<div class="notice small">AI is off. <a href="#" id="toSettings">Add your API key in Settings</a>.</div>' : ''}
+    <div class="messages" id="msgs"></div>
+    <div class="chips" id="starters"></div>
+    <div class="composer">
+      <textarea id="prompt" aria-label="Message to the AI helper" placeholder="Ask for ideas, activities, wording… (⌘↩ to send)">${esc(S.chat.draft || '')}</textarea>
+      <button class="btn primary" id="send">Send</button>
+    </div>
+  </aside>`;
+}
+
+// Binds the panel rendered by aiPanelHtml(). getFocus returns the draft being edited; stepKey picks starter prompts.
+function mountAiPanel(getFocus, stepKey, onNote) {
   const C = S.chat;
-  const focus = C.focusDraft || (C.focusId && S.programmes.find(p => p.id === C.focusId));
-  main().innerHTML = `
-    ${header('AI assistant', 'Brainstorm activities, ice-breakers, letters and plans. It can see your catalog.', '<button class="btn ghost" id="newChat">New conversation</button>')}
-    <div class="chat">
-      ${focus ? `<div class="notice">Talking about <b>${esc(focus.title || 'untitled programme')}</b> <button class="btn small" id="unfocus">Stop</button></div>` : ''}
-      ${!S.settings.hasApiKey ? `<div class="notice">AI is off. <a href="#" id="toSettings">Add your Anthropic API key in Settings</a> to start.</div>` : ''}
-      <div class="messages" id="msgs"></div>
-      <div class="chips" id="starters"></div>
-      <div class="composer">
-        <textarea id="prompt" aria-label="Message" placeholder="Ask anything about planning youth programmes… (⌘↩ to send)">${esc(C.draft || '')}</textarea>
-        <button class="btn primary" id="send">Send</button>
-      </div>
-    </div>`;
+  C.getFocus = getFocus; C.onNote = onNote;
+  const show = $('#aiShow'); if (show) { show.onclick = () => { S.aiHidden = false; render(); }; return; }
+  if (!$('#aiPanel')) return;
   C.draft = '';
-  const starters = ['Suggest 10 ice-breakers for shy 13-15 year olds', 'What programmes am I missing for ages 9-12?', 'Write a parent letter for a weekend camp', 'Ideas to make my programmes more inclusive'];
-  if (!C.messages.length) {
-    $('#starters').innerHTML = starters.map(s => `<button type="button" class="chip">${esc(s)}</button>`).join('');
-    $$('#starters .chip').forEach(c => c.onclick = () => { $('#prompt').value = c.textContent; $('#prompt').focus(); });
-    $('#msgs').innerHTML = `<div class="empty">Ask Claude for ideas. It can see your catalog${focus ? ' and the programme you chose' : ''}.</div>`;
-  } else renderMessages();
-  if ($('#unfocus')) $('#unfocus').onclick = () => { C.focusId = null; C.focusDraft = null; render(); };
+  $('#aiHide').onclick = () => { C.draft = $('#prompt').value; S.aiHidden = true; render(); };
+  $('#aiClear').onclick = () => { C.messages = []; renderMessages(); renderStarters(stepKey); };
   if ($('#toSettings')) $('#toSettings').onclick = e => { e.preventDefault(); go('settings'); };
-  $('#newChat').onclick = () => { C.messages = []; C.focusId = null; C.focusDraft = null; render(); };
   $('#send').onclick = sendChat;
   $('#prompt').onkeydown = e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); sendChat(); } };
-  $('#prompt').focus();
+  renderMessages(); renderStarters(stepKey);
+  if (C.busy) $('#send').disabled = true;
+}
+
+function renderStarters(stepKey) {
+  const box = $('#starters'); if (!box) return;
+  box.innerHTML = (AI_STARTERS[stepKey] || AI_STARTERS.start).map(t => `<button type="button" class="chip">${esc(t)}</button>`).join('');
+  $$('.chip', box).forEach(c => c.onclick = () => { $('#prompt').value = c.textContent; $('#prompt').focus(); });
 }
 
 function renderMessages() {
-  const C = S.chat;
-  $('#msgs').innerHTML = C.messages.map((m, i) => m.role === 'user'
+  const C = S.chat, box = $('#msgs');
+  if (!box) return;
+  if (!C.messages.length) { box.innerHTML = '<div class="ai-empty">Pick a suggestion below or type your own question.</div>'; return; }
+  box.innerHTML = C.messages.map((m, i) => m.role === 'user'
     ? `<div class="msg user">${esc(m.content)}</div>`
     : `<div class="msg assistant"><div class="md ${m.streaming ? 'typing' : ''}">${renderMarkdown(m.content)}</div>
-       ${!m.streaming && m.content ? `<div class="msg-actions"><button class="btn small" data-copy="${i}">Copy</button><button class="btn small" data-tonote="${i}">Save as a programme idea</button></div>` : ''}</div>`).join('');
-  $$('[data-copy]').forEach(b => b.onclick = () => { copyText(C.messages[+b.dataset.copy].content); toast('Copied'); });
-  $$('[data-tonote]').forEach(b => b.onclick = async () => {
-    const text = C.messages[+b.dataset.tonote].content;
-    const heading = (text.match(/^#+\s*(.+)$/m) || [])[1] || (text.match(/\*\*(.+?)\*\*/) || [])[1] || 'Idea from AI assistant';
-    const saved = await api.upsert('programmes', newProgramme({ title: heading.slice(0, 80), notes: text, status: 'idea' }));
-    await reload(); toast('Saved as an idea'); go('programme', saved.id);
-  });
-  const box = $('#msgs'); box.scrollTop = box.scrollHeight;
+       ${!m.streaming && m.content ? `<div class="msg-actions"><button class="btn small" data-copy="${i}">Copy</button>${C.onNote ? `<button class="btn small" data-tonote="${i}">Add to programme notes</button>` : ''}</div>` : ''}</div>`).join('');
+  $$('[data-copy]', box).forEach(b => b.onclick = () => { copyText(C.messages[+b.dataset.copy].content); toast('Copied. Paste it into any field.'); });
+  $$('[data-tonote]', box).forEach(b => b.onclick = () => { C.onNote(C.messages[+b.dataset.tonote].content); toast('Added to the programme notes'); });
+  box.scrollTop = box.scrollHeight;
 }
 
 async function sendChat() {
@@ -1062,7 +1358,6 @@ async function sendChat() {
   if (!text || C.busy) return;
   if (!S.settings.hasApiKey) { toast('Add your API key in Settings first.', true); return; }
   input.value = '';
-  $('#starters').innerHTML = '';
   C.messages.push({ role: 'user', content: text });
   const reply = { role: 'assistant', content: '', streaming: true };
   C.messages.push(reply);
@@ -1073,15 +1368,16 @@ async function sendChat() {
     const history = C.messages.filter(m => m !== reply).map(({ role, content }) => ({ role, content }));
     const final = await api.ai.chat({ messages: history, context: libraryContext() }, t => {
       reply.content += t;
-      if (!pending && S.view === 'assistant') { pending = true; requestAnimationFrame(() => { pending = false; if (S.view === 'assistant') renderMessages(); }); }
+      if (!pending) { pending = true; requestAnimationFrame(() => { pending = false; renderMessages(); }); }
     });
     reply.content = final || reply.content;
   } catch (e) {
     toast(e.message, true);
-    if (!reply.content) { C.messages.splice(C.messages.indexOf(reply) - 1, 2); if (S.view === 'assistant') $('#prompt').value = text; }
+    if (!reply.content) { C.messages.splice(C.messages.indexOf(reply) - 1, 2); if ($('#prompt')) $('#prompt').value = text; }
   } finally {
     reply.streaming = false; C.busy = false;
-    if (S.view === 'assistant') { $('#send').disabled = false; if (C.messages.length) renderMessages(); else render(); }
+    if ($('#send')) $('#send').disabled = false;
+    renderMessages();
   }
 }
 
@@ -1238,6 +1534,12 @@ function viewSettings() {
       </div>
       <button class="btn" id="saveMe">Save</button>
     </div>
+    <div class="panel"><h2>Emergency contacts</h2>
+      <p class="faint">These appear in the Safety section's emergency contact lists.</p>
+      <div id="contactList"></div>
+      <div class="grid2">${field('Name and role', '<input type="text" id="ncName" placeholder="e.g. Ms Lim (centre manager)">', { forId: 'ncName' })}${field('Phone number', '<input type="text" id="ncPhone" placeholder="e.g. 9123 4567">', { forId: 'ncPhone' })}</div>
+      <button class="btn" id="ncAdd">Add contact</button>
+    </div>
     <div class="panel"><h2>Your data</h2>
       <p class="faint">Everything is stored on this Mac: <code>${esc(st.dataFile)}</code></p>
       <div class="row wrap"><button class="btn" id="reveal">Show in Finder</button><button class="btn" id="toImport">Import or export…</button></div>
@@ -1253,12 +1555,26 @@ function viewSettings() {
   $('#saveMe').onclick = async () => { S.settings = await api.setSettings({ facilitator: $('#fac').value.trim(), organisation: $('#org').value.trim() }); toast('Saved'); };
   $('#reveal').onclick = () => api.revealData();
   $('#toImport').onclick = () => go('import');
+  const drawContacts = () => {
+    const list = S.settings.contacts || [];
+    $('#contactList').innerHTML = list.length ? list.map((c, i) => `<div class="ms-chip"><span><b>${esc(c.name)}</b>${c.phone ? ' · ' + esc(c.phone) : ''}</span><button type="button" data-rmc="${i}" aria-label="Remove ${esc(c.name)}">✕</button></div>`).join('') : '<p class="faint small">No saved contacts yet.</p>';
+    $$('[data-rmc]').forEach(b => b.onclick = async () => { S.settings = await api.setSettings({ contacts: list.filter((_, i) => i !== +b.dataset.rmc) }); drawContacts(); });
+  };
+  drawContacts();
+  $('#ncAdd').onclick = async () => {
+    const c = { name: $('#ncName').value.trim(), phone: $('#ncPhone').value.trim() };
+    if (!c.name) return toast('Add a name first.', true);
+    S.settings = await api.setSettings({ contacts: [...(S.settings.contacts || []), c] });
+    $('#ncName').value = ''; $('#ncPhone').value = ''; drawContacts(); toast('Contact saved');
+  };
 }
 
 // ---------- boot ----------
 $$('#nav a').forEach(a => a.onclick = e => { e.preventDefault(); go(a.dataset.view); });
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
+    const pop = $('.ms-pop:not(.hidden)');
+    if (pop) { pop.classList.add('hidden'); pop.previousElementSibling.setAttribute('aria-expanded', 'false'); pop.previousElementSibling.focus(); return; }
     const m = $('#modal');
     if (!m.classList.contains('hidden')) { const c = $('[data-close]', m); if (c) c.click(); else { m.classList.add('hidden'); m.innerHTML = ''; } return; }
     const a = document.activeElement;

@@ -28,7 +28,10 @@ test('built-in programmes are valid and searchable', () => {
   const built = require('../src/seed/programmes.json');
   for (const p of built) {
     assert.ok(p.id && p.title, 'id and title');
-    assert.ok(['5-8', '9-12', '13-15', '16-18', '18-25'].includes(p.ageGroup), p.title);
+    const F = require('../src/shared/form.js');
+    assert.ok(p.ageGroups.every(a => F.AGE_GROUPS.includes(a)), p.title);
+    assert.ok(!p.format || F.FORMATS.includes(p.format), p.title);
+    assert.deepStrictEqual(Object.keys(F.blank()).filter(k => !(k in p)), [], p.title);
     assert.ok(Array.isArray(p.sessions) && Array.isArray(p.themes) && Array.isArray(p.objectives), p.title);
   }
   assert.match(S.search(built, 'forest')[0].programme.title, /Nature/);

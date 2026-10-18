@@ -5,8 +5,8 @@ const Anthropic = require('@anthropic-ai/sdk');
 const DEFAULT_MODEL = 'claude-opus-5-5';
 const FALLBACK_BETA = 'server-side-fallback-2026-07-01';
 
-const AGE_GROUPS = ['5-8', '9-12', '13-15', '16-18', '18-25'];
-const FORMATS = ['Weekly club', 'Camp', 'Workshop', 'Retreat', 'Event', 'Online', 'Mentoring'];
+const F = require('../shared/form');
+const { AGE_GROUPS, FORMATS } = F;
 
 const SYSTEM = `You are an experienced youth work practitioner and programme designer helping a youth worker plan programmes.
 You design programmes that are age-appropriate, inclusive, practical to run with modest budgets, and grounded in positive youth development.
@@ -20,20 +20,41 @@ const obj = (props) => ({ type: 'object', additionalProperties: false, required:
 
 const IDEA = obj({
   title: str, summary: str, hook: str, whyItWorks: str,
-  ageGroup: { type: 'string', enum: AGE_GROUPS },
+  ageGroups: { type: 'array', items: { type: 'string', enum: AGE_GROUPS } },
   format: { type: 'string', enum: FORMATS },
   themes: strArr, duration: str, objectives: strArr,
 });
 const IDEAS_SCHEMA = obj({ ideas: { type: 'array', items: IDEA } });
 
+const enumArr = list => ({ type: 'array', items: { type: 'string', enum: list } });
+// Mirrors the Youth Programme Planning Form (see src/shared/form.js).
 const PROGRAMME_SCHEMA = obj({
-  title: str, summary: str,
-  ageGroup: { type: 'string', enum: AGE_GROUPS },
-  format: { type: 'string', enum: FORMATS },
-  themes: strArr, duration: str, groupSize: str, objectives: strArr,
+  title: str, summary: str, objectives: strArr, date: str, time: str, location: str,
+  ageGroups: enumArr(AGE_GROUPS), format: { type: 'string', enum: FORMATS },
+  sessionLength: str, setting: str, facilitators: str, groupSize: str, duration: str, themes: strArr,
+  materials: strArr, attire: str, equipment: str, meetingPoint: str, transport: str, food: str, budgetItems: str, budget: str,
+  youthNeed: str, whyItMatters: str, competencies: enumArr(F.COMPETENCIES), primaryCompetency: str, competencyHow: str,
+  iceName: str, icePurposes: strArr, iceTime: str, iceSteps: str, iceWhy: str,
+  mainActivities: str, involvement: strArr, involvementNotes: str,
   sessions: { type: 'array', items: obj({ title: str, duration: str, activities: str, materials: str }) },
-  materials: strArr, budget: str, riskNotes: str, outcomes: str, notes: str,
+  mfObjectives: strArr, mfTypes: strArr, mfWhen: enumArr(F.MF_WHEN), mfTime: str, mfFraming: str,
+  risks: strArr, mitigations: strArr, psychSafety: strArr, bestPractices: strArr,
+  intendedOutcomes: str, successCriteria: str, feedbackMethods: strArr, indicators: strArr, notes: str,
 });
+
+const FORM_GUIDE = `The plan follows our Youth Programme Planning Form. Core competencies, the icebreaker and mindfulness are mandatory.
+Where a field has a standard list, use these exact wordings (only add your own wording when nothing fits):
+- sessionLength: ${F.SESSION_LENGTHS.join(' | ')}; setting: ${F.SETTINGS.join(' | ')}
+- icePurposes: ${F.ICE_PURPOSES.join(' | ')}; iceTime: ${F.ICE_TIMES.join(' | ')}
+- involvement: ${F.INVOLVEMENT.join(' | ')}
+- mfObjectives: ${F.MF_OBJECTIVES.join(' | ')}; mfTypes: ${F.MF_TYPES.join(' | ')}; mfTime: ${F.MF_TIMES.join(' | ')}
+- risks: ${F.RISK_LABELS.join(' | ')}
+- mitigations: ${F.MITIGATIONS.flatMap(g => g.items).join(' | ')}
+- psychSafety: ${F.PSYCH.join(' | ')}
+- bestPractices: ${F.BEST_PRACTICES.join(' | ')}
+- feedbackMethods: ${F.FEEDBACK.join(' | ')}; indicators: ${F.INDICATORS.join(' | ')}
+primaryCompetency must be one of the chosen competencies. budgetItems is one "item: cost" per line; budget is the total.
+"sessions" is the activity timeline: one entry per segment in order (icebreaker, main activities, mindfulness moment, breaks, closing), each with a timed run-sheet.`;
 
 const TEMPLATE_SCHEMA = obj({
   name: str, description: str, category: str,
@@ -94,7 +115,7 @@ class AI {
   }
 
   async ideate({ brief, similar, count = 4 }) {
-    const lib = (similar || []).map(p => `- ${p.title} (${p.ageGroup}, ${p.format}; themes: ${(p.themes || []).join(', ')}; rating ${p.rating || 'n/a'}): ${p.summary}`).join('\n');
+    const lib = (similar || []).map(p => `- ${p.title} (${(p.ageGroups || [p.ageGroup]).join('/')}, ${p.format}; themes: ${(p.themes || []).join(', ')}; rating ${p.rating || 'n/a'}): ${p.summary}`).join('\n');
     const prompt = `Generate ${count} distinct, creative youth programme ideas for this brief.
 
 BRIEF
@@ -117,12 +138,14 @@ ${JSON.stringify(idea, null, 2)}
 ${brief ? '\nORIGINAL BRIEF\n' + formatBrief(brief) : ''}
 ${lib ? '\nFOR REFERENCE, SESSION OUTLINES OF SIMILAR PROGRAMMES IN OUR LIBRARY\n' + lib : ''}
 
-Include one entry in "sessions" per session of the programme (for a camp or event, one per block of the day). Each session's "activities" should give a timed run-sheet (e.g. "0-10 min: ...") a volunteer could follow. Keep the budget realistic and itemised briefly.`;
+Each session's "activities" should give a timed run-sheet (e.g. "0-10 min: ...") a volunteer could follow. Keep the budget realistic. Leave date, time, location, facilitators and emergency details empty unless given.
+
+${FORM_GUIDE}`;
     return this.json(prompt, PROGRAMME_SCHEMA, 32000);
   }
 
   async parseProgramme({ text }) {
-    const prompt = `Convert this existing youth programme document into a structured programme. Keep the author's content and wording where possible, split the plan into sessions, and infer the age group and format if they are not stated (choose the closest option). Leave fields empty rather than inventing details that are not in the document.\n\nDOCUMENT\n${String(text).slice(0, 60000)}`;
+    const prompt = `Convert this existing youth programme document into a structured programme. Keep the author's content and wording where possible, split the plan into sessions, and infer the age group and format if they are not stated (choose the closest option). Leave fields empty rather than inventing details that are not in the document.\n\n${FORM_GUIDE}\n\nDOCUMENT\n${String(text).slice(0, 60000)}`;
     return this.json(prompt, PROGRAMME_SCHEMA, 32000);
   }
 

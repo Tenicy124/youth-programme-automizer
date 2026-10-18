@@ -57,6 +57,7 @@
     return [
       [p.title, 3], [(p.themes || []).join(' '), 3], [p.summary, 2], [(p.objectives || []).join(' '), 1.5],
       [p.format, 1], [sessions, 1], [p.notes, 0.5], [doc, 0.5],
+      [[p.youthNeed, p.mainActivities, p.iceName, (p.competencies || []).join(' ')].join(' '), 1],
     ];
   }
 
@@ -100,7 +101,7 @@
 
   function matchesFilters(p, f) {
     if (!f) return true;
-    if (f.ageGroup && p.ageGroup !== f.ageGroup) return false;
+    if (f.ageGroup && !(p.ageGroups || [p.ageGroup]).includes(f.ageGroup)) return false;
     if (f.format && p.format !== f.format) return false;
     if (f.status && p.status !== f.status) return false;
     if (f.theme && !(p.themes || []).some(t => t.toLowerCase() === f.theme.toLowerCase())) return false;
@@ -141,11 +142,12 @@
     return index.docs.map(d => {
       const sim = cosine(q, qn, d.vec, d.norm);
       let score = sim;
-      if (age && d.p.ageGroup === age) score += 0.15;
+      const sameAge = age && (d.p.ageGroups || [d.p.ageGroup]).includes(age);
+      if (sameAge) score += 0.15;
       if (d.p.rating) score += 0.04 * d.p.rating;
       if (d.p.status === 'delivered' || d.p.status === 'ready') score += 0.05;
       const reasons = [];
-      if (age && d.p.ageGroup === age) reasons.push('same age group');
+      if (sameAge) reasons.push('same age group');
       const shared = (d.p.themes || []).filter(t => text.toLowerCase().includes(t.toLowerCase()));
       if (shared.length) reasons.push('themes: ' + shared.join(', '));
       if (d.p.rating >= 4) reasons.push('highly rated (' + d.p.rating + '★)');
