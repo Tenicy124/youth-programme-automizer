@@ -395,7 +395,35 @@ button.stat:hover { border-color: var(--accent); transform: translateY(-1px); }
 .kv dd .chips { margin-top: 0; }
 .tag.plain::before { content: none; }
 
+/* Programme shown as the planning form */
+.formtable { width: 100%; border-collapse: collapse; border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; }
+.formtable > tbody > tr > th, .formtable > tr > th { width: 32%; text-align: left; vertical-align: top; background: var(--bg); color: var(--text); font-weight: 600; font-size: 13.5px; padding: 10px 12px; border: 1px solid var(--line); }
+.formtable > tbody > tr > td, .formtable > tr > td { vertical-align: top; padding: 10px 12px; border: 1px solid var(--line); }
+.formtable ul { margin: 0; padding-left: 18px; }
+.form-sec .read-head h2 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.ticks { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+.tick { color: var(--faint); font-size: 14px; }
+.tick.on { color: var(--text); font-weight: 600; }
+.tick .tbox { margin-right: 5px; }
+.tick.on .tbox { color: var(--accent); }
+.tick small { font-weight: 400; color: var(--muted); }
+.tick-note { margin-top: 8px; }
+.boxgrid { width: 100%; border-collapse: collapse; }
+.boxgrid th { text-align: left; font-size: 12px; color: var(--muted); font-weight: 600; padding: 0 10px 4px 0; }
+.boxgrid td { padding: 0 10px 0 0; vertical-align: top; }
+.boxrow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1.5px solid var(--line-strong); border-radius: 10px; overflow: hidden; }
+.box-cell { padding: 8px 10px 10px; border-right: 1px solid var(--line); background: var(--panel); }
+.box-cell:last-child { border-right: none; }
+.box-label { display: block; font-size: 12px; font-weight: 650; color: var(--muted); margin-bottom: 5px; }
+.box-cell input { width: 100%; }
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); border: 1.5px solid var(--line-strong); border-radius: 10px; overflow: hidden; max-width: 640px; }
+.contact-grid > div { padding: 8px 10px 10px; border-bottom: 1px solid var(--line); background: var(--panel); }
+.contact-grid > div:nth-child(odd) { border-right: 1px solid var(--line); }
+.contact-grid > div:nth-last-child(-n+2) { border-bottom: none; }
+.contact-grid .num { padding: 9px 2px; color: var(--text); min-height: 38px; }
+
 @media (max-width: 1100px) {
+  .formtable > tbody > tr > th, .formtable > tr > th { width: 38%; }
   .grid3 { grid-template-columns: minmax(0, 1fr); }
   .kv { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .kv dd { margin-bottom: 8px; }
@@ -424,6 +452,13 @@ button.stat:hover { border-color: var(--accent); transform: translateY(-1px); }
   .print-only .ptable { width: 100%; border-collapse: collapse; margin: 4pt 0 8pt; }
   .print-only .ptable th, .print-only .ptable td { border: 1px solid #bbb; padding: 4pt 6pt; vertical-align: top; text-align: left; }
   .print-only .ptable th { width: 32%; background: #f1f1f1; font-weight: 600; }
+  .print-only .ptable { page-break-inside: auto; margin-top: 10pt; }
+  .print-only .ptable th.psec { width: auto; background: #dfe9e5; font-size: 11.5pt; letter-spacing: .02em; }
+  .print-only .ticks { display: block; }
+  .print-only .tick { display: inline-block; margin-right: 12pt; color: #777; }
+  .print-only .tick.on { color: #000; font-weight: 600; }
+  .print-only .boxgrid th { color: #555; font-size: 9pt; text-align: left; }
+  .print-only .faint { color: #999; }
   .print-only .ptable ul { margin: 0; padding-left: 14pt; }
   .print-only .pre { white-space: pre-wrap; }
 }

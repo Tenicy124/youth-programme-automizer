@@ -97,14 +97,15 @@
 
   // The form's sections, in order. Mandatory ones are marked as on the paper form.
   const SECTIONS = [
-    { key: 'overview', num: '1', label: 'Overview' },
-    { key: 'logistics', num: '1.2', label: 'Logistics' },
-    { key: 'purpose', num: '2-3', label: 'Youth need & competencies', mandatory: true },
-    { key: 'icebreaker', num: '4', label: 'Icebreaker', mandatory: true },
-    { key: 'activities', num: '5', label: 'Activities' },
-    { key: 'mindfulness', num: '6', label: 'Mindfulness', mandatory: true },
-    { key: 'safety', num: '7', label: 'Safety' },
-    { key: 'outcomes', num: '8', label: 'Outcomes' },
+    { key: 'overview', num: '1', label: 'Programme Overview' },
+    { key: 'logistics', num: '1.2', label: 'Programme Logistics' },
+    { key: 'need', num: '2', label: 'Core Youth Need Addressed' },
+    { key: 'competencies', num: '3', label: 'Core Competencies Targeted', mandatory: true },
+    { key: 'icebreaker', num: '4', label: 'Icebreaker Activity (Social Bonding)', mandatory: true },
+    { key: 'activities', num: '5', label: 'Main Activity / Programme Flow' },
+    { key: 'mindfulness', num: '6', label: 'Mindfulness Infusion', mandatory: true },
+    { key: 'safety', num: '7', label: 'Risk Management' },
+    { key: 'outcomes', num: '8', label: 'Intended Outcomes' },
   ];
 
   function blank() {

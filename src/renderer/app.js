@@ -265,58 +265,67 @@ function openFilters(after) {
 }
 
 // ---------- Programme view ----------
-// The plan laid out in the planning form's sections. Used by the programme page, review step and exports.
+// The plan laid out box by box exactly as on the Youth Programme Planning Form.
+// Used by the programme page, the review step and both exports.
 function programmeOutline(p) {
-  const T = (label, v) => ({ label, v: v || '' });
-  const L = (label, v) => ({ label, v: v || [], list: true });
-  const C = (label, v) => ({ label, v: v || [], chips: true });
+  const T = (label, v) => ({ kind: 'text', label, v: v || '' });
+  const L = (label, v) => ({ kind: 'list', label, v: v || [] });
+  const K = (label, options, v, hints) => ({ kind: 'ticks', label, options: options.concat((v || []).filter(x => !options.includes(x))), v: v || [], hints });
+  const O = (label, options, v) => ({ kind: 'ticks', label, options: options.concat(v && !options.includes(v) ? [v] : []), v: v ? [v] : [] });
+  const G = (label, cells) => ({ kind: 'grid', label, cells });
+  const c = i => (p.contacts || [])[i] || {};
+  const sec = (key, items, extra) => ({ key, num: SECTIONS[key].num, title: SECTIONS[key].title, mandatory: SECTIONS[key].mandatory, items, ...extra });
   return [
-    { key: 'overview', items: [T('Short description', p.summary), L('Objectives', p.objectives), T('Date', p.date), T('Time', p.time), T('Location', p.location),
-      C('Target age group', (p.ageGroups || []).map(a => PForm.AGE_HINTS[a] ? `${a} (${PForm.AGE_HINTS[a]})` : a)), T('Programme format', p.format), T('Session duration', p.sessionLength),
-      T('Intended setting', p.setting), T('Facilitators', p.facilitators), T('Group size', p.groupSize), T('Overall length', p.duration), C('Tags', p.themes)] },
-    { key: 'logistics', items: [L('Materials', p.materials), T('Attire', p.attire), T('Equipment', p.equipment), T('Meeting location', p.meetingPoint),
-      T('Transportation', p.transport), T('Food and beverages', p.food), T('Itemised budget', p.budgetItems), T('Total estimated cost', p.budget)] },
-    { key: 'purpose', items: [T('Primary challenge', p.youthNeed), T('Why this matters for this age group', p.whyItMatters), C('Core competencies', p.competencies),
-      T('Primary competency focus', p.primaryCompetency), T('How the programme builds them', p.competencyHow)] },
-    { key: 'icebreaker', items: [T('Activity', p.iceName), C('Purpose', p.icePurposes), T('Time allocated', p.iceTime), T('How it works', p.iceSteps), T('Why it suits this age group', p.iceWhy)] },
-    { key: 'activities', items: [T('Main activities', p.mainActivities), C('How youths take part', p.involvement), T('More about how they take part', p.involvementNotes)], sessions: p.sessions || [] },
-    { key: 'mindfulness', items: [C('Objective', p.mfObjectives), C('Type', p.mfTypes), C('When', p.mfWhen), T('Total time', p.mfTime), T('How it is introduced', p.mfFraming)] },
-    { key: 'safety', items: [L('Potential risks', p.risks), L('Mitigation strategies', p.mitigations),
-      L('Emergency contacts', (p.contacts || []).map(c => c.name + (c.phone ? ': ' + c.phone : ''))), L('Psychological safety', p.psychSafety),
-      L('Best practices for facilitation', p.bestPractices), T('Earlier safety notes', p.riskNotes)] },
-    { key: 'outcomes', items: [T('Intended youth outcomes', p.intendedOutcomes), T('Success criteria', p.successCriteria), C('Feedback collection', p.feedbackMethods), C('Observable indicators of impact', p.indicators)] },
-  ].map(sec => ({ ...sec, title: `${SECTIONS[sec.key].num}. ${SECTIONS[sec.key].title || SECTIONS[sec.key].label}`, mandatory: SECTIONS[sec.key].mandatory,
-    items: sec.items.filter(i => i.list || i.chips ? i.v.length : String(i.v).trim()) }));
+    sec('overview', [T('Programme Title', p.title), G('Programme Details', [['Date', p.date], ['Time', p.time], ['Location', p.location]]), L('Objectives', p.objectives),
+      K('Target Age Group', PForm.AGE_GROUPS, p.ageGroups, PForm.AGE_HINTS), O('Programme Format', PForm.FORMATS, p.format), O('Session Duration (Per Session)', PForm.SESSION_LENGTHS, p.sessionLength),
+      T('Facilitator(s) Name and Role', p.facilitators), O('Intended Setting', PForm.SETTINGS, p.setting)]),
+    sec('logistics', [L('Materials', p.materials), T('Attire', p.attire), T('Equipment', p.equipment),
+      G('Logistics (If Applicable)', [['Meeting Location', p.meetingPoint], ['Transportation', p.transport], ['Food and Beverages', p.food]]),
+      T('Itemised Budget for Items', p.budgetItems), T('Total Estimated Cost', p.budget)]),
+    sec('need', [T('Primary Challenge This Programme Responds To', p.youthNeed), T('Why This Matters for This Age Group', p.whyItMatters)]),
+    sec('competencies', [K('Core Competencies This Programme Aims to Develop', PForm.COMPETENCIES, p.competencies), T('Primary Competency Focus', p.primaryCompetency),
+      T('How This Programme Builds the Selected Competency/Competencies', p.competencyHow)]),
+    sec('icebreaker', [T('Icebreaker Activity Name', p.iceName), K('Purpose of the Icebreaker', PForm.ICE_PURPOSES, p.icePurposes), O('Time Allocated for Icebreaker', PForm.ICE_TIMES, p.iceTime),
+      T('How the Icebreaker Works (Step-by-Step)', p.iceSteps), T('Why This Icebreaker Suits This Age Group', p.iceWhy)]),
+    sec('activities', [T('Main Activities Planned (In Sequence)', p.mainActivities), { ...K('How Youths Are Actively Involved', PForm.INVOLVEMENT, p.involvement), note: p.involvementNotes },
+      { kind: 'sessions', label: 'Activity Timeline', v: p.sessions || [] }]),
+    sec('mindfulness', [K('Mindfulness Objective', PForm.MF_OBJECTIVES, p.mfObjectives), K('Type of Mindfulness Infusion Planned', PForm.MF_TYPES, p.mfTypes),
+      K('When Is Mindfulness Infused', PForm.MF_WHEN, p.mfWhen), T('How Mindfulness Is Framed (Non-Clinical Language)', p.mfFraming), O('Total Time Allocated for Mindfulness', PForm.MF_TIMES, p.mfTime)]),
+    sec('safety', [L('Potential Risks', p.risks), L('Mitigation Strategies', p.mitigations),
+      G('Emergency Contacts', [['Contact Person 1', c(0).name], ['Number', c(0).phone], ['Contact Person 2', c(1).name], ['Number', c(1).phone]]),
+      L('Psychological Safety & Facilitation Notes', p.psychSafety), L('Best Practices for Facilitation', p.bestPractices)].concat(p.riskNotes ? [T('Earlier safety notes', p.riskNotes)] : [])),
+    sec('outcomes', [T('Intended Youth Outcomes', p.intendedOutcomes), T('Success Criteria', p.successCriteria), K('Feedback Collection Method', PForm.FEEDBACK, p.feedbackMethods),
+      K('Observable Indicators of Impact', PForm.INDICATORS, p.indicators)]),
+  ].map(s => ({ ...s, empty: s.items.every(i => i.kind === 'grid' ? i.cells.every(([, v]) => !v) : i.kind === 'text' ? !String(i.v).trim() : !i.v.length) }));
+}
+
+// Renders one form box's answer as HTML (shared by the page and the PDF).
+function boxValue(i, sessionsHtml) {
+  const dash = '<span class="faint">-</span>';
+  if (i.kind === 'text') return String(i.v).trim() ? `<div class="prose">${esc(i.v)}</div>` : dash;
+  if (i.kind === 'list') return i.v.length ? `<ul>${i.v.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : dash;
+  if (i.kind === 'ticks') return `<div class="ticks">${i.options.map(o => `<span class="tick ${i.v.includes(o) ? 'on' : ''}"><span class="tbox">${i.v.includes(o) ? '☑' : '☐'}</span>${esc(o)}${i.hints && i.hints[o] ? ` <small>${esc(i.hints[o])}</small>` : ''}</span>`).join('')}</div>${i.note ? `<div class="prose tick-note">${esc(i.note)}</div>` : ''}`;
+  if (i.kind === 'grid') return `<table class="boxgrid"><tr>${i.cells.map(([l]) => `<th>${esc(l)}</th>`).join('')}</tr><tr>${i.cells.map(([, v]) => `<td>${v ? esc(v) : dash}</td>`).join('')}</tr></table>`;
+  if (i.kind === 'sessions') return i.v.length ? sessionsHtml(i.v) : dash;
+  return '';
 }
 
 function programmeReadHtml(p) {
   const tpl = p.templateId && S.templates.find(t => t.id === p.templateId);
-  const block = (title, body, tab, extra = '') => `<section class="read-sec"><div class="read-head"><h2>${title}${extra}</h2>${tab && p.id ? `<button class="btn ghost small" data-edit-tab="${tab}">Edit</button>` : ''}</div>${body}</section>`;
-  const none = '<p class="faint">Not added yet.</p>';
-  const para = t => t ? `<p class="prose">${esc(t)}</p>` : none;
-  const val = i => i.chips ? `<div class="chips">${i.v.map(x => `<span class="tag plain">${esc(x)}</span>`).join('')}</div>`
-    : i.list ? `<ul>${i.v.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : `<p class="prose">${esc(i.v)}</p>`;
+  const head = (title, tab, badge = '') => `<div class="read-head"><h2>${title}${badge}</h2>${tab && p.id ? `<button class="btn ghost small" data-edit-tab="${tab}">Edit</button>` : ''}</div>`;
   const sessions = list => list.map((s, i) => `
       <div class="read-session"><div class="rs-head"><span class="num">${i + 1}</span><b>${esc(s.title || 'Untitled segment')}</b>${s.duration ? `<span class="faint">${esc(s.duration)}</span>` : ''}</div>
         ${s.activities ? `<p class="prose">${esc(s.activities)}</p>` : ''}${s.materials ? `<p class="faint small">Materials: ${esc(s.materials)}</p>` : ''}</div>`).join('');
-  const short = v => String(v || '-').split(/[;(\n]/)[0].trim() || '-';
   return `
-    <div class="facts">
-      <div><span>Ages</span><b title="${esc(agesText(p))}">${esc(agesText(p) || '-')}</b></div>
-      <div><span>Format</span><b title="${esc(p.format)}">${esc(p.format || '-')}</b></div>
-      <div><span>Session length</span><b title="${esc(p.sessionLength)}">${esc(p.sessionLength || '-')}</b></div>
-      <div><span>Date</span><b title="${esc(p.date)}">${esc(p.date || '-')}</b></div>
-      <div><span>Budget</span><b title="${esc(p.budget)}">${esc(short(p.budget))}</b></div>
-    </div>
-    ${programmeOutline(p).map(sec => {
-      const miss = sec.mandatory && !sec.items.length;
-      const body = sec.items.length || (sec.sessions || []).length
-        ? `<dl class="kv">${sec.items.map(i => `<dt>${esc(i.label)}</dt><dd>${val(i)}</dd>`).join('')}</dl>${(sec.sessions || []).length ? `<h3 class="sub">Activity timeline <span class="count">${sec.sessions.length}</span></h3>${sessions(sec.sessions)}` : ''}`
-        : miss ? '<p class="notice small">Required on the planning form. Not filled in yet.</p>' : none;
-      return block(esc(sec.title), body, sec.key);
-    }).join('')}
-    ${(p.document || []).length ? block(`Document${tpl ? `: ${esc(tpl.name)}` : ''}`, p.document.map(d => `<h3 class="sub">${esc(d.heading)}</h3><p class="prose">${esc(d.content)}</p>`).join(''), 'documents') : ''}
-    ${p.notes || p.rating ? block('Notes &amp; reflection', `${p.rating ? `<p>${stars(p.rating)}</p>` : ''}${para(p.notes)}`, 'notes') : ''}`;
+    ${programmeOutline(p).map(sec => `<section class="read-sec form-sec">${head(`<span class="sec-num">Section ${sec.num}</span> ${esc(sec.title)}`, sec.key, sec.mandatory ? ' <span class="req">Mandatory</span>' : '')}
+      ${sec.mandatory && sec.empty ? '<p class="notice small">Mandatory on the planning form. Not filled in yet.</p>' : ''}
+      <table class="formtable">${sec.items.map(i => `<tr><th>${esc(i.label)}</th><td>${boxValue(i, sessions)}</td></tr>`).join('')}</table></section>`).join('')}
+    <section class="read-sec">${head('Catalog listing <span class="faint small">(not part of the planning form)</span>', 'notes')}
+      <table class="formtable"><tr><th>Catalog description</th><td>${p.summary ? `<div class="prose">${esc(p.summary)}</div>` : '<span class="faint">-</span>'}</td></tr>
+      <tr><th>Tags</th><td>${(p.themes || []).length ? `<div class="chips">${p.themes.map(t => `<span class="tag">${esc(t)}</span>`).join('')}</div>` : '<span class="faint">-</span>'}</td></tr>
+      ${p.groupSize ? `<tr><th>Group size</th><td>${esc(p.groupSize)}</td></tr>` : ''}${p.duration ? `<tr><th>Overall length</th><td>${esc(p.duration)}</td></tr>` : ''}</table></section>
+    ${(p.document || []).length ? `<section class="read-sec">${head(`Document${tpl ? `: ${esc(tpl.name)}` : ''}`, 'documents')}${p.document.map(d => `<h3 class="sub">${esc(d.heading)}</h3><p class="prose">${esc(d.content)}</p>`).join('')}</section>` : ''}
+    ${p.notes || p.rating ? `<section class="read-sec">${head('Notes &amp; reflection', 'notes')}${p.rating ? `<p>${stars(p.rating)}</p>` : ''}<p class="prose">${esc(p.notes)}</p></section>` : ''}`;
 }
 
 function viewProgramme() {
@@ -414,91 +423,86 @@ const PICKS = {
 const checks = name => `<div data-checks="${name}"></div>`;
 const pick = name => `<div data-pick="${name}"></div>`;
 
+// A form row split into labelled boxes, like "Programme Details: Date | Time | Location".
+const boxRow = (label, cells, help) => `<div class="field"><div class="label">${label}</div>${help ? `<div class="help">${help}</div>` : ''}
+  <div class="boxrow">${cells.map(([l, inner]) => `<div class="box-cell"><span class="box-label">${l}</span>${inner}</div>`).join('')}</div></div>`;
+
+// One entry per box on the Youth Programme Planning Form, in the form's order and with its wording.
 const SECTIONS = {
-  overview: { label: 'Overview', num: 1, intro: 'The basics of the programme: what, when, where and who it is for.', html: p => `
-    ${field('Programme title', `<input type="text" id="f-title" class="big" data-bind="title" placeholder="e.g. Bathing with Nature: A Forest Walk Experience" value="${esc(p.title)}">`, { req: true, forId: 'f-title' })}
-    ${field('Short description', area(p, 'summary', 'What is the programme, who is it for, and what will they get out of it?'), { forId: 'f-summary', help: 'Two or three sentences. Shown in the catalog.' })}
-    ${field('Objectives', linesArea(p, 'objectives', 'Learn to calm down before reacting\nPractise starting a conversation\nWork as part of a team'), { forId: 'f-objectives', help: 'What the activity aims to achieve. One objective per line.' })}
-    <div class="grid3">
-      ${field('Date', input(p, 'date', 'e.g. Sat 14 Mar 2026'), { forId: 'f-date' })}
-      ${field('Time', input(p, 'time', 'e.g. 2-5pm'), { forId: 'f-time' })}
-      ${field('Location', input(p, 'location', 'e.g. Brahm Centre, Simei'), { forId: 'f-location' })}
-    </div>
-    ${field('Target age group', checks('ageGroups'), { help: 'Tick every age group the programme is for.' })}
-    ${field('Programme format', choice('format', PForm.FORMATS, p.format))}
-    ${field('Session duration (per session)', choice('sessionLength', PForm.SESSION_LENGTHS, p.sessionLength, true))}
-    ${field('Intended setting', choice('setting', PForm.SETTINGS, p.setting, true))}
-    <div class="grid2">
-      ${field('Facilitator(s) name and role', input(p, 'facilitators', 'e.g. Jamie Tan (lead), 2 volunteers'), { forId: 'f-facilitators' })}
-      ${field('Group size', input(p, 'groupSize', 'e.g. 15-20 youths'), { forId: 'f-groupSize' })}
-    </div>
-    ${field('Tags', `<div data-tags></div>`, { help: 'Topics such as <i>music</i>, <i>cooking</i> or <i>nature</i>. They power search and recommendations.' })}` },
-  logistics: { label: 'Logistics', num: '1.2', intro: 'What you need to run it, and what it costs.', html: p => `
-    ${field('Materials', linesArea(p, 'materials', 'Flipchart paper and markers\nName tags\nFirst aid kit'), { forId: 'f-materials', help: 'One item per line.' })}
-    <div class="grid2">
-      ${field('Attire', input(p, 'attire', 'e.g. Comfortable clothes, covered shoes'), { forId: 'f-attire' })}
-      ${field('Equipment', input(p, 'equipment', 'e.g. Speaker, projector'), { forId: 'f-equipment' })}
-    </div>
-    <div class="grid3">
-      ${field('Meeting location', input(p, 'meetingPoint', 'If different from the venue'), { forId: 'f-meetingPoint' })}
-      ${field('Transportation', input(p, 'transport', 'e.g. Public transport'), { forId: 'f-transport' })}
-      ${field('Food and beverages', input(p, 'food', 'e.g. Light snacks, water'), { forId: 'f-food' })}
-    </div>
-    ${field('Itemised budget', area(p, 'budgetItems', 'Snacks: S$40\nCraft materials: S$60\nPrizes: S$30'), { forId: 'f-budgetItems', help: 'One item and cost per line.' })}
-    ${field('Total estimated cost', input(p, 'budget', 'e.g. S$130'), { forId: 'f-budget' })}` },
-  purpose: { label: 'Purpose', title: 'Youth need & core competencies', num: '2-3', mandatory: true, intro: 'Why this programme matters, and which core competencies it builds.', html: p => `
-    ${sub('Core youth need addressed')}
-    ${field('Primary challenge this programme responds to', area(p, 'youthNeed', 'e.g. Exam stress and poor coping habits'), { forId: 'f-youthNeed' })}
-    ${field('Why this matters for this age group', area(p, 'whyItMatters', 'e.g. Secondary students face national exams and often bottle up stress'), { forId: 'f-whyItMatters' })}
-    ${sub('Core competencies targeted', true)}
-    ${field('Competencies this programme aims to develop', checks('competencies'), { help: 'Tick at least one.' })}
-    ${field('Primary competency focus', `<div data-primary></div>`)}
-    ${field('How this programme builds the selected competencies', area(p, 'competencyHow', 'e.g. The breathing exercise before each challenge helps youths pause before reacting'), { forId: 'f-competencyHow' })}` },
-  icebreaker: { label: 'Icebreaker', num: 4, mandatory: true, intro: 'Every programme opens with an icebreaker for social bonding.', html: p => `
-    ${field('Icebreaker activity name', input(p, 'iceName', 'e.g. Two Truths and a Lie'), { forId: 'f-iceName', req: true })}
-    ${field('Purpose of the icebreaker', checks('icePurposes'), { help: 'Tick all that apply.' })}
-    ${field('Time allocated', choice('iceTime', PForm.ICE_TIMES, p.iceTime, true))}
-    ${field('How the icebreaker works (step by step)', area(p, 'iceSteps', '1. Everyone stands in a circle\n2. …', 'tall'), { forId: 'f-iceSteps' })}
-    ${field('Why this icebreaker suits this age group', area(p, 'iceWhy', 'e.g. Low pressure, everyone speaks once, no one is put on the spot'), { forId: 'f-iceWhy' })}` },
-  activities: { label: 'Activities', num: 5, intro: 'The main activities and how the programme flows.', html: p => `
-    ${field('Main activities planned (in sequence)', area(p, 'mainActivities', 'List the key activities and their purpose', 'tall'), { forId: 'f-mainActivities' })}
-    ${field('How youths are actively involved', checks('involvement'), { help: 'Tick all that apply.' })}
-    ${field('More about how they take part', area(p, 'involvementNotes', 'Optional. e.g. Youths lead the station games in teams of four'), { forId: 'f-involvementNotes' })}
-    ${sub('Activity timeline')}
-    <div class="section-intro"><p>Break the programme into timed segments a volunteer could follow.</p><button type="button" class="btn ai" data-ai-sessions>Draft the plan with AI</button></div>
-    <div data-sessions></div>
-    <button type="button" class="btn add-btn" data-add-session>＋ Add a segment</button>` },
-  mindfulness: { label: 'Mindfulness', num: 6, mandatory: true, intro: 'Every programme includes an intentional mindfulness moment.', html: p => `
-    ${field('Mindfulness objective', checks('mfObjectives'), { help: 'Tick all that apply.', req: true })}
-    ${field('Type of mindfulness planned', checks('mfTypes'), { help: 'Tick all that apply.' })}
-    ${field('When is mindfulness included?', checks('mfWhen'))}
-    ${field('Total time for mindfulness', choice('mfTime', PForm.MF_TIMES, p.mfTime))}
-    ${field('How mindfulness is introduced', area(p, 'mfFraming', 'Use everyday, non-clinical language, e.g. "Let\'s take a minute to notice what we can hear"'), { forId: 'f-mfFraming', help: 'Keep it accessible and non-therapeutic.' })}` },
-  safety: { label: 'Safety', num: 7, intro: 'Pick from the lists. Choosing a risk adds its usual safety measures, which you can remove. Use "Add your own" for anything not listed.', html: p => `
-    ${field('Potential risks', pick('risks'))}
-    ${field('Mitigation strategies', pick('mitigations'))}
-    ${field('Emergency contacts', `<div data-contacts></div>`, { help: 'Saved contacts appear in the list. Choose "Add a new contact" to save another.' })}
-    ${field('Psychological safety', pick('psychSafety'))}
-    ${field('Best practices for facilitation', pick('bestPractices'))}
+  overview: { label: 'Overview', title: 'Programme Overview', num: '1', html: p => `
+    ${field('Programme Title', `<input type="text" id="f-title" class="big" data-bind="title" placeholder="e.g. Bathing with Nature: A Forest Walk Experience" value="${esc(p.title)}">`, { req: true, forId: 'f-title' })}
+    ${boxRow('Programme Details', [['Date', input(p, 'date', 'e.g. Sat 14 Mar 2026')], ['Time', input(p, 'time', 'e.g. 2-5pm')], ['Location', input(p, 'location', 'e.g. Brahm Centre, Simei')]])}
+    ${field('Objectives', linesArea(p, 'objectives', 'Learn to calm down before reacting\nPractise starting a conversation\nWork as part of a team'), { forId: 'f-objectives', help: 'Brief description of what the activity goals are. One per line.' })}
+    ${field('Target Age Group', checks('ageGroups'), { help: 'Tick all that apply.' })}
+    ${field('Programme Format', choice('format', PForm.FORMATS, p.format))}
+    ${field('Session Duration (Per Session)', choice('sessionLength', PForm.SESSION_LENGTHS, p.sessionLength, true))}
+    ${field('Facilitator(s) Name and Role', input(p, 'facilitators', 'e.g. Jamie Tan (lead), 2 volunteers'), { forId: 'f-facilitators' })}
+    ${field('Intended Setting', choice('setting', PForm.SETTINGS, p.setting, true))}` },
+  logistics: { label: 'Logistics', title: 'Programme Logistics', num: '1.2', html: p => `
+    ${field('Materials', linesArea(p, 'materials', 'Flipchart paper and markers\nName tags\nFirst aid kit', 'mid'), { forId: 'f-materials', help: 'One item per line.' })}
+    ${field('Attire', input(p, 'attire', 'e.g. Comfortable clothes, covered shoes'), { forId: 'f-attire' })}
+    ${field('Equipment', input(p, 'equipment', 'e.g. Speaker, projector'), { forId: 'f-equipment' })}
+    ${boxRow('Logistics (If Applicable)', [['Meeting Location', input(p, 'meetingPoint', 'e.g. Main entrance')], ['Transportation', input(p, 'transport', 'e.g. Public transport')], ['Food and Beverages', input(p, 'food', 'e.g. Light snacks, water')]])}
+    ${field('Itemised Budget for Items', area(p, 'budgetItems', 'Snacks: S$40\nCraft materials: S$60\nPrizes: S$30'), { forId: 'f-budgetItems', help: 'One item and cost per line.' })}
+    ${field('Total Estimated Cost', input(p, 'budget', 'e.g. S$130'), { forId: 'f-budget' })}` },
+  need: { label: 'Youth need', title: 'Core Youth Need Addressed', num: '2', html: p => `
+    ${field('Primary Challenge This Programme Responds To', area(p, 'youthNeed', 'e.g. Exam stress and poor coping habits'), { forId: 'f-youthNeed' })}
+    ${field('Why This Matters for This Age Group', area(p, 'whyItMatters', 'e.g. Secondary students face national exams and often bottle up stress'), { forId: 'f-whyItMatters' })}` },
+  competencies: { label: 'Competencies', title: 'Core Competencies Targeted', num: '3', mandatory: true, html: p => `
+    ${field('Core Competencies This Programme Aims to Develop', checks('competencies'), { help: 'Tick at least one.' })}
+    ${field('Primary Competency Focus', `<div data-primary></div>`)}
+    ${field('How This Programme Builds the Selected Competency/Competencies', area(p, 'competencyHow', 'e.g. The breathing exercise before each challenge helps youths pause before reacting', 'tall'), { forId: 'f-competencyHow' })}` },
+  icebreaker: { label: 'Icebreaker', title: 'Icebreaker Activity (Social Bonding)', num: '4', mandatory: true, html: p => `
+    ${field('Icebreaker Activity Name', input(p, 'iceName', 'e.g. Two Truths and a Lie'), { forId: 'f-iceName' })}
+    ${field('Purpose of the Icebreaker', checks('icePurposes'), { help: 'Tick all that apply. Use Other for anything else.' })}
+    ${field('Time Allocated for Icebreaker', choice('iceTime', PForm.ICE_TIMES, p.iceTime, true))}
+    ${field('How the Icebreaker Works (Step-by-Step)', area(p, 'iceSteps', 'Briefly describe how the icebreaker is conducted.\n1. Everyone stands in a circle\n2. …', 'tall'), { forId: 'f-iceSteps' })}
+    ${field('Why This Icebreaker Suits This Age Group', area(p, 'iceWhy', 'e.g. Low pressure, everyone speaks once, no one is put on the spot'), { forId: 'f-iceWhy' })}` },
+  activities: { label: 'Activities', title: 'Main Activity / Programme Flow', num: '5', html: p => `
+    ${field('Main Activities Planned (In Sequence)', area(p, 'mainActivities', 'List the key activities and their purpose.', 'tall'), { forId: 'f-mainActivities' })}
+    ${field('How Youths Are Actively Involved', checks('involvement') + `<div style="margin-top:10px">${area(p, 'involvementNotes', 'Describe how participants engage (e.g. discussion, movement, creation, reflection).')}</div>`, { help: 'Tick all that apply, then describe.' })}
+    <div class="field"><div class="label">Activity Timeline</div>
+      <div class="section-intro"><p>Rough programme flow of activity, as timed segments a volunteer could follow.</p><button type="button" class="btn ai" data-ai-sessions>Draft the plan with AI</button></div>
+      <div data-sessions></div>
+      <button type="button" class="btn add-btn" data-add-session>＋ Add a segment</button></div>` },
+  mindfulness: { label: 'Mindfulness', title: 'Mindfulness Infusion', num: '6', mandatory: true, html: p => `
+    ${field('Mindfulness Objective', checks('mfObjectives'), { help: 'Tick all that apply. Use Other for anything else.' })}
+    ${field('Type of Mindfulness Infusion Planned', checks('mfTypes'), { help: 'Tick all that apply. Use Other for anything else.' })}
+    ${field('When Is Mindfulness Infused', checks('mfWhen'))}
+    ${field('How Mindfulness Is Framed (Non-Clinical Language)', area(p, 'mfFraming', 'Describe how mindfulness is introduced in an accessible, non-therapeutic way.'), { forId: 'f-mfFraming' })}
+    ${field('Total Time Allocated for Mindfulness', choice('mfTime', PForm.MF_TIMES, p.mfTime))}` },
+  safety: { label: 'Risk management', title: 'Risk Management', num: '7', intro: 'Every box here is click-and-select. Choosing a risk adds its usual mitigation strategies, which you can remove. Use "Add your own" for anything not listed.', html: p => `
+    ${field('Potential Risks', pick('risks'))}
+    ${field('Mitigation Strategies', pick('mitigations'))}
+    ${field('Emergency Contacts', `<div data-contacts></div>`, { help: 'Choose from saved contacts, or "Add a new contact" to save one for next time.' })}
+    ${field('Psychological Safety &amp; Facilitation Notes', pick('psychSafety'))}
+    ${field('Best Practices for Facilitation', pick('bestPractices'))}
     ${p.riskNotes ? field('Earlier safety notes', area(p, 'riskNotes', '', 'mid'), { forId: 'f-riskNotes', help: 'Written before this form had pick-lists. Move them into the lists above, then clear this box.' }) : ''}` },
-  outcomes: { label: 'Outcomes', num: 8, intro: 'What youths should gain, and how you will know.', html: p => `
-    ${field('Intended youth outcomes', area(p, 'intendedOutcomes', 'Skills, awareness or confidence youths should gain'), { forId: 'f-intendedOutcomes' })}
-    ${field('Success criteria', area(p, 'successCriteria', 'e.g. 80% attend every session; every youth tries one breathing technique'), { forId: 'f-successCriteria' })}
-    ${field('How feedback is collected', checks('feedbackMethods'), { help: 'Tick all that apply.' })}
-    ${field('Observable indicators of impact', checks('indicators'), { help: 'Tick all that apply.' })}` },
+  outcomes: { label: 'Outcomes', title: 'Intended Outcomes', num: '8', html: p => `
+    ${field('Intended Youth Outcomes', area(p, 'intendedOutcomes', 'Describe what youths should gain in terms of skills, awareness, or confidence.'), { forId: 'f-intendedOutcomes' })}
+    ${field('Success Criteria', area(p, 'successCriteria', 'e.g. 80% attend every session; every youth tries one breathing technique'), { forId: 'f-successCriteria' })}
+    ${field('Feedback Collection Method', checks('feedbackMethods'), { help: 'Tick all that apply. Use Other for anything else.' })}
+    ${field('Observable Indicators of Impact', checks('indicators'), { help: 'Tick all that apply. Use Others for anything else.' })}` },
   documents: { label: 'Documents', html: () => `
     <div class="section-intro"><p>Attach a document built from a template, such as a funding proposal or risk assessment.</p></div>
     <div data-docs></div>` },
-  notes: { label: 'Status & notes', html: p => `
+  notes: { label: 'Catalog & notes', html: p => `
+    <p class="faint small">These details are for this app's catalog and are not part of the planning form.</p>
+    ${catalogFields(p)}
     ${field('Status', pills('status', STATUSES, p.status, STATUS_HELP), { help: 'Where this programme is up to.' })}
     ${field('Rating', `<div class="rating" data-rating></div>`, { help: 'How well it went, once delivered.' })}
     ${field('Facilitator notes', `<textarea id="f-notes" class="tall" data-bind="notes" placeholder="What worked, what to change next time, ideas for follow-up…">${esc(p.notes)}</textarea>`, { forId: 'f-notes' })}` },
 };
+// Catalog-only details (not on the planning form): the card description and tags.
+function catalogFields(p) {
+  return `${field('Catalog description', area(p, 'summary', 'Two or three sentences shown on the catalog card.'), { forId: 'f-summary', help: 'What the programme is, who it is for and what they get out of it.' })}
+    ${field('Tags', `<div data-tags></div>`, { help: 'Topics such as <i>music</i>, <i>cooking</i> or <i>nature</i>. They power search and recommendations.' })}`;
+}
 const FORM_KEYS = PForm.SECTIONS.map(s => s.key);
 
 function sectionTitle(key) {
   const s = SECTIONS[key];
-  return `<div class="form-head"><h2 class="form-title">${s.num ? `<span class="sec-num">Section ${s.num}</span>` : ''}${esc(s.title || s.label)}${s.mandatory ? ' <span class="req">Required</span>' : ''}</h2>${s.intro ? `<p class="sec-intro">${esc(s.intro)}</p>` : ''}</div>`;
+  return `<div class="form-head"><h2 class="form-title">${s.num ? `<span class="sec-num">Section ${s.num}</span>` : ''}${esc(s.title || s.label)}${s.mandatory ? ' <span class="req">Mandatory</span>' : ''}</h2>${s.intro ? `<p class="sec-intro">${esc(s.intro)}</p>` : ''}</div>`;
 }
 
 // Binds every interactive part of a form section to programme p.
@@ -637,11 +641,13 @@ function knownContacts() {
 function renderContacts(box, p, changed) {
   const known = knownContacts();
   const label = c => c.name + (c.phone ? ' · ' + c.phone : '');
+  box.className = 'contact-grid';
   box.innerHTML = [0, 1].map(i => {
     const cur = p.contacts[i];
     const idx = cur ? known.findIndex(c => c.name === cur.name && c.phone === cur.phone) : -1;
-    return `<div class="contact-row"><span class="faint small">Contact person ${i + 1}</span>
-      <select data-contact="${i}"><option value="">Choose a contact</option>${known.map((c, k) => `<option value="${k}" ${k === idx ? 'selected' : ''}>${esc(label(c))}</option>`).join('')}<option value="new">＋ Add a new contact…</option></select></div>`;
+    return `<div><span class="box-label">Contact Person ${i + 1}</span>
+      <select data-contact="${i}" aria-label="Contact Person ${i + 1}"><option value="">Choose a contact</option>${known.map((c, k) => `<option value="${k}" ${k === idx ? 'selected' : ''}>${esc(label(c))}</option>`).join('')}<option value="new">＋ Add a new contact…</option></select></div>
+      <div><span class="box-label">Number</span><div class="num">${cur && cur.phone ? esc(cur.phone) : '<span class="faint">Filled in from the contact</span>'}</div></div>`;
   }).join('');
   $$('[data-contact]', box).forEach(sel => sel.onchange = () => {
     const i = +sel.dataset.contact;
@@ -925,11 +931,12 @@ function renderReview(form) {
   const tpl = p.templateId && S.templates.find(t => t.id === p.templateId);
   if (tpl && !(p.document || []).length) p.document = tpl.sections.map(s => ({ heading: s.heading, content: fillPlaceholders(s.content, p) }));
   const req = PForm.missingMandatory(p);
-  const missing = [!p.summary && 'short description', !(p.ageGroups || []).length && 'age group', !p.format && 'format', !(p.objectives || []).length && 'objectives', !(p.sessions || []).length && 'activity timeline', !(p.risks || []).length && 'risks'].filter(Boolean);
+  const missing = [!p.summary && 'catalog description', !(p.ageGroups || []).length && 'age group', !p.format && 'format', !(p.objectives || []).length && 'objectives', !(p.sessions || []).length && 'activity timeline', !(p.risks || []).length && 'risks'].filter(Boolean);
   form.innerHTML = `
     <h2 class="form-title">Review &amp; save</h2>
     ${req.length ? `<div class="notice warn">Required sections still empty: <b>${req.join(', ')}</b>. The planning form needs these before the programme runs.</div>` : ''}
     ${missing.length ? `<div class="notice">Also not filled in yet: <b>${missing.join(', ')}</b>. You can save now and add them later.</div>` : !req.length ? '<div class="notice ok">Every section is filled in.</div>' : ''}
+    <div class="sub-card"><h3>Catalog listing</h3><p class="faint small">Not part of the planning form. Shown on the catalog card and used by search.</p>${catalogFields(p)}</div>
     ${field('Status', pills('status', STATUSES.slice(0, 3), p.status, STATUS_HELP))}
     <h1 class="review-title">${esc(p.title)}</h1>
     <div class="read">${programmeReadHtml(p)}</div>
@@ -1009,17 +1016,20 @@ async function aiFillDocument(p, btn) {
 
 // ---------- Export ----------
 function programmeMarkdown(p) {
-  const out = [`# ${p.title}`, ''];
+  const out = [`# ${p.title}`, '', '*Youth Programme Planning Form*', ''];
+  const md = i => {
+    if (i.kind === 'text') return String(i.v).trim() ? (String(i.v).includes('\n') ? '\n' + i.v : i.v) : '-';
+    if (i.kind === 'list') return i.v.length ? '\n' + i.v.map(x => `- ${x}`).join('\n') : '-';
+    if (i.kind === 'ticks') return '\n' + i.options.map(o => `- [${i.v.includes(o) ? 'x' : ' '}] ${o}`).join('\n') + (i.note ? `\n\n${i.note}` : '');
+    if (i.kind === 'grid') return '\n' + i.cells.map(([l, v]) => `- ${l}: ${v || '-'}`).join('\n');
+    if (i.kind === 'sessions') return i.v.length ? '\n' + i.v.map((x, n) => `\n### ${n + 1}. ${x.title}${x.duration ? ` (${x.duration})` : ''}\n\n${x.activities || ''}${x.materials ? `\n\n*Materials:* ${x.materials}` : ''}`).join('\n') : '-';
+    return '';
+  };
   for (const sec of programmeOutline(p)) {
-    if (!sec.items.length && !(sec.sessions || []).length) continue;
-    out.push(`## ${sec.title}`, '');
-    for (const i of sec.items) {
-      if (i.list) out.push(`**${i.label}:**`, ...i.v.map(x => `- ${x}`), '');
-      else if (i.chips) out.push(`**${i.label}:** ${i.v.join(', ')}  `, '');
-      else out.push(`**${i.label}:** ${String(i.v).includes('\n') ? '\n\n' + i.v : i.v}`, '');
-    }
-    (sec.sessions || []).forEach((x, n) => out.push(`### ${n + 1}. ${x.title}${x.duration ? ` (${x.duration})` : ''}`, '', x.activities || '', x.materials ? `\n*Materials:* ${x.materials}` : '', ''));
+    out.push(`## Section ${sec.num}. ${sec.title}${sec.mandatory ? ' (Mandatory)' : ''}`, '');
+    for (const i of sec.items) out.push(`**${i.label}:** ${md(i)}`, '');
   }
+  out.push('## Catalog listing', '', p.summary || '-', '', `**Tags:** ${(p.themes || []).join(', ') || '-'}`, '');
   if ((p.document || []).length) { out.push('---', ''); p.document.forEach(d => out.push(`## ${d.heading}`, d.content, '')); }
   return out.join('\n');
 }
@@ -1028,10 +1038,10 @@ function programmePrintHtml(p, docOnly) {
   const meta = [agesText(p) && 'Ages ' + esc(agesText(p)), esc(p.format), esc(p.date), esc(p.location)].filter(Boolean).join(' · ');
   const tpl = p.templateId && S.templates.find(t => t.id === p.templateId);
   if (docOnly) return `<h1>${esc(tpl ? tpl.name : 'Document')}: ${esc(p.title)}</h1><div class="pmeta">${meta}</div>` + p.document.map(d => `<h2>${esc(d.heading)}</h2><p>${esc(d.content)}</p>`).join('');
-  const val = i => i.list ? `<ul>${i.v.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` : i.chips ? esc(i.v.join(', ')) : `<span class="pre">${esc(i.v)}</span>`;
-  return `<h1>${esc(p.title)}</h1><div class="pmeta">Youth Programme Planning Form${meta ? ' · ' + meta : ''}</div>
-    ${programmeOutline(p).map(sec => `<h2>${esc(sec.title)}</h2>${sec.items.length ? `<table class="ptable">${sec.items.map(i => `<tr><th>${esc(i.label)}</th><td>${val(i)}</td></tr>`).join('')}</table>` : (sec.sessions || []).length ? '' : '<p><i>Not filled in.</i></p>'}
-      ${(sec.sessions || []).map((x, n) => `<div class="psession"><b>${n + 1}. ${esc(x.title)}</b>${x.duration ? ` (${esc(x.duration)})` : ''}<p>${esc(x.activities)}</p>${x.materials ? `<p><i>Materials:</i> ${esc(x.materials)}</p>` : ''}</div>`).join('')}`).join('')}
+  const sessions = list => list.map((x, n) => `<div class="psession"><b>${n + 1}. ${esc(x.title)}</b>${x.duration ? ` (${esc(x.duration)})` : ''}<p>${esc(x.activities)}</p>${x.materials ? `<p><i>Materials:</i> ${esc(x.materials)}</p>` : ''}</div>`).join('');
+  return `<h1>Youth Programme Planning Form</h1><div class="pmeta">${esc(p.title)}${meta ? ' · ' + meta : ''}</div>
+    ${programmeOutline(p).map(sec => `<table class="ptable"><tr><th colspan="2" class="psec">SECTION ${esc(sec.num)}. ${esc(sec.title.toUpperCase())}${sec.mandatory ? ' (MANDATORY)' : ''}</th></tr>
+      ${sec.items.map(i => `<tr><th>${esc(i.label)}</th><td>${boxValue(i, sessions)}</td></tr>`).join('')}</table>`).join('')}
     ${(p.document || []).length ? p.document.map(d => `<h2>${esc(d.heading)}</h2><p>${esc(d.content)}</p>`).join('') : ''}`;
 }
 
@@ -1289,7 +1299,8 @@ const AI_STARTERS = {
   start: ['Suggest 5 programme ideas for shy 13-15 year olds', 'What programmes am I missing?', 'Ideas for a one-off mental wellbeing session'],
   overview: ['Suggest 5 catchier names for this programme', 'Write a 2-3 sentence description', 'Suggest 4 clear objectives'],
   logistics: ['List the materials I will need', 'Estimate an itemised budget', 'What should participants wear?'],
-  purpose: ['Which core competencies fit this programme best?', 'Explain why this matters for this age group', 'How does each activity build the chosen competencies?'],
+  need: ['What challenges do youths this age commonly face?', 'Explain why this matters for this age group', 'Suggest a clear primary challenge for this programme'],
+  competencies: ['Which core competencies fit this programme best?', 'How does each activity build the chosen competencies?', 'Pick a primary competency and explain why'],
   icebreaker: ['Suggest 5 icebreakers that fit this programme', 'Write step-by-step instructions for my icebreaker', 'Suggest a low-pressure icebreaker for shy youths'],
   activities: ['Suggest a timed run-sheet for this programme', 'How can youths take a more active part?', 'Suggest a closing reflection activity'],
   mindfulness: ['Suggest a 5-minute mindfulness activity for this programme', 'How do I introduce mindfulness without sounding clinical?', 'Where in the programme should mindfulness go?'],
